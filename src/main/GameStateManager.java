@@ -1,5 +1,6 @@
 package main;
 
+import game_state.IGameState;
 import game_state.Level1State;
 
 import java.awt.*;
@@ -11,27 +12,29 @@ import java.awt.event.MouseEvent;
 public class GameStateManager
 {
     private Level1State level1;
+    private IGameState currentState;
 
     public GameStateManager() {
-	level1 = new Level1State("resources/Maps/map1.tmx");
+	currentState = new Level1State("resources/Maps/map1.tmx");
 	// Sets the gsm for every state
-	level1.init(this);
+	currentState.init(this);
     }
 
     public void update(Point mousePos) {
-	level1.update(mousePos);
+	currentState.update(mousePos);
     }
 
+
     public void draw(Graphics2D g2d) {
-	level1.draw(g2d);
+	currentState.draw(g2d);
     }
 
     public void keyPressed(int k) {
-	level1.keyPressed(k);
+	currentState.keyPressed(k);
     }
 
     public void keyReleased(int k) {
-	level1.keyReleased(k);
+	currentState.keyReleased(k);
     }
 
     public void mouseClicked(MouseEvent e) {
@@ -39,8 +42,15 @@ public class GameStateManager
     }
 
     public void mouseMoved(MouseEvent e) {
-	level1.mouseMoved(e);
+	currentState.mouseMoved(e);
     }
 
 
+    public void setState(IGameState state){
+        currentState = state;
+    }
+
+    public IGameState getCurrentState() {
+	return currentState;
+    }
 }

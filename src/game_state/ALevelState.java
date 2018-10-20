@@ -6,7 +6,6 @@ import main.GameStateManager;
 import map.Background;
 import map.TileMap;
 import menu.Menu;
-import menu.MenuButton;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -54,7 +53,7 @@ public abstract class ALevelState implements IGameState
 
 	bg = new Background("resources/Backgrounds/background.jpg", 0);
 
-	menu = new Menu(10, 10);
+	menu = new Menu(10, 10, gsm);
 
 	player = new Player(tm);
 	fl = new FlashLight(tm, player);
@@ -76,7 +75,7 @@ public abstract class ALevelState implements IGameState
 	    bg.update();
 	}
 
-	menu.update();
+	menu.update(mousePos);
 
 	if (restart) {
 	    loadLevel();
@@ -101,7 +100,6 @@ public abstract class ALevelState implements IGameState
     /**
      * Updates the mouse position
      *
-     * @param mousePos the position of the mouse
      */
     /*private void updateMouse(Point mousePos) {
 	if (mousePos != null) {
@@ -139,6 +137,7 @@ public abstract class ALevelState implements IGameState
 
     public void mouseClicked(MouseEvent e) {
 
+	System.out.println("Mouse clicked");
     }
 
 
