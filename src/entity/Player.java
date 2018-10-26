@@ -26,7 +26,7 @@ public class Player extends MovingObject
 	jumpStart = -10;
 	stopJumpSpeed = 0.3;
 
-	sprite = new Sprite("resources/Sprites/Player/player.png");
+	sprite = new Sprite("resources/Sprites/Objects/Pickups/test.png");
     }
 
     /**

@@ -21,6 +21,7 @@ public class FlashLight
 {
     // The range of the flashlight
     private static final int RANGE = 400;
+    private static final float DARKNESS_ALPHA = 1.0f;
 
     private TileMap tm;
 
@@ -295,7 +296,7 @@ public class FlashLight
      *
      * @param g2d the grapgic object
      */
-    @SuppressWarnings("unused")
+
     private void drawIntersections(Graphics2D g2d) {
         g2d.setColor(Color.red);
         for (int i = 0; i < intersections.size(); i++) {
@@ -319,7 +320,7 @@ public class FlashLight
         RadialGradientPaint p = new RadialGradientPaint(center, RANGE, fractions, colors);
 
         // Sets the alpha-channel of the black foreground which covers the screen
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.9f));
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, DARKNESS_ALPHA));
 
         g2d.setColor(Color.BLACK);
 

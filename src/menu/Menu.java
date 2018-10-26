@@ -50,7 +50,7 @@ public class Menu
 	this.x = GameComponent.SCALED_WIDTH / 2 - this.width / 2;
 
 
-	addButton(new MenuButton(width, buttonHeight, "Resume Game", gsm.getCurrentState()));
+	//addButton(new MenuButton(width, buttonHeight, "Resume Game", gsm.getCurrentState()));
 	addButton(new MenuButton(width, buttonHeight, "Exit Game", new QuitState(gsm)));
 
 	height = (buttons.size() * (buttonHeight + BUTTON_Y_OFFSET));
