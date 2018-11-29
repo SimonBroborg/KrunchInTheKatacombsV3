@@ -8,8 +8,8 @@ import map.TileMap;
  */
 public class Player extends MovingObject
 {
-    public Player(TileMap tm) {
-	super(tm);
+    public Player(int x, int y, TileMap tm) {
+	super(x, y, tm);
 
 	// dimensions
 	width = 40;

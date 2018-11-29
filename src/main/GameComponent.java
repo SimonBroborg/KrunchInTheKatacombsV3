@@ -7,8 +7,7 @@ import java.awt.*;
 /**
  *
  */
-public class GameComponent extends JComponent
-{
+public class GameComponent extends JComponent {
     // Dimensions
     public static final int HEIGHT = 480;
     public static final int WIDTH = 640;
@@ -25,65 +24,67 @@ public class GameComponent extends JComponent
     private GameStateManager gsm = null;
 
     public GameComponent() {
-	init();
+        init();
     }
 
     private void init() {
-	gsm = new GameStateManager();
-	final JFrame frame = new JFrame("Krunch in the Katacombs");
+        gsm = new GameStateManager();
+        final JFrame frame = new JFrame("Krunch in the Katacombs");
 
 
-	Cursor gameCursor = Toolkit.getDefaultToolkit()
-		.createCustomCursor(new Sprite("resources/Sprites/Misc/sketchedCursor.png").getImage(), new Point(0, 0),
-				    "Game cursor");
-	frame.setCursor(gameCursor);
+        Cursor gameCursor = Toolkit.getDefaultToolkit()
+                .createCustomCursor(new Sprite("resources/Sprites/Misc/sketchedCursor.png").getImage(), new Point(0, 0),
+                        "Game cursor");
+        frame.setCursor(gameCursor);
 
-	// Frame 'settings'
-	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-	frame.setResizable(false);
-	frame.setPreferredSize(new Dimension(SCALED_WIDTH, SCALED_HEIGHT));
-	frame.setFocusTraversalKeysEnabled(false); // this enables tab to be listened to
-	frame.add(this, BorderLayout.CENTER);
-	frame.pack();
-	frame.addKeyListener(new InputHandler(gsm));
-	frame.setFocusable(true);
-	frame.setVisible(true);
+        // Frame 'settings'
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        frame.setResizable(false);
+        frame.setPreferredSize(new Dimension(SCALED_WIDTH, SCALED_HEIGHT));
+        frame.setFocusTraversalKeysEnabled(false); // this enables tab to be listened to
+        frame.add(this, BorderLayout.CENTER);
+        frame.pack();
+        frame.addKeyListener(new InputHandler(gsm));
+        this.addMouseListener(new MouseHandler(gsm));
+        frame.setFocusable(true);
+        frame.setVisible(true);
     }
 
     public void run() {
 
-	boolean running = true;
-	while (running) {
-	    long start = System.nanoTime();
+        boolean running = true;
+        while (running) {
+            long start = System.nanoTime();
 
-	    update();
-	    this.repaint();
+            update();
+            this.repaint();
 
-	    long elapsed = System.nanoTime() - start;
-	    long wait = TARGET_TIME - elapsed / 1000000;
+            long elapsed = System.nanoTime() - start;
+            long wait = TARGET_TIME - elapsed / 1000000;
 
-	    if (wait < 0) wait = 5;
 
-	    try {
-		Thread.sleep(wait);
-	    } catch (InterruptedException e) {
-		e.printStackTrace();
-	    }
-	}
+            if (wait < 0) wait = 5;
+
+            try {
+                Thread.sleep(wait);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
 
     }
 
     private void update() {
-	gsm.update(this.getMousePosition());
+        gsm.update(this.getMousePosition());
     }
 
     protected void paintComponent(Graphics g) {
-	super.paintComponent(g);
-	Graphics2D g2d = (Graphics2D) g;
-	g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-	g2d.setClip(0, 0, SCALED_WIDTH, SCALED_HEIGHT);
-	gsm.draw(g2d);
-	g2d.setColor(Color.RED);
+        super.paintComponent(g);
+        Graphics2D g2d = (Graphics2D) g;
+        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+        g2d.setClip(0, 0, SCALED_WIDTH, SCALED_HEIGHT);
+        gsm.draw(g2d);
+        g2d.setColor(Color.RED);
 
     }
 }

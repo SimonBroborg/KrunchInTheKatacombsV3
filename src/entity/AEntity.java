@@ -8,8 +8,7 @@ import java.awt.*;
 /**
  * All things on the screen which hasa position
  */
-public abstract class AEntity
-{
+public abstract class AEntity {
     // Position
     protected int x;
     protected int y;
@@ -40,10 +39,12 @@ public abstract class AEntity
      *
      * @param tm the levels tiles, used to check collisions etc
      */
-    protected AEntity(TileMap tm) {
-	this.tm = tm;
-	solid = true;
-	facingRight = true;
+    protected AEntity(int x, int y, TileMap tm) {
+        this.tm = tm;
+        solid = true;
+        facingRight = true;
+        this.x = x;
+        this.y = y;
     }
 
     /**
@@ -52,11 +53,11 @@ public abstract class AEntity
      * @param g2d the drawing object
      */
     public void draw(Graphics2D g2d) {
-	if (facingRight) {
-	    g2d.drawImage(sprite.getImage(), x + xmap, y + ymap, width, height, null);
-	} else {
-	    g2d.drawImage(sprite.getImage(), x + xmap + width, y + ymap, -width, height, null);
-	}
+        if (facingRight) {
+            g2d.drawImage(sprite.getImage(), x + xmap, y + ymap, width, height, null);
+        } else {
+            g2d.drawImage(sprite.getImage(), x + xmap + width, y + ymap, -width, height, null);
+        }
     }
 
     /**
@@ -66,12 +67,13 @@ public abstract class AEntity
      * @see javafx.scene.shape.Rectangle
      */
     public Rectangle getRectangle() {
-	return new Rectangle(x + xmap, y + ymap, width, height);
+        return new Rectangle(x + xmap, y + ymap, width, height);
     }
 
-    public void update(){
+    public void update() {
         setMapPosition();
     }
+
     /**
      * Set's the x-and y-positions
      *
@@ -79,28 +81,28 @@ public abstract class AEntity
      * @param y the y-position
      */
     public void setPosition(int x, int y) {
-	this.x = x;
-	this.y = y;
+        this.x = x;
+        this.y = y;
     }
 
     /**
      * Get's the maps position. Used to place the entity based on the "camera".
      */
     public void setMapPosition() {
-	xmap = tm.getX();
-	ymap = tm.getY();
+        xmap = tm.getX();
+        ymap = tm.getY();
     }
 
     public Sprite getSprite() {
-	return sprite;
+        return sprite;
     }
 
     public int getWidth() {
-	return width;
+        return width;
     }
 
     public int getHeight() {
-	return height;
+        return height;
     }
 
 
@@ -110,7 +112,7 @@ public abstract class AEntity
      * @return true of false based on if it should be removed.
      */
     public boolean shouldRemove() {
-	return remove;
+        return remove;
     }
 
 
@@ -120,7 +122,7 @@ public abstract class AEntity
      * @return the x-position as an integer
      */
     public int getXMap() {
-	return x + tm.getX();
+        return x + tm.getX();
     }
 
     /**
@@ -129,26 +131,26 @@ public abstract class AEntity
      * @return the y-position as an integer
      */
     public int getYMap() {
-	return y + tm.getY();
+        return y + tm.getY();
     }
 
     public int getX() {
-	return x;
+        return x;
     }
 
     public int getY() {
-	return y;
+        return y;
     }
 
-    public boolean isSolid(){
+    public boolean isSolid() {
         return solid;
     }
 
     public boolean isTransparent() {
-	return transparent;
+        return transparent;
     }
 
     public boolean isHighlight() {
-	return highlight;
+        return highlight;
     }
 }
