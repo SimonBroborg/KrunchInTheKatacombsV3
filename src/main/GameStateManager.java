@@ -38,7 +38,7 @@ public class GameStateManager
     }
 
     public void mouseClicked(MouseEvent e) {
-	level1.mouseClicked(e);
+	    currentState.mouseClicked(e);
     }
 
     public void mouseMoved(MouseEvent e) {

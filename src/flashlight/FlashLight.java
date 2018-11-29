@@ -2,6 +2,7 @@ package flashlight;
 
 import entity.Player;
 import entity.Tile;
+import entity.tile_types.EchoCircle;
 import main.GameComponent;
 import map.TileMap;
 
@@ -30,6 +31,8 @@ public class FlashLight
     private int targetX;
     private int targetY;
 
+    private ArrayList<EchoCircle> echoes;
+
     private Polygon poly;
 
     private int offsetAngle;
@@ -48,7 +51,7 @@ public class FlashLight
         this.tm = tm;
         this.player = player;
 
-        // The center of the flashlight is based on the playcers position
+        // The center of the flashlight is based on the players position
         x = player.getXMap();
         y = player.getYMap();
 
@@ -67,6 +70,8 @@ public class FlashLight
 
         // How broad the flashlight is.
         offsetAngle = 10;
+
+        echoes = new ArrayList<>();
     }
 
     /**
@@ -75,7 +80,7 @@ public class FlashLight
      * @param angle the angle to transform
      * @return the angles value between 0 - 360 degrees
      */
-    public static double normalAbsoluteAngleDegrees(double angle) {
+    private static double normalAbsoluteAngleDegrees(double angle) {
         angle %= 360;
         if (angle >= 0) return angle;
         else return angle + 360;
@@ -101,6 +106,10 @@ public class FlashLight
         return new Point((int) ((b2 * c1 - b1 * c2) / delta), (int) ((a1 * c2 - a2 * c1) / delta));
     }
 
+    public void createEcho(){
+        echoes.add(new EchoCircle(targetX - tm.getX(), targetY - tm.getY(), tm));
+    }
+
     public void update(Point mousePos) {
         if(mousePos != null){
             targetX = (int)mousePos.getX();
@@ -117,6 +126,13 @@ public class FlashLight
 
         targetAngle = (getAngle(new Point(targetX, targetY), new Point(x, y)));
 
+        for(int i = 0; i < echoes.size(); i++){
+            echoes.get(i).update();
+            if(echoes.get(i).shouldRemove()){
+                echoes.remove(i);
+                i--;
+            }
+        }
         // Create segments from tiles
         setSegments();
         setIntersections();
@@ -125,8 +141,8 @@ public class FlashLight
         poly = new Polygon();
 
         // set the points to draw the polygon
-        for (int i = 0; i < intersections.size(); i++) {
-            poly.addPoint(intersections.get(i).x, intersections.get(i).y);
+        for (Point intersection : intersections) {
+            poly.addPoint(intersection.x, intersection.y);
         }
 
         // One point has to be the players position
@@ -182,7 +198,7 @@ public class FlashLight
     }
 
 
-    // TODO: 2018-07-27 Move this function into a separeate class (Segment maybe )
+    // TODO: 2018-07-27 Move this function into a separate class (Segment maybe )
 
     /**
      * Check if the angle collides with a segment. Returns true or false.
@@ -191,15 +207,12 @@ public class FlashLight
      * @param rangeModifier changes the range of the "ray" to form a "light bulb"
      * @return a boolean telling if there is a collision or not
      */
-    public boolean checkIntersection(float angle, double rangeModifier) {
+    private boolean checkIntersection(float angle, double rangeModifier) {
         Point closestIntersection = null;
         double closestDistance = 0;
 
         // Find closest intersection
-        for (int j = 0; j < segments.size(); j++) {
-
-            Segment segment = segments.get(j);
-
+        for (Segment segment : segments) {
             // Calculate the currently closest intersection point
             if (closestIntersection != null)
                 closestDistance = Math.hypot(closestIntersection.x - x, closestIntersection.y - y);
@@ -227,14 +240,13 @@ public class FlashLight
         return false;
     }
 
-
-    // TODO: 2018-07-27 Move this function into a separeate class (Segment maybe )
+    // TODO: 2018-07-27 Move this function into a separate class (Segment maybe )
 
     /**
      * Sets the intersection points
      */
     // TODO: 2018-07-26 Set the max range for each intersection
-    public void setIntersections() {
+    private void setIntersections() {
         for (double i = -offsetAngle; i < offsetAngle; i += (float) offsetAngle * 2 / 20) {
             // Change the range of the "ray" to form a "light bulb"
             double rangeModifier = (Math.pow(Math.abs(i * 0.5), 2));
@@ -271,7 +283,7 @@ public class FlashLight
      * @param p2 the second point
      * @return the angle between the points
      */
-    public double getAngle(Point p1, Point p2) {
+    private double getAngle(Point p1, Point p2) {
         double angle = Math.toDegrees(Math.atan2(p2.getY() - p1.getY(), p2.getX() - p1.getX()));
         return normalAbsoluteAngleDegrees(angle);
     }
@@ -283,7 +295,7 @@ public class FlashLight
      * @param s2 the second line segment
      * @return the point in which the lines collide (if they do)
      */
-    public Point getIntersection(Segment s1, Segment s2) {
+    private Point getIntersection(Segment s1, Segment s2) {
         // Get the point if the lines intersect
         if (s1.intersects(s2)) {
             return findIntersection(s1.getLine(), s2.getLine());
@@ -294,18 +306,16 @@ public class FlashLight
     /**
      * Draw the intersection lines and intersection points
      *
-     * @param g2d the grapgic object
+     * @param g2d the graphics object
      */
 
     private void drawIntersections(Graphics2D g2d) {
         g2d.setColor(Color.red);
-        for (int i = 0; i < intersections.size(); i++) {
-            Point intersect = intersections.get(i);
+        for (Point intersect : intersections) {
             g2d.drawLine(x, y, intersect.x, intersect.y);
             //g2d.fillOval(intersect.x - 5, intersect.y - 5, 10, 10);
         }
     }
-
 
     /**
      * Draw the flashlight
@@ -343,6 +353,9 @@ public class FlashLight
         // Reset the alpha-channel
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
+        for (EchoCircle echo : echoes) {
+            echo.draw(g2d);
+        }
         //drawIntersections(g2d);
     }
 
