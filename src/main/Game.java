@@ -3,7 +3,7 @@ package main;
 import javax.swing.*;
 
 /**
- *
+ * This is where the program runs from
  */
 public class Game extends JFrame
 {

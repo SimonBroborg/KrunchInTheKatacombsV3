@@ -7,12 +7,20 @@ import java.awt.*;
 /**
  *
  */
-public class GameComponent extends JComponent {
+public class GameComponent extends JComponent
+{
     // Dimensions
     public static final int HEIGHT = 480;
     public static final int WIDTH = 640;
     public static final int SCALE = 2;
+
+    /**
+     * The height of the frame
+     */
     public static final int SCALED_HEIGHT = HEIGHT * SCALE;
+    /**
+     * The width of the frame
+     */
     public static final int SCALED_WIDTH = WIDTH * SCALE;
 
     // FPS
@@ -24,67 +32,82 @@ public class GameComponent extends JComponent {
     private GameStateManager gsm = null;
 
     public GameComponent() {
-        init();
+	init();
     }
 
     private void init() {
-        gsm = new GameStateManager();
-        final JFrame frame = new JFrame("Krunch in the Katacombs");
-
-
-        Cursor gameCursor = Toolkit.getDefaultToolkit()
-                .createCustomCursor(new Sprite("resources/Sprites/Misc/sketchedCursor.png").getImage(), new Point(0, 0),
-                        "Game cursor");
-        frame.setCursor(gameCursor);
-
-        // Frame 'settings'
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        frame.setResizable(false);
-        frame.setPreferredSize(new Dimension(SCALED_WIDTH, SCALED_HEIGHT));
-        frame.setFocusTraversalKeysEnabled(false); // this enables tab to be listened to
-        frame.add(this, BorderLayout.CENTER);
-        frame.pack();
-        frame.addKeyListener(new InputHandler(gsm));
-        this.addMouseListener(new MouseHandler(gsm));
-        frame.setFocusable(true);
-        frame.setVisible(true);
+	gsm = new GameStateManager();
+	setFrame();
     }
 
+    /**
+     * Create a frame from the game and add the component and listeners
+     */
+    private void setFrame() {
+	final JFrame frame = new JFrame("Krunch in the Katacombs");
+	Cursor gameCursor = Toolkit.getDefaultToolkit()
+		.createCustomCursor(new Sprite("resources/Sprites/Misc/sketchedCursor.png").getImage(), new Point(0, 0),
+				    "Game cursor");
+	frame.setCursor(gameCursor);
+
+	// Frame 'settings'
+	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+	frame.setResizable(false);
+	frame.setPreferredSize(new Dimension(SCALED_WIDTH, SCALED_HEIGHT));
+	frame.setFocusTraversalKeysEnabled(false); // this enables tab to be listened to
+	frame.add(this, BorderLayout.CENTER);
+	frame.pack();
+	frame.addKeyListener(new InputHandler(gsm));
+	this.addMouseListener(new MouseHandler(gsm));
+	frame.setFocusable(true);
+	frame.setVisible(true);
+    }
+
+    /**
+     *  The game loop. Updates the game and repaints it.
+     */
     public void run() {
 
-        boolean running = true;
-        while (running) {
-            long start = System.nanoTime();
+	boolean running = true;
+	while (running) {
+	    long start = System.nanoTime();
 
-            update();
-            this.repaint();
+	    update();
+	    this.repaint();
 
-            long elapsed = System.nanoTime() - start;
-            long wait = TARGET_TIME - elapsed / 1000000;
+	    long elapsed = System.nanoTime() - start;
+	    long wait = TARGET_TIME - elapsed / 1000000;
 
 
-            if (wait < 0) wait = 5;
+	    if (wait < 0) wait = 5;
 
-            try {
-                Thread.sleep(wait);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
+	    try {
+		Thread.sleep(wait);
+	    } catch (InterruptedException e) {
+		e.printStackTrace();
+	    }
+	}
 
     }
 
+    /**
+     * Update the game state
+     */
     private void update() {
-        gsm.update(this.getMousePosition());
+	gsm.update(this.getMousePosition());
     }
 
+    /**
+     * Paint everything to the screen
+     * @param g The graphics object used
+     */
     protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        Graphics2D g2d = (Graphics2D) g;
-        g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-        g2d.setClip(0, 0, SCALED_WIDTH, SCALED_HEIGHT);
-        gsm.draw(g2d);
-        g2d.setColor(Color.RED);
+	super.paintComponent(g);
+	Graphics2D g2d = (Graphics2D) g;
+	g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
+	g2d.setClip(0, 0, SCALED_WIDTH, SCALED_HEIGHT);
+	gsm.draw(g2d);
+	g2d.setColor(Color.RED);
 
     }
 }

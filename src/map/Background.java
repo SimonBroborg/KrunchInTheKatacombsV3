@@ -30,7 +30,7 @@ public class Background
         x += dx;
         y += dy;
     }
-
+a
     public void draw(Graphics2D g2d) {
     	g2d.drawImage(sprite.getImage(), (int) x, (int) y, GameComponent.WIDTH * GameComponent.SCALE,
     		      GameComponent.HEIGHT * GameComponent.SCALE, null);

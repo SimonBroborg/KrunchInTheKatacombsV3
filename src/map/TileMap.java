@@ -66,6 +66,10 @@ public class TileMap {
 
     }
 
+    /**
+     * Set the text map for the tile map
+     * @param textMap A 2D-array containing the map
+     */
     public void setTextmap(final String[][] textMap) {
         this.textMap = textMap;
     }
@@ -79,9 +83,9 @@ public class TileMap {
         // Loops through the text map and adds a tile
         for (int y = 0; y < textMap.length; y++) {
             for (int x = 0; x < textMap[y].length; x++) {
-                if (spritePaths.get(Integer.parseInt(textMap[y][x]) - 1) != null) {
+                if (spritePaths.get(Integer.valueOf(Integer.parseInt(textMap[y][x]) - 1)) != null) {
                     tileMap[y][x] =
-                            new NormalTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1), x * tileWidth,
+                            new NormalTile(spritePaths.get(Integer.valueOf(Integer.parseInt(textMap[y][x]) - 1)), x * tileWidth,
                                     y * tileHeight, this);
                 }
                 // If the tile doesn't exist a empty tile is created
@@ -109,6 +113,11 @@ public class TileMap {
         }
     }
 
+    /**
+     * Set the position of the tile map
+     * @param x X-coordinate
+     * @param y Y-coordinate
+     */
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;

@@ -6,7 +6,7 @@ import java.io.File;
 import java.io.IOException;
 
 /**
- *
+ * A sprite class which contains a BufferedImage and the width and height of that image.
  */
 public class Sprite
 {
@@ -23,6 +23,8 @@ public class Sprite
             System.out.println("Sprite from path: " + spritePath + ", could not get loaded.");
 	}
 
+
+	// Set the width and height of the sprite. 0 if the image couldn't load
 	if(image != null){
             width = image.getWidth();
             height = image.getHeight();

@@ -23,9 +23,9 @@ public class MenuButton
     private boolean hovered;
 
     private IGameState state;
+
     /**
      * Creates a new button
-     *
      */
     public MenuButton(int width, int height, String text, IGameState state) {
 	sprite = null;
@@ -46,6 +46,7 @@ public class MenuButton
 
     /**
      * Draws the button text with a centered position
+     *
      * @param g2d The graphics object
      */
     public void drawCenteredString(Graphics2D g2d) {
@@ -69,11 +70,11 @@ public class MenuButton
 	g2d.setColor(new Color(255, 255, 255));
 	//g2d.fillRect(x, y, width, height);
 	drawCenteredString(g2d);
-
     }
 
     /**
      * Updates the button, checking for mouse hover
+     *
      * @param mousePos The position of the mouse
      */
     public void update(Point mousePos) {
@@ -91,7 +92,11 @@ public class MenuButton
      */
     private boolean checkHover(Point p) {
 	hovered = new Rectangle(x, y, width, height).intersects(p.x, p.y, 1, 1);
-    	return hovered;
+	return hovered;
+    }
+
+    public boolean isHovered() {
+	return hovered;
     }
 
     public IGameState getState() {

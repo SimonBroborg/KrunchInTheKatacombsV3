@@ -22,7 +22,7 @@ public class FlashLight
 {
     // The range of the flashlight
     private static final int RANGE = 400;
-    private static final float DARKNESS_ALPHA = 1.0f;
+    private static final float DARKNESS_ALPHA = 0.7f;
 
     private TileMap tm;
 
@@ -135,6 +135,8 @@ public class FlashLight
         }
         // Create segments from tiles
         setSegments();
+
+        // Check where the intersections are
         setIntersections();
 
         // The poly which will be the flashlight
@@ -239,6 +241,7 @@ public class FlashLight
         }
         return false;
     }
+
 
     // TODO: 2018-07-27 Move this function into a separate class (Segment maybe )
 
