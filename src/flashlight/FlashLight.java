@@ -15,17 +15,18 @@ import java.util.Collections;
 import java.util.List;
 
 /**
- *
+ * A flashlight which lights up a polygon. Connected to the player. Collides with the map.
  */
 @SuppressWarnings("MagicNumber")
-public class FlashLight
-{
+public class FlashLight {
     // The range of the flashlight
     private static final int RANGE = 400;
-    private static final float DARKNESS_ALPHA = 0.7f;
+    // How dark it should be outside the flashlight
+    private static final float DARKNESS_ALPHA = 0.9f;
 
     private TileMap tm;
 
+    // Coordinates
     private int x;
     private int y;
     private int targetX;
@@ -33,6 +34,7 @@ public class FlashLight
 
     private ArrayList<EchoCircle> echoes;
 
+    // The polygon which represents the light of the flashlight
     private Polygon poly;
 
     private int offsetAngle;
@@ -47,9 +49,15 @@ public class FlashLight
 
     private Player player;
 
+    // Tells if the flashlight is on or off
+    private boolean on;
+
+    // Constructor sets the tilemap and player
     public FlashLight(TileMap tm, Player player) {
         this.tm = tm;
         this.player = player;
+
+        on = false;
 
         // The center of the flashlight is based on the players position
         x = player.getXMap();
@@ -106,49 +114,57 @@ public class FlashLight
         return new Point((int) ((b2 * c1 - b1 * c2) / delta), (int) ((a1 * c2 - a2 * c1) / delta));
     }
 
-    public void createEcho(){
+    public void createEcho() {
         echoes.add(new EchoCircle(targetX - tm.getX(), targetY - tm.getY(), tm));
     }
 
+    /**
+     * Update the position, target point and polygon based on the players position and map collision
+     * @param mousePos The position of the mouse
+     */
     public void update(Point mousePos) {
-        if(mousePos != null){
-            targetX = (int)mousePos.getX();
-            targetY = (int)mousePos.getY();
+        // If the mouse has a position
+        if (mousePos != null) {
+            targetX = (int) mousePos.getX();
+            targetY = (int) mousePos.getY();
         }
+        // set to the players position
+        x = player.getXMap() + player.getWidth() / 2;
+        y = player.getYMap() + player.getHeight() / 2;
 
         // reset the lists
         segments.clear();
         intersections.clear();
 
-        // set to the players position
-        x = player.getXMap() + player.getWidth() / 2;
-        y = player.getYMap() + player.getHeight() / 2;
-
-        targetAngle = (getAngle(new Point(targetX, targetY), new Point(x, y)));
-
-        for(int i = 0; i < echoes.size(); i++){
-            echoes.get(i).update();
-            if(echoes.get(i).shouldRemove()){
-                echoes.remove(i);
-                i--;
-            }
-        }
-        // Create segments from tiles
-        setSegments();
-
-        // Check where the intersections are
-        setIntersections();
-
         // The poly which will be the flashlight
         poly = new Polygon();
 
-        // set the points to draw the polygon
-        for (Point intersection : intersections) {
-            poly.addPoint(intersection.x, intersection.y);
+        // Only create the polygon if the flashlight is switched on
+        if(on) {
+
+            targetAngle = (getAngle(new Point(targetX, targetY), new Point(x, y)));
+
+            for (int i = 0; i < echoes.size(); i++) {
+                echoes.get(i).update();
+                if (echoes.get(i).shouldRemove()) {
+                    echoes.remove(i);
+                    i--;
+                }
+            }
+            // Create segments from tiles
+            setSegments();
+
+            // Check where the intersections are
+            setIntersections();
+            // set the points to draw the polygon
+            for (Point intersection : intersections) {
+                poly.addPoint(intersection.x, intersection.y);
+            }
+
+            // One point has to be the players position
+            poly.addPoint(x, y);
         }
 
-        // One point has to be the players position
-        poly.addPoint(x, y);
     }
 
     /**
@@ -199,13 +215,12 @@ public class FlashLight
         }
     }
 
-
     // TODO: 2018-07-27 Move this function into a separate class (Segment maybe )
 
     /**
      * Check if the angle collides with a segment. Returns true or false.
      *
-     * @param angle         the angle from the players position to check for an intersecion
+     * @param angle         the angle from the players position to check for an intersection
      * @param rangeModifier changes the range of the "ray" to form a "light bulb"
      * @return a boolean telling if there is a collision or not
      */
@@ -242,6 +257,9 @@ public class FlashLight
         return false;
     }
 
+    public void toggle() {
+        on = !on;
+    }
 
     // TODO: 2018-07-27 Move this function into a separate class (Segment maybe )
 
@@ -349,17 +367,13 @@ public class FlashLight
         // The flashlight light
         g2d.fillPolygon(poly);
 
-        /*for (Segment s : segments) {
-            s.draw(g2d);
-        }*/
-
         // Reset the alpha-channel
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
         for (EchoCircle echo : echoes) {
             echo.draw(g2d);
         }
-        //drawIntersections(g2d);
+
     }
 
 

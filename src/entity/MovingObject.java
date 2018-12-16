@@ -7,22 +7,19 @@ import java.awt.*;
 /**
  * ALl objects which are able to move
  */
-public class MovingObject extends AEntity {
+public abstract class MovingObject extends AEntity {
     // Vectors
-    protected double dx;
-    protected double dy;
+    private double dx;
+    private double dy;
 
-    // Collision
-    protected double xdest;
-    protected double ydest;
-    protected double xtemp;
-    protected double ytemp;
+    private double xTemp;
+    private double yTemp;
 
     // Movement flags
-    protected boolean left;
-    protected boolean right;
-    protected boolean jumping;
-    protected boolean falling;
+    private boolean left;
+    private boolean right;
+    private boolean jumping;
+    private boolean falling;
 
     // More movement
     protected double moveSpeed;
@@ -33,23 +30,22 @@ public class MovingObject extends AEntity {
     protected double jumpStart;
     protected double stopJumpSpeed;
 
-    protected boolean counted;
+    private boolean counted;
 
     /**
      * Creates an entity object
      *
      * @param tm the levels tiles, used to check collisions etc
      */
-    public MovingObject(int x, int y, final TileMap tm) {
+    protected MovingObject(int x, int y, final TileMap tm) {
         super(x, y, tm);
         counted = false;
     }
-
     public void update() {
         setMapPosition();
         getNextPosition();
         checkTileMapCollision();
-        setPosition((int) xtemp, (int) ytemp);
+        setPosition((int) xTemp, (int) yTemp);
 
         if (right) {
             facingRight = true;
@@ -57,7 +53,6 @@ public class MovingObject extends AEntity {
             facingRight = false;
         }
     }
-
 
     // Sets the movement vectors based on the players current movement
     private void getNextPosition() {
@@ -112,10 +107,11 @@ public class MovingObject extends AEntity {
         int xCordPos = x / tm.getTileWidth();
         int yCordPos = y / tm.getTileHeight();
 
-        xdest = x + dx;
-        ydest = y + dy;
-        xtemp = x;
-        ytemp = y;
+        // Collision
+        double xdest = x + dx;
+        double ydest = y + dy;
+        xTemp = x;
+        yTemp = y;
 
         falling = true; // The object will fall unless there is a collision
 
@@ -129,11 +125,11 @@ public class MovingObject extends AEntity {
                     Tile tile = tm.getTiles()[i][j];
                     if (cRect.intersects(tile.getRectangle()) && tile.isSolid() && solid) {
                         if ((int) ydest - dy + height <= tile.getY()) {
-                            ytemp = tile.getY() - height;
+                            yTemp = tile.getY() - height;
                             dy = 0;
                             falling = false;
                         } else if (ydest - dy >= tile.getY() + (int) tile.getRectangle().getHeight()) {
-                            ytemp = tile.getY() + (int) tile.getRectangle().getHeight();
+                            yTemp = tile.getY() + (int) tile.getRectangle().getHeight();
                             dy = fallSpeed;
                             falling = true;
                         }
@@ -150,12 +146,12 @@ public class MovingObject extends AEntity {
                     Tile tile = tm.getTiles()[i][j];
                     if (cRect.intersects(tile.getRectangle()) && tile.isSolid() && solid) {
                         if (x + width <= tile.getX()) {
-                            xtemp = tile.getX() - width;
+                            xTemp = tile.getX() - width;
                             dx = 0;
                         }
                         // Moving to the left
                         else if (x >= tile.getX() + (int) tile.getRectangle().getWidth()) {
-                            xtemp = tile.getX() + (int) tile.getRectangle().getWidth();
+                            xTemp = tile.getX() + (int) tile.getRectangle().getWidth();
                             dx = 0;
                         }
                     }
@@ -164,8 +160,8 @@ public class MovingObject extends AEntity {
         }
 
         // Move the object based on the collision
-        ytemp += dy;
-        xtemp += dx;
+        yTemp += dy;
+        xTemp += dx;
     }
 
     /**
@@ -177,28 +173,12 @@ public class MovingObject extends AEntity {
         return (!falling && !jumping && dy == 0);
     }
 
-
-    public double getAngle(Point p) {
-        double angle = Math.toDegrees(Math.atan2(p.getY() - y, p.getX() - x));
-
-        if (angle < 0) {
-            angle += 360;
-        }
-
-        return angle;
-    }
-
     public void setLeft(boolean b) {
         left = b;
     }
 
     public void setRight(boolean b) {
         right = b;
-    }
-
-    public void setVector(double dx, double dy) {
-        this.dx = dx;
-        this.dy = dy;
     }
 
     public boolean isJumping() {

@@ -14,8 +14,6 @@ public class Player extends MovingObject
 	// dimensions
 	width = 40;
 	height = 40;
-	cwidth = width - 10;
-	cheight = height - 10;
 
 	// movement
 	moveSpeed = 0.7;

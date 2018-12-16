@@ -17,8 +17,7 @@ import java.util.List;
 /**
  * Abstract class level state. Sets the default behavior and methods for the levels of the game.
  */
-public abstract class ALevelState implements IGameState
-{
+public abstract class ALevelState implements IGameState {
 
     protected TileMap tm = null;
 
@@ -45,30 +44,30 @@ public abstract class ALevelState implements IGameState
      * @param mapPath Path to the levels map file
      */
     protected ALevelState(String mapPath) {
-	this.mapPath = mapPath;
-	entities = new ArrayList<>();
+        this.mapPath = mapPath;
+        entities = new ArrayList<>();
     }
 
     /**
      * @param gsm the game state manager which controls the current state
      */
     public void init(GameStateManager gsm) {
-	this.gsm = gsm;
-	menu = new Menu(10, 10, gsm);
+        this.gsm = gsm;
+        menu = new Menu(10, 10, gsm);
 
-	bg = new Background("resources/Backgrounds/background.jpg", 0);
+        bg = new Background("resources/Backgrounds/background.jpg", 0);
     }
 
     /**
      * Loads the level by setting the tile map, object and background
      */
     public void loadLevel() {
-	restart = false;
-	tm = new TileMap(mapPath);
-	tm.load();
+        restart = false;
+        tm = new TileMap(mapPath);
+        tm.load();
 
-	player = new Player(100, -500, tm);
-	fl = new FlashLight(tm, player);
+        player = new Player(100, -500, tm);
+        fl = new FlashLight(tm, player);
     }
 
     /**
@@ -77,30 +76,30 @@ public abstract class ALevelState implements IGameState
      * @param mousePos the position of the mouse
      */
     public void update(Point mousePos) {
-	// The game pauses if the menu is open, aka nothing updates
-	if (!menu.isOpen()) {
-	    player.update();
-	    fl.update(mousePos);
-	    tm.update(player);
-	    bg.update();
+        // The game pauses if the menu is open, aka nothing updates
+        if (!menu.isOpen()) {
+            player.update();
+            fl.update(mousePos);
+            tm.update(player);
+            bg.update();
 
 
-	    // Loop through the entites and check if anyone should be removed
-	    Iterator<AEntity> it = entities.iterator();
-	    while (it.hasNext()) {
-		AEntity e = it.next();
-		e.update();
-		if (e.shouldRemove()) {
-		    it.remove();
-		}
-	    }
-	}
+            // Loop through the entitys and check if anyone should be removed
+            Iterator<AEntity> it = entities.iterator();
+            while (it.hasNext()) {
+                AEntity e = it.next();
+                e.update();
+                if (e.shouldRemove()) {
+                    it.remove();
+                }
+            }
+        }
 
-	menu.update(mousePos);
+        menu.update(mousePos);
 
-	if (restart) {
-	    loadLevel();
-	}
+        if (restart) {
+            loadLevel();
+        }
     }
 
     /**
@@ -109,18 +108,18 @@ public abstract class ALevelState implements IGameState
      * @param g2d the drawing object
      */
     public void draw(final Graphics2D g2d) {
-	bg.draw(g2d);
-	tm.draw(g2d);
+        bg.draw(g2d);
+        tm.draw(g2d);
 
-	for (AEntity e : entities) {
-	    e.draw(g2d);
-	}
+        for (AEntity e : entities) {
+            e.draw(g2d);
+        }
 
-	fl.draw(g2d);
-	player.draw(g2d);
+        fl.draw(g2d);
+        player.draw(g2d);
 
-	menu.draw(g2d);
-	g2d.dispose();
+        menu.draw(g2d);
+        g2d.dispose();
     }
 
 
@@ -129,41 +128,48 @@ public abstract class ALevelState implements IGameState
      *
      * @param k the number of the key pressed
      */
-    @Override public void keyPressed(final int k) {
-	switch (k) {
-	    case KeyEvent.VK_A:
-		player.setLeft(true);
-		break;
-	    case KeyEvent.VK_D:
-		player.setRight(true);
-		break;
-	    case KeyEvent.VK_SPACE:
-		player.setJumping(true);
-		break;
-	    case KeyEvent.VK_E:
-		player.setPosition(100, 100);
-		break;
-	    case KeyEvent.VK_ESCAPE:
-		menu.toggle();
-	}
+    @Override
+    public void keyPressed(final int k) {
+        switch (k) {
+            case KeyEvent.VK_A:
+                player.setLeft(true);
+                break;
+            case KeyEvent.VK_D:
+                player.setRight(true);
+                break;
+            case KeyEvent.VK_SPACE:
+                player.setJumping(true);
+                break;
+            case KeyEvent.VK_E:
+                player.setPosition(100, 100);
+                break;
+            case KeyEvent.VK_T:
+                fl.toggle();
+                break;
+            case KeyEvent.VK_ESCAPE:
+                menu.toggle();
+        }
     }
 
 
-    @Override public void keyReleased(final int k) {
-	if (k == KeyEvent.VK_A) player.setLeft(false);
-	if (k == KeyEvent.VK_D) player.setRight(false);
-	if (k == KeyEvent.VK_SPACE) player.setJumping(false);
+    @Override
+    public void keyReleased(final int k) {
+        if (k == KeyEvent.VK_A) player.setLeft(false);
+        if (k == KeyEvent.VK_D) player.setRight(false);
+        if (k == KeyEvent.VK_SPACE) player.setJumping(false);
     }
 
-    @Override public void mouseClicked(MouseEvent e) {
-	fl.createEcho();
-	if (menu.isOpen()) {
-	    menu.mouseClicked();
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        fl.createEcho();
+        if (menu.isOpen()) {
+            menu.mouseClicked();
+        }
     }
-}
 
-    @Override public void mouseMoved(MouseEvent e) {
-	// DO nothing
+    @Override
+    public void mouseMoved(MouseEvent e) {
+        // DO nothing
     }
 
 }

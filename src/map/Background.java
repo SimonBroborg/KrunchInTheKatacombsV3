@@ -8,8 +8,7 @@ import java.awt.*;
 /**
  * Creates a background for a level.
  */
-public class Background
-{
+public class Background {
     private Sprite sprite;
 
     private double x;
@@ -20,25 +19,25 @@ public class Background
     private double moveScale;
 
     public Background(String s, double ms) {
-	sprite = new Sprite(s);
-	moveScale = ms;
-	dx = 0;
-	dy = 0;
+        sprite = new Sprite(s);
+        moveScale = ms;
+        dx = 0;
+        dy = 0;
     }
 
-    public void update(){
+    public void update() {
         x += dx;
         y += dy;
     }
-a
+
     public void draw(Graphics2D g2d) {
-    	g2d.drawImage(sprite.getImage(), (int) x, (int) y, GameComponent.WIDTH * GameComponent.SCALE,
-    		      GameComponent.HEIGHT * GameComponent.SCALE, null);
-    	if (x < 0) {
-    	    g2d.drawImage(sprite.getImage(), (int) x + GameComponent.WIDTH, (int) y, null);
-    	}
-    	if (x > 0) {
-    	    g2d.drawImage(sprite.getImage(), (int) x - GameComponent.WIDTH, (int) y, null);
-    	}
+        g2d.drawImage(sprite.getImage(), (int) x, (int) y, GameComponent.WIDTH * GameComponent.SCALE,
+                GameComponent.HEIGHT * GameComponent.SCALE, null);
+        if (x < 0) {
+            g2d.drawImage(sprite.getImage(), (int) x + GameComponent.WIDTH, (int) y, null);
         }
+        if (x > 0) {
+            g2d.drawImage(sprite.getImage(), (int) x - GameComponent.WIDTH, (int) y, null);
+        }
+    }
 }

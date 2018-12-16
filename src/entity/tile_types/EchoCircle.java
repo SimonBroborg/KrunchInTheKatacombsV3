@@ -43,6 +43,6 @@ public class EchoCircle extends AEntity {
 
     @Override
     public void draw(Graphics2D g2d) {
-        g2d.drawImage(sprite.getImage(), x + xmap - radius, y + ymap - radius, radius * 2, radius * 2, null);
+        g2d.drawImage(sprite.getImage(), x + xMap - radius, y + yMap - radius, radius * 2, radius * 2, null);
     }
 }

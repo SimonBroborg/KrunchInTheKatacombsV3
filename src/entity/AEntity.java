@@ -6,7 +6,7 @@ import map.TileMap;
 import java.awt.*;
 
 /**
- * All things on the screen which hasa position
+ * All things on the screen which has a position
  */
 public abstract class AEntity {
     // Position
@@ -16,11 +16,9 @@ public abstract class AEntity {
     // Dimensions
     protected int width;
     protected int height;
-    protected int cwidth;
-    protected int cheight;
 
     // Sprite
-    protected Sprite sprite = null;
+    protected Sprite sprite;
 
     // Flags
     protected boolean remove;
@@ -31,8 +29,8 @@ public abstract class AEntity {
 
     //Tile stuff
     protected TileMap tm;
-    protected int xmap;
-    protected int ymap;
+    protected int xMap;
+    protected int yMap;
 
     /**
      * Creates an entity object
@@ -41,10 +39,25 @@ public abstract class AEntity {
      */
     protected AEntity(int x, int y, TileMap tm) {
         this.tm = tm;
-        solid = true;
-        facingRight = true;
         this.x = x;
         this.y = y;
+
+        // Dimensions
+        width = 0;
+        height = 0;
+
+        sprite = null;
+
+        // Flags
+        remove = false;
+        highlight= false;
+        transparent = false;
+        facingRight = true;
+        solid = true;
+
+        //Tile stuff
+        xMap = 0;
+        yMap = 0;
     }
 
     /**
@@ -54,9 +67,9 @@ public abstract class AEntity {
      */
     public void draw(Graphics2D g2d) {
         if (facingRight) {
-            g2d.drawImage(sprite.getImage(), x + xmap, y + ymap, width, height, null);
+            g2d.drawImage(sprite.getImage(), x + xMap, y + yMap, width, height, null);
         } else {
-            g2d.drawImage(sprite.getImage(), x + xmap + width, y + ymap, -width, height, null);
+            g2d.drawImage(sprite.getImage(), x + xMap + width, y + yMap, -width, height, null);
         }
     }
 
@@ -67,9 +80,12 @@ public abstract class AEntity {
      * @see javafx.scene.shape.Rectangle
      */
     public Rectangle getRectangle() {
-        return new Rectangle(x + xmap, y + ymap, width, height);
+        return new Rectangle(x + xMap, y + yMap, width, height);
     }
 
+    /**
+     * A static object only has to change it's map position when updates
+     */
     public void update() {
         setMapPosition();
     }
@@ -89,12 +105,8 @@ public abstract class AEntity {
      * Get's the maps position. Used to place the entity based on the "camera".
      */
     public void setMapPosition() {
-        xmap = tm.getX();
-        ymap = tm.getY();
-    }
-
-    public Sprite getSprite() {
-        return sprite;
+        xMap = tm.getX();
+        yMap = tm.getY();
     }
 
     public int getWidth() {
@@ -105,7 +117,6 @@ public abstract class AEntity {
         return height;
     }
 
-
     /**
      * Tells if the object should be removed from the map.
      *
@@ -114,7 +125,6 @@ public abstract class AEntity {
     public boolean shouldRemove() {
         return remove;
     }
-
 
     /**
      * Get the x-position.
