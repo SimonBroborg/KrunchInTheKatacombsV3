@@ -6,7 +6,7 @@ import map.TileMap;
 /**
  *
  */
-public class Player extends MovingObject
+public class Player extends Moveable
 {
     public Player(int x, int y, TileMap tm) {
 	super(x, y, tm);

@@ -84,10 +84,10 @@ public class Menu
 	}
 
 
-	g2d.setColor(new Color(255, 255, 255, 100));
+	g2d.setColor(Color.black);
 	g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
 
-	//g2d.drawImage(logo.getImage(), GameComponent.SCALED_WIDTH / 2 - logo.getWidth() / 2, y - logo.getHeight(), null);
+	g2d.drawImage(logo.getImage(), GameComponent.SCALED_WIDTH / 2 - logo.getWidth() / 2, y - logo.getHeight(), null);
 	g2d.drawImage(menuBackground.getImage(), x, y, width, height, null);
 	for (MenuButton mb : buttons) {
 	    mb.draw(g2d);

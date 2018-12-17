@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * ALl objects which are able to move
  */
-public abstract class MovingObject extends AEntity {
+public abstract class Moveable extends AEntity {
     // Vectors
     private double dx;
     private double dy;
@@ -30,19 +30,16 @@ public abstract class MovingObject extends AEntity {
     protected double jumpStart;
     protected double stopJumpSpeed;
 
-    private boolean counted;
-
     /**
      * Creates an entity object
      *
      * @param tm the levels tiles, used to check collisions etc
      */
-    protected MovingObject(int x, int y, final TileMap tm) {
+    protected Moveable(int x, int y, final TileMap tm) {
         super(x, y, tm);
-        counted = false;
     }
     public void update() {
-        setMapPosition();
+        super.update();
         getNextPosition();
         checkTileMapCollision();
         setPosition((int) xTemp, (int) yTemp);

@@ -24,7 +24,7 @@ public class GameComponent extends JComponent
     public static final int SCALED_WIDTH = WIDTH * SCALE;
 
     // FPS
-    private static final int FPS = 60;
+    public static final int FPS = 60;
     private static final long TARGET_TIME = 1000 / FPS;
 
 
@@ -67,9 +67,7 @@ public class GameComponent extends JComponent
      *  The game loop. Updates the game and repaints it.
      */
     public void run() {
-
-	boolean running = true;
-	while (running) {
+	while (true) {
 	    long start = System.nanoTime();
 
 	    update();
@@ -97,13 +95,15 @@ public class GameComponent extends JComponent
 	gsm.update(this.getMousePosition());
     }
 
-    /**
+    /**wwww
      * Paint everything to the screen
      * @param g The graphics object used
      */
     protected void paintComponent(Graphics g) {
 	super.paintComponent(g);
 	Graphics2D g2d = (Graphics2D) g;
+
+	// Antialiasing for smoother lines
 	g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 	g2d.setClip(0, 0, SCALED_WIDTH, SCALED_HEIGHT);
 	gsm.draw(g2d);

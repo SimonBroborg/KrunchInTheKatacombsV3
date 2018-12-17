@@ -2,7 +2,6 @@ package flashlight;
 
 import entity.Player;
 import entity.Tile;
-import entity.tile_types.EchoCircle;
 import main.GameComponent;
 import map.TileMap;
 
@@ -22,7 +21,7 @@ public class FlashLight {
     // The range of the flashlight
     private static final int RANGE = 400;
     // How dark it should be outside the flashlight
-    private static final float DARKNESS_ALPHA = 0.9f;
+    private static final float DARKNESS_ALPHA = 0.95f;
 
     private TileMap tm;
 
@@ -32,7 +31,6 @@ public class FlashLight {
     private int targetX;
     private int targetY;
 
-    private ArrayList<EchoCircle> echoes;
 
     // The polygon which represents the light of the flashlight
     private Polygon poly;
@@ -79,7 +77,6 @@ public class FlashLight {
         // How broad the flashlight is.
         offsetAngle = 10;
 
-        echoes = new ArrayList<>();
     }
 
     /**
@@ -114,9 +111,6 @@ public class FlashLight {
         return new Point((int) ((b2 * c1 - b1 * c2) / delta), (int) ((a1 * c2 - a2 * c1) / delta));
     }
 
-    public void createEcho() {
-        echoes.add(new EchoCircle(targetX - tm.getX(), targetY - tm.getY(), tm));
-    }
 
     /**
      * Update the position, target point and polygon based on the players position and map collision
@@ -144,13 +138,6 @@ public class FlashLight {
 
             targetAngle = (getAngle(new Point(targetX, targetY), new Point(x, y)));
 
-            for (int i = 0; i < echoes.size(); i++) {
-                echoes.get(i).update();
-                if (echoes.get(i).shouldRemove()) {
-                    echoes.remove(i);
-                    i--;
-                }
-            }
             // Create segments from tiles
             setSegments();
 
@@ -324,19 +311,6 @@ public class FlashLight {
         return null;
     }
 
-    /**
-     * Draw the intersection lines and intersection points
-     *
-     * @param g2d the graphics object
-     */
-
-    private void drawIntersections(Graphics2D g2d) {
-        g2d.setColor(Color.red);
-        for (Point intersect : intersections) {
-            g2d.drawLine(x, y, intersect.x, intersect.y);
-            //g2d.fillOval(intersect.x - 5, intersect.y - 5, 10, 10);
-        }
-    }
 
     /**
      * Draw the flashlight
@@ -346,6 +320,7 @@ public class FlashLight {
     public void draw(Graphics2D g2d) {
         // This creates the "tone-out" flashlight effect
         float[] fractions = new float[]{0.0f, 0.9f};
+
         Color[] colors = new Color[]{new Color(0.0f, 0.0f, 0.0f, 0.0f), Color.BLACK};
         Point2D center = new Point2D.Float(x, y);
         RadialGradientPaint p = new RadialGradientPaint(center, RANGE, fractions, colors);
@@ -357,7 +332,7 @@ public class FlashLight {
 
         // Sets an area which is the entire frame except the flashlight
         Area outer = new Area(
-                new Rectangle(0, 0, GameComponent.WIDTH * GameComponent.SCALE, GameComponent.HEIGHT * GameComponent.SCALE));
+                new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
         outer.subtract(new Area(poly));
 
         //outer.subtract(new Area(new Rectangle(100 + (int) tm.getXMap(), 100 + (int) tm.getYMap(), 500, 50)));
@@ -370,12 +345,7 @@ public class FlashLight {
         // Reset the alpha-channel
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
-        for (EchoCircle echo : echoes) {
-            echo.draw(g2d);
-        }
-
     }
-
 
     /*
     Setters and getters

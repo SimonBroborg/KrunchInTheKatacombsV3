@@ -1,5 +1,6 @@
 package game_state;
 
+import dialog.DialogBox;
 import entity.AEntity;
 import entity.Player;
 import flashlight.FlashLight;
@@ -27,6 +28,8 @@ public abstract class ALevelState implements IGameState {
 
     protected Menu menu = null;
 
+    protected DialogBox db = null;
+
     protected List<AEntity> entities;
 
     // Path to the map file
@@ -46,6 +49,8 @@ public abstract class ALevelState implements IGameState {
     protected ALevelState(String mapPath) {
         this.mapPath = mapPath;
         entities = new ArrayList<>();
+        tm = new TileMap(mapPath);
+
     }
 
     /**
@@ -63,8 +68,12 @@ public abstract class ALevelState implements IGameState {
      */
     public void loadLevel() {
         restart = false;
-        tm = new TileMap(mapPath);
+
+        // Everything depending on the tile map must be created after this
         tm.load();
+
+        db = new DialogBox("this is text", 0, 0, tm);
+
 
         player = new Player(100, -500, tm);
         fl = new FlashLight(tm, player);
@@ -76,6 +85,7 @@ public abstract class ALevelState implements IGameState {
      * @param mousePos the position of the mouse
      */
     public void update(Point mousePos) {
+        db.update();
         // The game pauses if the menu is open, aka nothing updates
         if (!menu.isOpen()) {
             player.update();
@@ -118,6 +128,9 @@ public abstract class ALevelState implements IGameState {
         fl.draw(g2d);
         player.draw(g2d);
 
+
+        db.draw(g2d);
+
         menu.draw(g2d);
         g2d.dispose();
     }
@@ -140,7 +153,7 @@ public abstract class ALevelState implements IGameState {
             case KeyEvent.VK_SPACE:
                 player.setJumping(true);
                 break;
-            case KeyEvent.VK_E:
+            case KeyEvent.VK_R:
                 player.setPosition(100, 100);
                 break;
             case KeyEvent.VK_T:
@@ -161,7 +174,6 @@ public abstract class ALevelState implements IGameState {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        fl.createEcho();
         if (menu.isOpen()) {
             menu.mouseClicked();
         }
