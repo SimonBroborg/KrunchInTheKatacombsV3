@@ -26,7 +26,6 @@ public class DialogBox extends AEntity
 	sprite = new Sprite("resources/Sprites/misc/dialogueBox.png");
 
 	newFade(5000,1.0f, 0.0f);
-
 	fade.run();
 	width = sprite.getWidth();
 	height = sprite.getHeight();

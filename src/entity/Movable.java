@@ -7,7 +7,7 @@ import java.awt.*;
 /**
  * ALl objects which are able to move
  */
-public abstract class Moveable extends AEntity {
+public abstract class Movable extends AEntity {
     // Vectors
     private double dx;
     private double dy;
@@ -35,7 +35,7 @@ public abstract class Moveable extends AEntity {
      *
      * @param tm the levels tiles, used to check collisions etc
      */
-    protected Moveable(int x, int y, final TileMap tm) {
+    protected Movable(int x, int y, final TileMap tm) {
         super(x, y, tm);
     }
     public void update() {
@@ -120,6 +120,7 @@ public abstract class Moveable extends AEntity {
             for (int j = xCordPos - 5; j < xCordPos + 5; j++) {
                 if (i >= 0 && j >= 0 && i < tm.getHeight() && j < tm.getWidth()) {
                     Tile tile = tm.getTiles()[i][j];
+
                     if (cRect.intersects(tile.getRectangle()) && tile.isSolid() && solid) {
                         if ((int) ydest - dy + height <= tile.getY()) {
                             yTemp = tile.getY() - height;
@@ -141,6 +142,7 @@ public abstract class Moveable extends AEntity {
                 if (i >= 0 && j >= 0 && i < tm.getHeight() && j < tm.getWidth()) {
 
                     Tile tile = tm.getTiles()[i][j];
+
                     if (cRect.intersects(tile.getRectangle()) && tile.isSolid() && solid) {
                         if (x + width <= tile.getX()) {
                             xTemp = tile.getX() - width;
