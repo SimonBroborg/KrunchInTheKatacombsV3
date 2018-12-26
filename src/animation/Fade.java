@@ -23,11 +23,11 @@ public class Fade
      */
     public Fade(int ms, float from, float to){
         this.ms = ms;
-	this.from  = from;
-	this.to = to;
-	alpha = from;
-    	speed = (float) ms / GameComponent.FPS / 100;
-	System.out.println(speed);
+        this.from  = from;
+        this.to = to;
+        alpha = from;
+        speed = (float) ms / GameComponent.FPS / 100;
+        System.out.println(speed);
 
     }
 
@@ -37,23 +37,23 @@ public class Fade
 
     public void update(){
         if(running){
-	    // Decide if alpha should increase or decrease
-	    if(from >= to && alpha >= to){
-		alpha -= speed;
+            // Decide if alpha should increase or decrease
+            if(from >= to && alpha >= to){
+                alpha -= speed;
                 if(alpha <= 0.0f) alpha = 0.0f;
-	    }
-	    else if(from <= to && alpha <= to){
+            }
+            else if(from <= to && alpha <= to){
                 alpha += speed;
                 if(alpha >= 1.0f) alpha = 1.0f;
-	    }
-	}
+            }
+        }
     }
 
     public float getAlpha() {
-	return alpha;
+        return alpha;
     }
 
     public boolean isRunning() {
-	return running;
+        return running;
     }
 }

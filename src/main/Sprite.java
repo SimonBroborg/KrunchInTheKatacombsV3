@@ -19,30 +19,31 @@ public class Sprite
         // TODO Resource thingy instead of normal try-catch
         try {
             image = ImageIO.read(new File(spritePath));
-	} catch(IOException ignored){
+        } catch(IOException ignored){
             System.out.println("Sprite from path: " + spritePath + ", could not get loaded.");
-	}
+        }
 
 
-	// Set the width and height of the sprite. 0 if the image couldn't load
-	if(image != null){
+        // Set the width and height of the sprite. 0 if the image couldn't load
+        if(image != null) {
             width = image.getWidth();
             height = image.getHeight();
-        } else{
+        }
+        else{
             width = 0;
             height = 0;
-	}
+        }
     }
 
     public BufferedImage getImage() {
-	return image;
+        return image;
     }
 
     public int getHeight() {
-	return height;
+        return height;
     }
 
     public int getWidth() {
-	return width;
+        return width;
     }
 }

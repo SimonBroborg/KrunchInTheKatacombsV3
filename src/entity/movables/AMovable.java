@@ -1,5 +1,7 @@
-package entity;
+package entity.movables;
 
+import entity.AEntity;
+import entity.Tile;
 import map.TileMap;
 
 import java.awt.*;
@@ -7,7 +9,7 @@ import java.awt.*;
 /**
  * ALl objects which are able to move
  */
-public abstract class Movable extends AEntity {
+public abstract class AMovable extends AEntity {
     // Vectors
     private double dx;
     private double dy;
@@ -20,6 +22,9 @@ public abstract class Movable extends AEntity {
     private boolean right;
     private boolean jumping;
     private boolean falling;
+    private boolean leftColl;
+    private boolean rightColl;
+
 
     // More movement
     protected double moveSpeed;
@@ -35,9 +40,11 @@ public abstract class Movable extends AEntity {
      *
      * @param tm the levels tiles, used to check collisions etc
      */
-    protected Movable(int x, int y, final TileMap tm) {
+    protected AMovable(int x, int y, final TileMap tm) {
         super(x, y, tm);
     }
+
+
     public void update() {
         super.update();
         getNextPosition();
@@ -83,7 +90,8 @@ public abstract class Movable extends AEntity {
             dy = jumpStart;
             falling = true;
         }
-        // falling
+
+        // falling logic
         if (falling) {
             dy += fallSpeed;
             if (dy > 0) {
@@ -105,16 +113,18 @@ public abstract class Movable extends AEntity {
         int yCordPos = y / tm.getTileHeight();
 
         // Collision
-        double xdest = x + dx;
-        double ydest = y + dy;
+        double xDest = x + dx;
+        double yDest = y + dy;
         xTemp = x;
         yTemp = y;
 
         falling = true; // The object will fall unless there is a collision
+        leftColl = false;
+        rightColl = false;
 
 
         // Collision rectangle for the object
-        Rectangle cRect = new Rectangle(x + tm.getX(), (int) ydest + tm.getY() + 1, width, height);
+        Rectangle cRect = new Rectangle(x + tm.getX(), (int) yDest + tm.getY() + 1, width, height);
 
         for (int i = yCordPos - 5; i < yCordPos + 5; i++) {
             for (int j = xCordPos - 5; j < xCordPos + 5; j++) {
@@ -122,11 +132,14 @@ public abstract class Movable extends AEntity {
                     Tile tile = tm.getTiles()[i][j];
 
                     if (cRect.intersects(tile.getRectangle()) && tile.isSolid() && solid) {
-                        if ((int) ydest - dy + height <= tile.getY()) {
+                        // top collision
+                        if ((int) yDest - dy + height <= tile.getY()) {
                             yTemp = tile.getY() - height;
                             dy = 0;
                             falling = false;
-                        } else if (ydest - dy >= tile.getY() + (int) tile.getRectangle().getHeight()) {
+                        }
+                        // bottom collison
+                        else if (yDest - dy >= tile.getY() + (int) tile.getRectangle().getHeight()) {
                             yTemp = tile.getY() + (int) tile.getRectangle().getHeight();
                             dy = fallSpeed;
                             falling = true;
@@ -136,7 +149,7 @@ public abstract class Movable extends AEntity {
             }
         }
 
-        cRect = new Rectangle((int) xdest + tm.getX(), y + tm.getY(), width, height);
+        cRect = new Rectangle((int) xDest + tm.getX(), y + tm.getY(), width, height);
         for (int i = yCordPos - 5; i < yCordPos + 5; i++) {
             for (int j = xCordPos - 5; j < xCordPos + 5; j++) {
                 if (i >= 0 && j >= 0 && i < tm.getHeight() && j < tm.getWidth()) {
@@ -144,14 +157,17 @@ public abstract class Movable extends AEntity {
                     Tile tile = tm.getTiles()[i][j];
 
                     if (cRect.intersects(tile.getRectangle()) && tile.isSolid() && solid) {
+                        // collision to the right
                         if (x + width <= tile.getX()) {
                             xTemp = tile.getX() - width;
                             dx = 0;
+                            rightColl = true;
                         }
-                        // Moving to the left
+                        // collision to the left
                         else if (x >= tile.getX() + (int) tile.getRectangle().getWidth()) {
                             xTemp = tile.getX() + (int) tile.getRectangle().getWidth();
                             dx = 0;
+                            leftColl = true;
                         }
                     }
                 }
@@ -198,5 +214,13 @@ public abstract class Movable extends AEntity {
 
     public double getDx() {
         return dx;
+    }
+
+    public boolean hasLeftColl() {
+        return leftColl;
+    }
+
+    public boolean hasRightColl() {
+        return rightColl;
     }
 }

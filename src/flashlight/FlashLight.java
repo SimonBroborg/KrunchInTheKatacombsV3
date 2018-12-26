@@ -1,7 +1,7 @@
 package flashlight;
 
-import entity.Player;
 import entity.Tile;
+import entity.movables.Player;
 import main.GameComponent;
 import map.TileMap;
 
@@ -151,7 +151,6 @@ public class FlashLight {
             // One point has to be the players position
             poly.addPoint(x, y);
         }
-
     }
 
     /**

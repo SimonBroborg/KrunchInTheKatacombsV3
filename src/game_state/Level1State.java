@@ -1,7 +1,6 @@
 package game_state;
 
 
-import java.awt.event.MouseEvent;
 
 /**
  *  Loads level 1 of the game

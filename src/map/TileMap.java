@@ -1,7 +1,7 @@
 package map;
 
-import entity.Player;
 import entity.Tile;
+import entity.movables.Player;
 import entity.tile_types.EmptyTile;
 import entity.tile_types.NormalTile;
 import main.GameComponent;

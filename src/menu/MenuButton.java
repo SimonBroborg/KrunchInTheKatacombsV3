@@ -28,20 +28,20 @@ public class MenuButton
      * Creates a new button
      */
     public MenuButton(int width, int height, String text, IGameState state) {
-	sprite = null;
+        sprite = null;
 
-	this.text = text;
+        this.text = text;
 
-	this.width = width;
-	this.height = height;
+        this.width = width;
+        this.height = height;
 
-	textColor = Color.WHITE;
+        textColor = Color.WHITE;
 
-	this.state = state;
+        this.state = state;
 
-	hovered = false;
-	//this.width = sprite.getWidth();
-	//this.height = sprite.getHeight();
+        hovered = false;
+        //this.width = sprite.getWidth();
+        //this.height = sprite.getHeight();
     }
 
     /**
@@ -50,15 +50,15 @@ public class MenuButton
      * @param g2d The graphics object
      */
     public void drawCenteredString(Graphics2D g2d) {
-	g2d.setColor(textColor);
-	g2d.setFont(new Font("Calibri", Font.PLAIN, 40));
+        g2d.setColor(textColor);
+        g2d.setFont(new Font("Calibri", Font.PLAIN, 40));
 
-	FontMetrics fm = g2d.getFontMetrics();
-	int x = this.x + (width - fm.stringWidth(text)) / 2;
+        FontMetrics fm = g2d.getFontMetrics();
+        int x = this.x + (width - fm.stringWidth(text)) / 2;
 
-	int y = this.y + (fm.getAscent() + (height - (fm.getAscent() + fm.getDescent())) / 2);
+        int y = this.y + (fm.getAscent() + (height - (fm.getAscent() + fm.getDescent())) / 2);
 
-	g2d.drawString(text, x, y);
+        g2d.drawString(text, x, y);
     }
 
     /**
@@ -67,9 +67,9 @@ public class MenuButton
      * @param g2d The grapgics object
      */
     public void draw(Graphics2D g2d) {
-	g2d.setColor(new Color(255, 255, 255));
-	//g2d.fillRect(x, y, width, height);
-	drawCenteredString(g2d);
+        g2d.setColor(new Color(255, 255, 255));
+        //g2d.fillRect(x, y, width, height);
+        drawCenteredString(g2d);
     }
 
     /**
@@ -78,11 +78,11 @@ public class MenuButton
      * @param mousePos The position of the mouse
      */
     public void update(Point mousePos) {
-	if (mousePos != null && checkHover(mousePos)) {
-	    textColor = new Color(0, 100, 255);
-	} else {
-	    textColor = Color.WHITE;
-	}
+        if (mousePos != null && checkHover(mousePos)) {
+            textColor = new Color(0, 100, 255);
+        } else {
+            textColor = Color.WHITE;
+        }
     }
 
     /**
@@ -91,41 +91,41 @@ public class MenuButton
      * @param p The position of the mouse
      */
     private boolean checkHover(Point p) {
-	hovered = new Rectangle(x, y, width, height).intersects(p.x, p.y, 1, 1);
-	return hovered;
+        hovered = new Rectangle(x, y, width, height).intersects(p.x, p.y, 1, 1);
+        return hovered;
     }
 
     public boolean isHovered() {
-	return hovered;
+        return hovered;
     }
 
     public IGameState getState() {
-	return state;
+        return state;
     }
 
     // Getters
     public int getWidth() {
-	return width;
+        return width;
     }
 
     public int getHeight() {
-	return height;
+        return height;
     }
 
     public int getY() {
-	return y;
+        return y;
     }
 
     public int getX() {
-	return x;
+        return x;
     }
 
     public void setX(final int x) {
-	this.x = x;
+        this.x = x;
     }
 
     public void setY(final int y) {
-	this.y = y;
+        this.y = y;
     }
 }
 

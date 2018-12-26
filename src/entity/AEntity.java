@@ -1,11 +1,12 @@
 package entity;
 
 import animation.Fade;
+import entity.movables.BasicEnemy;
 import main.Sprite;
 import map.TileMap;
 
 import java.awt.*;
-import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * All things on the screen which has a position
@@ -25,7 +26,6 @@ public abstract class AEntity
     protected Fade fade;
     protected float alpha;
 
-
     // Flags
     protected boolean remove;
     protected boolean solid; // If it can be collided with
@@ -40,33 +40,33 @@ public abstract class AEntity
 
     /**
      * Creates an entity object
-     *
+     * @param x the x-position
+     * @param y the y-position
      * @param tm the levels tiles, used to check collisions etc
      */
     protected AEntity(int x, int y, TileMap tm) {
-	this.tm = tm;
-	this.x = x;
-	this.y = y;
+        this.tm = tm;
+        this.x = x;
+        this.y = y;
 
-	// Dimensions
-	width = 0;
-	height = 0;
+        // Dimensions
+        width = 0;
+        height = 0;
 
-	sprite = null;
-	fade = null;
+        sprite = null;
+        fade = null;
 
-	// Flags
-	remove = false;
-	highlight = false;
-	transparent = false;
-	facingRight = true;
-	solid = true;
+        // Flags
+        remove = false;
+        highlight = false;
+        transparent = false;
+        facingRight = true;
+        solid = true;
 
-	alpha = 1.0f;
+        alpha = 1.0f;
 
-	//Tile stuff
-	xMap = 0;
-	yMap = 0;
+        xMap = 0;
+        yMap = 0;
     }
 
     public void newFade(int ms, float from, float to){
@@ -80,15 +80,15 @@ public abstract class AEntity
      */
     public void draw(Graphics2D g2d) {
         if(fade != null && fade.isRunning()){
-	    g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, fade.getAlpha()));
-	}
-	if (facingRight) {
-	    g2d.drawImage(sprite.getImage(), x + xMap, y + yMap, width, height, null);
-	} else {
-	    g2d.drawImage(sprite.getImage(), x + xMap + width, y + yMap, -width, height, null);
-	}
+            g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, fade.getAlpha()));
+        }
+        if (facingRight) {
+            g2d.drawImage(sprite.getImage(), x + xMap, y + yMap, width, height, null);
+        } else {
+            g2d.drawImage(sprite.getImage(), x + xMap + width, y + yMap, -width, height, null);
+        }
 
-	g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1.0f));
     }
 
     /**
@@ -98,14 +98,14 @@ public abstract class AEntity
      * @see javafx.scene.shape.Rectangle
      */
     public Rectangle getRectangle() {
-	return new Rectangle(x + xMap, y + yMap, width, height);
+        return new Rectangle(x + xMap, y + yMap, width, height);
     }
 
     /**
      * A static object only has to change it's map position when updates
      */
     public void update() {
-	setMapPosition();
+        setMapPosition();
     }
 
     /**
@@ -115,24 +115,24 @@ public abstract class AEntity
      * @param y the y-position
      */
     public void setPosition(int x, int y) {
-	this.x = x;
-	this.y = y;
+        this.x = x;
+        this.y = y;
     }
 
     /**
      * Get's the maps position. Used to place the entity based on the "camera".
      */
     public void setMapPosition() {
-	xMap = tm.getX();
-	yMap = tm.getY();
+        xMap = tm.getX();
+        yMap = tm.getY();
     }
 
     public int getWidth() {
-	return width;
+        return width;
     }
 
     public int getHeight() {
-	return height;
+        return height;
     }
 
     /**
@@ -141,7 +141,7 @@ public abstract class AEntity
      * @return true of false based on if it should be removed.
      */
     public boolean shouldRemove() {
-	return remove;
+        return remove;
     }
 
     /**
@@ -150,7 +150,7 @@ public abstract class AEntity
      * @return the x-position as an integer
      */
     public int getXMap() {
-	return x + tm.getX();
+        return x + tm.getX();
     }
 
     /**
@@ -159,26 +159,26 @@ public abstract class AEntity
      * @return the y-position as an integer
      */
     public int getYMap() {
-	return y + tm.getY();
+        return y + tm.getY();
     }
 
     public int getX() {
-	return x;
+        return x;
     }
 
     public int getY() {
-	return y;
+        return y;
     }
 
     public boolean isSolid() {
-	return solid;
+        return solid;
     }
 
     public boolean isTransparent() {
-	return transparent;
+        return transparent;
     }
 
     public boolean isHighlight() {
-	return highlight;
+        return highlight;
     }
 }

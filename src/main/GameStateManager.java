@@ -15,9 +15,9 @@ public class GameStateManager
     private IGameState currentState;
 
     public GameStateManager() {
-	currentState = new Level1State("resources/Maps/map1.tmx");
-	// Sets the gsm for every state
-	currentState.init(this);
+        currentState = new Level1State("resources/Maps/map1.tmx");
+        // Sets the gsm for every state
+        currentState.init(this);
     }
 
     /**
@@ -25,7 +25,7 @@ public class GameStateManager
      * @param mousePos The mous position on the game component
      */
     public void update(Point mousePos) {
-	currentState.update(mousePos);
+        currentState.update(mousePos);
     }
 
     /**
@@ -33,24 +33,24 @@ public class GameStateManager
      * @param g2d The graphics object
      */
     public void draw(Graphics2D g2d) {
-	currentState.draw(g2d);
+        currentState.draw(g2d);
     }
 
 
     public void keyPressed(int k) {
-	currentState.keyPressed(k);
+        currentState.keyPressed(k);
     }
 
     public void keyReleased(int k) {
-	currentState.keyReleased(k);
+        currentState.keyReleased(k);
     }
 
     public void mouseClicked(MouseEvent e) {
-	    currentState.mouseClicked(e);
+        currentState.mouseClicked(e);
     }
 
     public void mouseMoved(MouseEvent e) {
-	currentState.mouseMoved(e);
+        currentState.mouseMoved(e);
     }
 
 
@@ -68,6 +68,6 @@ public class GameStateManager
      * @return The current game state
      */
     public IGameState getCurrentState() {
-	return currentState;
+        return currentState;
     }
 }
