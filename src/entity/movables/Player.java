@@ -1,6 +1,5 @@
 package entity.movables;
 
-import entity.movables.AMovable;
 import flashlight.FlashLight;
 import main.Sprite;
 import map.TileMap;
@@ -13,7 +12,7 @@ import java.awt.*;
 public class Player extends AMovable
 {
 	private FlashLight fl;
-
+	private boolean dead;
 	public Player(int x, int y, TileMap tm) {
 		super(x, y, tm);
 
@@ -28,9 +27,11 @@ public class Player extends AMovable
 		fallSpeed = 0.5;
 		maxFallSpeed = 10;
 		jumpStart = -10;
-		stopJumpSpeed = 0.3;
+		gravity = 0.3;
 
-		sprite = new Sprite("resources/Sprites/Objects/Pickups/test.png");
+		dead = false;
+
+		sprite = new Sprite("resources/Sprites/Player/player.png");
 
 		fl = new FlashLight(tm, this);
 	}
@@ -49,15 +50,32 @@ public class Player extends AMovable
 	public void update(Point mousePos) {
 		fl.update(mousePos);
 		super.update();
+
 	}
 
 	@Override
 	public void draw(Graphics2D g2d) {
 		fl.draw(g2d);
 		super.draw(g2d);
+
 	}
 
 	public void toggleFlashlight(){
 		fl.toggle();
 	}
+
+	public void kill(){
+		dead = true;
+	}
+
+	public void respawn(int x, int y){
+		dead = false;
+		setPosition(x, y);
+	}
+
+	public boolean isDead() {
+		return dead;
+	}
+
 }
+

@@ -21,7 +21,7 @@ public class FlashLight {
     // The range of the flashlight
     private static final int RANGE = 400;
     // How dark it should be outside the flashlight
-    private static final float DARKNESS_ALPHA = 0.95f;
+    private static final float DARKNESS_ALPHA = 0.6f;
 
     private TileMap tm;
 
@@ -122,6 +122,7 @@ public class FlashLight {
             targetX = (int) mousePos.getX();
             targetY = (int) mousePos.getY();
         }
+
         // set to the players position
         x = player.getXMap() + player.getWidth() / 2;
         y = player.getYMap() + player.getHeight() / 2;

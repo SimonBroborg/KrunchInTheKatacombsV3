@@ -33,7 +33,7 @@ public abstract class AMovable extends AEntity {
     protected double fallSpeed;
     protected double maxFallSpeed;
     protected double jumpStart;
-    protected double stopJumpSpeed;
+    protected double gravity;
 
     /**
      * Creates an entity object
@@ -98,7 +98,7 @@ public abstract class AMovable extends AEntity {
                 jumping = false;
             }
             if (dy < 0 && !jumping) {
-                dy += stopJumpSpeed;
+                dy += gravity;
             }
             if (dy > maxFallSpeed) {
                 dy = maxFallSpeed;
@@ -138,7 +138,7 @@ public abstract class AMovable extends AEntity {
                             dy = 0;
                             falling = false;
                         }
-                        // bottom collison
+                        // bottom collisions
                         else if (yDest - dy >= tile.getY() + (int) tile.getRectangle().getHeight()) {
                             yTemp = tile.getY() + (int) tile.getRectangle().getHeight();
                             dy = fallSpeed;
