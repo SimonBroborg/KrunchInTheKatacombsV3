@@ -26,7 +26,6 @@ public abstract class Tile extends AEntity {
         return new Rectangle(getXMap(), getYMap(), width, height);
     }
 
-
     public void draw(Graphics2D g2d) {
         g2d.drawImage(sprite.getImage(), getXMap(), getYMap(), width, height, null);
         g2d.setColor(Color.RED);

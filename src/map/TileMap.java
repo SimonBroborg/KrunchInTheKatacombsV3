@@ -63,7 +63,6 @@ public class TileMap {
     public void update(Player player) {
         setPosition(GameComponent.WIDTH / 2 * GameComponent.SCALE - player.getX(),
                 GameComponent.HEIGHT / 2 * GameComponent.SCALE - player.getY());
-
     }
 
     /**

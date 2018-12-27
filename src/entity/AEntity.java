@@ -69,6 +69,7 @@ public abstract class AEntity
         yMap = 0;
     }
 
+
     public void newFade(int ms, float from, float to){
         fade = new Fade(ms, from, to);
     }

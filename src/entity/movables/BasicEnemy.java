@@ -16,7 +16,31 @@ public class BasicEnemy extends Enemy{
 
     @Override
     public void onPlayerColl() {
-       
+        kill();
     }
 
+    @Override
+    public void update() {
+        super.update();
+
+        // Hunt the player horizontally
+        // jump over obstacles
+        if(this.x < player.getX()){
+            setRight(true);
+            setLeft(false);
+
+            if(hasRightColl()){
+                setJumping(true);
+            }
+        }
+        else if(x > player.getX()) {
+            setRight(false);
+            setLeft(true);
+
+            if (hasLeftColl()) {
+                setJumping(true);
+            }
+        }
+
+    }
 }

@@ -35,6 +35,8 @@ public abstract class AMovable extends AEntity {
     protected double jumpStart;
     protected double gravity;
 
+
+
     /**
      * Creates an entity object
      *
@@ -42,7 +44,10 @@ public abstract class AMovable extends AEntity {
      */
     protected AMovable(int x, int y, final TileMap tm) {
         super(x, y, tm);
+
+
     }
+
 
 
     public void update() {

@@ -2,6 +2,8 @@ package game_state;
 
 import entity.AEntity;
 import entity.movables.BasicEnemy;
+import entity.movables.BasicEnemy2;
+import entity.movables.Enemy;
 import entity.movables.Player;
 import main.GameStateManager;
 import main.HUD;
@@ -26,7 +28,7 @@ public abstract class ALevelState implements IGameState {
 
     protected Menu menu = null;
 
-    protected List<AEntity> entities;
+    protected List<Enemy> enemies;
 
     // Path to the map file
     protected String mapPath;
@@ -55,7 +57,7 @@ public abstract class ALevelState implements IGameState {
      */
     public void init(GameStateManager gsm) {
         this.gsm = gsm;
-        entities = new ArrayList<>();
+        enemies = new ArrayList<>();
         menu = new Menu(10, 10, gsm);
 
 
@@ -64,11 +66,23 @@ public abstract class ALevelState implements IGameState {
         // Everything depending on the tile map must be created after this
         tm.load();
 
-        player = new Player(100, -500, tm);
+        player = new Player(100, -200, tm);
         hud = new HUD(player);
 
 
-        entities.add(new BasicEnemy(300, -500, player,  tm));
+        enemies.add(new BasicEnemy(300, -500, player,  tm));
+        enemies.add(new BasicEnemy2(500, -500, player,  tm));
+    }
+
+    private void reset(){
+        enemies.clear();
+
+        player = new Player(100, -200, tm);
+        hud = new HUD(player);
+
+        enemies.add(new BasicEnemy(300, -500, player,  tm));
+        enemies.add(new BasicEnemy2(500, -500, player,  tm));
+
     }
 
 
@@ -78,7 +92,6 @@ public abstract class ALevelState implements IGameState {
      * @param mousePos the position of the mouse
      */
     public void update(Point mousePos) {
-
         menu.update(mousePos);
         // The game pauses if the menu is open, aka nothing updates
         if (!menu.isOpen()) {
@@ -88,13 +101,11 @@ public abstract class ALevelState implements IGameState {
 
             // the player
             player.update(mousePos);
-            if(player.isDead()){
-                player.respawn(100, -500);
-            }
 
 
-            // update the entities
-            Iterator<AEntity> it = entities.iterator();
+
+            // update the enemies
+            Iterator<Enemy> it = enemies.iterator();
             while (it.hasNext()) {
                 AEntity e = it.next();
                 e.update();
@@ -105,6 +116,11 @@ public abstract class ALevelState implements IGameState {
 
             hud.update();
 
+        }
+
+        if(player.isDead()){
+            player.respawn(100, -500);
+            //reset();
         }
     }
 
@@ -117,11 +133,11 @@ public abstract class ALevelState implements IGameState {
         bg.draw(g2d);
         tm.draw(g2d);
 
-        player.draw(g2d);
-
-        for (AEntity e : entities) {
+        for (AEntity e : enemies) {
             e.draw(g2d);
         }
+
+        player.draw(g2d);
 
         hud.draw(g2d);
 

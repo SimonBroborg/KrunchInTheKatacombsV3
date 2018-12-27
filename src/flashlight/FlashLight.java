@@ -202,7 +202,7 @@ public class FlashLight {
         }
     }
 
-    // TODO: 2018-07-27 Move this function into a separate class (Segment maybe )
+    // TODO: 2018-07-27 Move this function into a separate class (Segment maybe)
 
     /**
      * Check if the angle collides with a segment. Returns true or false.
@@ -213,6 +213,7 @@ public class FlashLight {
      */
     private boolean checkIntersection(float angle, double rangeModifier) {
         Point closestIntersection = null;
+        Segment closestSegment = null;
         double closestDistance = 0;
 
         // Find closest intersection
@@ -233,12 +234,18 @@ public class FlashLight {
             // If the current intersection point is closer than the closest
             if (closestIntersection == null || Math.hypot(x - intersect.x, y - intersect.y) < closestDistance) {
                 closestIntersection = intersect;
+                closestSegment = segment;
             }
+
+
         }
 
         // If there is a valid intersection point
         if (closestIntersection != null) {
             intersections.add(closestIntersection);
+            intersections.add(new Point((int)closestSegment.getLine().getX1(), (int)closestSegment.getLine().getY1()));
+            intersections.add(new Point((int)closestSegment.getLine().getX2(), (int)closestSegment.getLine().getY2()));
+
             return true;
         }
         return false;
@@ -253,11 +260,13 @@ public class FlashLight {
     /**
      * Sets the intersection points
      */
-    // TODO: 2018-07-26 Set the max range for each intersection
     private void setIntersections() {
         for (double i = -offsetAngle; i < offsetAngle; i += (float) offsetAngle * 2 / 20) {
+
             // Change the range of the "ray" to form a "light bulb"
             double rangeModifier = (Math.pow(Math.abs(i * 0.5), 2));
+
+            // Add a straight line if there is no intersection in that direction
             if (!checkIntersection((float) (normalAbsoluteAngleDegrees(targetAngle + i)), rangeModifier)) {
                 intersections.add(new Point(x + (int) (-(RANGE - rangeModifier) * Math.cos(Math.toRadians((normalAbsoluteAngleDegrees(targetAngle + i))))),
                         y + (int) (-(RANGE - rangeModifier) * Math.sin(Math.toRadians((normalAbsoluteAngleDegrees(targetAngle + i)))))));

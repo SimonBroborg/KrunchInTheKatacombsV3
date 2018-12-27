@@ -13,12 +13,17 @@ public class Player extends AMovable
 {
 	private FlashLight fl;
 	private boolean dead;
+
+	private int number;
+
 	public Player(int x, int y, TileMap tm) {
 		super(x, y, tm);
 
 		// dimensions
 		width = 40;
 		height = 40;
+
+		number = 10;
 
 		// movement
 		moveSpeed = 0.7;
