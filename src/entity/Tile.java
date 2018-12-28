@@ -8,7 +8,7 @@ import java.awt.*;
 /**
  * The tiles which makes up the map
  */
-public abstract class Tile extends AEntity {
+public abstract class Tile extends Entity {
     protected Tile(boolean solid, boolean transparent, String spritePath, int x, int y, TileMap tm) {
         super(x, y, tm);
         this.solid = solid;

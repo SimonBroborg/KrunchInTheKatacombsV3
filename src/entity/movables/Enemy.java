@@ -1,9 +1,10 @@
 package entity.movables;
 
+import entity.Damageable;
 import main.Sprite;
 import map.TileMap;
 
-public abstract class Enemy extends AMovable {
+public abstract class Enemy extends Damageable {
     protected Player player;
 
     /**

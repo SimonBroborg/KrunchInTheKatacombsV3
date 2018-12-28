@@ -1,6 +1,6 @@
 package dialog;
 
-import entity.AEntity;
+import entity.Entity;
 import main.Sprite;
 import map.TileMap;
 
@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * A dialog box showing dialogs or messages
  */
-public class DialogBox extends AEntity
+public class DialogBox extends Entity
 {
     private String text;
 

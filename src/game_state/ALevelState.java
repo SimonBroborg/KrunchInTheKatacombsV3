@@ -1,6 +1,6 @@
 package game_state;
 
-import entity.AEntity;
+import entity.Entity;
 import entity.movables.BasicEnemy;
 import entity.movables.BasicEnemy2;
 import entity.movables.Enemy;
@@ -107,7 +107,7 @@ public abstract class ALevelState implements IGameState {
             // update the enemies
             Iterator<Enemy> it = enemies.iterator();
             while (it.hasNext()) {
-                AEntity e = it.next();
+                Entity e = it.next();
                 e.update();
                 if (e.shouldRemove()) {
                     it.remove();
@@ -133,7 +133,7 @@ public abstract class ALevelState implements IGameState {
         bg.draw(g2d);
         tm.draw(g2d);
 
-        for (AEntity e : enemies) {
+        for (Entity e : enemies) {
             e.draw(g2d);
         }
 

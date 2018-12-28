@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * All things on the screen which has a position
  */
-public abstract class AEntity
+public abstract class Entity
 {
     // Position
     protected int x;
@@ -36,16 +36,13 @@ public abstract class AEntity
     protected int xMap;
     protected int yMap;
 
-    // If the entity lives
-    protected int hp;
-
     /**
      * Creates an entity object
      * @param x the x-position
      * @param y the y-position
      * @param tm the levels tiles, used to check collisions etc
      */
-    protected AEntity(int x, int y, TileMap tm) {
+    protected Entity(int x, int y, TileMap tm) {
         this.tm = tm;
         this.x = x;
         this.y = y;
@@ -70,7 +67,6 @@ public abstract class AEntity
         xMap = 0;
         yMap = 0;
 
-        hp = 100;
     }
 
 
@@ -124,13 +120,7 @@ public abstract class AEntity
         this.y = y;
     }
 
-    /**
-     * Damage the entity
-     * @param dmg The damage which the enemy takes
-     */
-    public void damage(int dmg){
-        setHp(hp - dmg);
-    }
+
 
     /**
      * Get's the maps position. Used to place the entity based on the "camera".
@@ -195,13 +185,6 @@ public abstract class AEntity
         return highlight;
     }
 
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
-
-    public int getHp() {
-        return hp;
-    }
 
 }
 

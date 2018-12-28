@@ -1,6 +1,6 @@
 package entity.movables;
 
-import entity.AEntity;
+import entity.Entity;
 import entity.Tile;
 import map.TileMap;
 
@@ -9,7 +9,7 @@ import java.awt.*;
 /**
  * ALl objects which are able to move
  */
-public abstract class AMovable extends AEntity {
+public abstract class Movable extends Entity {
     // Vectors
     private double dx;
     private double dy;
@@ -35,20 +35,17 @@ public abstract class AMovable extends AEntity {
     protected double jumpStart;
     protected double gravity;
 
-
-
     /**
      * Creates an entity object
-     *
+     * @param x The x-position
+     * @param y The y-position
      * @param tm the levels tiles, used to check collisions etc
      */
-    protected AMovable(int x, int y, final TileMap tm) {
+    protected Movable(int x, int y, final TileMap tm) {
         super(x, y, tm);
 
 
     }
-
-
 
     public void update() {
         super.update();

@@ -1,6 +1,5 @@
 package flashlight;
 
-import com.sun.xml.internal.bind.v2.TODO;
 import entity.Tile;
 import entity.movables.Player;
 import main.GameComponent;
@@ -286,7 +285,6 @@ public class FlashLight {
         // The angle to the first corner
         double firstAngle = (getAngle(new Point((int) segment.getLine().getX1(), (int)segment.getLine().getY1()), new Point(x, y)));
         double secondAngle = (getAngle(new Point((int) segment.getLine().getX2(), (int)segment.getLine().getY2()), new Point(x, y)));
-
 
         if(firstAngle > normalAbsoluteAngleDegrees(targetAngle - offsetAngle) &&  firstAngle < normalAbsoluteAngleDegrees(targetAngle + offsetAngle)){
             intersections.add(new Point((int) segment.getLine().getX1(), (int) segment.getLine().getY1()));

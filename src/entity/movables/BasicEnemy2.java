@@ -2,7 +2,7 @@ package entity.movables;
 
 import map.TileMap;
 
-public class BasicEnemy2 extends Enemy{
+public class BasicEnemy2 extends Enemy {
 
 
     /**
@@ -18,6 +18,7 @@ public class BasicEnemy2 extends Enemy{
 
     @Override
     public void onPlayerColl() {
+        player.damage(50);
         player.kill();
     }
 

@@ -1,5 +1,6 @@
 package entity.movables;
 
+import entity.Damageable;
 import flashlight.FlashLight;
 import main.Sprite;
 import map.TileMap;
@@ -9,12 +10,9 @@ import java.awt.*;
 /**
  *
  */
-public class Player extends AMovable
+public class Player extends Damageable
 {
 	private FlashLight fl;
-	private boolean dead;
-
-	private int number;
 
 	public Player(int x, int y, TileMap tm) {
 		super(x, y, tm);
@@ -22,8 +20,6 @@ public class Player extends AMovable
 		// dimensions
 		width = 40;
 		height = 40;
-
-		number = 10;
 
 		// movement
 		moveSpeed = 0.7;
@@ -33,8 +29,6 @@ public class Player extends AMovable
 		maxFallSpeed = 10;
 		jumpStart = -10;
 		gravity = 0.3;
-
-		dead = false;
 
 		sprite = new Sprite("resources/Sprites/Player/player.png");
 
@@ -69,18 +63,7 @@ public class Player extends AMovable
 		fl.toggle();
 	}
 
-	public void kill(){
-		dead = true;
-	}
 
-	public void respawn(int x, int y){
-		dead = false;
-		setPosition(x, y);
-	}
-
-	public boolean isDead() {
-		return dead;
-	}
 
 	public FlashLight getFlashLight() {
 		return fl;
