@@ -16,6 +16,7 @@ public class BasicEnemy extends Enemy{
 
     @Override
     public void onPlayerColl() {
+        player.damage(10);
         kill();
     }
 

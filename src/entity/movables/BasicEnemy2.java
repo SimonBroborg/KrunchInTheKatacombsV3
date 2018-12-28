@@ -14,7 +14,6 @@ public class BasicEnemy2 extends Enemy{
      */
     public BasicEnemy2(int x, int y, Player player, TileMap tm) {
         super(x, y, player, tm);
-
     }
 
     @Override

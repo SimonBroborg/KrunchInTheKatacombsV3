@@ -19,7 +19,7 @@ public class Fade
      * The constructor
      * @param ms The time in milliseconds which the animation will run for
      * @param from Alhpa value which the animation will start at
-     * @param to The alpha value which the animation will end at
+     * @param to The fadeAlpha value which the animation will end at
      */
     public Fade(int ms, float from, float to){
         this.ms = ms;
@@ -37,7 +37,7 @@ public class Fade
 
     public void update(){
         if(running){
-            // Decide if alpha should increase or decrease
+            // Decide if fadeAlpha should increase or decrease
             if(from >= to && alpha >= to){
                 alpha -= speed;
                 if(alpha <= 0.0f) alpha = 0.0f;

@@ -82,5 +82,8 @@ public class Player extends AMovable
 		return dead;
 	}
 
+	public FlashLight getFlashLight() {
+		return fl;
+	}
 }
 

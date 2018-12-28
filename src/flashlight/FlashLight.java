@@ -1,5 +1,6 @@
 package flashlight;
 
+import com.sun.xml.internal.bind.v2.TODO;
 import entity.Tile;
 import entity.movables.Player;
 import main.GameComponent;
@@ -22,6 +23,11 @@ public class FlashLight {
     private static final int RANGE = 400;
     // How dark it should be outside the flashlight
     private static final float DARKNESS_ALPHA = 0.6f;
+
+    // The "hp" for the flashlight
+    private int batteryPower;
+    private long currentTime;
+    private long previousTime;
 
     private TileMap tm;
 
@@ -77,6 +83,10 @@ public class FlashLight {
         // How broad the flashlight is.
         offsetAngle = 10;
 
+        batteryPower = 100;
+        currentTime = System.currentTimeMillis();
+        previousTime = System.currentTimeMillis();
+
     }
 
     /**
@@ -117,6 +127,11 @@ public class FlashLight {
      * @param mousePos The position of the mouse
      */
     public void update(Point mousePos) {
+
+        // lower the battery power
+        drainBattery();
+
+
         // If the mouse has a position
         if (mousePos != null) {
             targetX = (int) mousePos.getX();
@@ -127,7 +142,7 @@ public class FlashLight {
         x = player.getXMap() + player.getWidth() / 2;
         y = player.getYMap() + player.getHeight() / 2;
 
-        // reset the lists
+        // clear the lists
         segments.clear();
         intersections.clear();
 
@@ -151,6 +166,19 @@ public class FlashLight {
 
             // One point has to be the players position
             poly.addPoint(x, y);
+        }
+    }
+
+    /**
+     * Lower the battery power
+     */
+    private void drainBattery(){
+        currentTime = System.currentTimeMillis();
+        if(currentTime - previousTime >= 1 * 1000){
+            if(batteryPower > 0) {
+                batteryPower--;
+            }
+            previousTime = currentTime;
         }
     }
 
@@ -213,8 +241,9 @@ public class FlashLight {
      */
     private boolean checkIntersection(float angle, double rangeModifier) {
         Point closestIntersection = null;
-        Segment closestSegment = null;
         double closestDistance = 0;
+
+        Segment closestSegment = null;
 
         // Find closest intersection
         for (Segment segment : segments) {
@@ -236,20 +265,42 @@ public class FlashLight {
                 closestIntersection = intersect;
                 closestSegment = segment;
             }
-
-
         }
 
         // If there is a valid intersection point
         if (closestIntersection != null) {
             intersections.add(closestIntersection);
-            intersections.add(new Point((int)closestSegment.getLine().getX1(), (int)closestSegment.getLine().getY1()));
-            intersections.add(new Point((int)closestSegment.getLine().getX2(), (int)closestSegment.getLine().getY2()));
-
+            //checkCornerCollision(closestSegment);
             return true;
         }
         return false;
     }
+
+
+    // TODO: 2018-12-28 Finish this function.
+    /**
+     * check the corners of tiles to see if they can have an intersection with the flashlight, creates an intersection point if so
+     * @param segment The segment to check the corners for 
+     */
+    private void checkCornerCollision(Segment segment){
+        // The angle to the first corner
+        double firstAngle = (getAngle(new Point((int) segment.getLine().getX1(), (int)segment.getLine().getY1()), new Point(x, y)));
+        double secondAngle = (getAngle(new Point((int) segment.getLine().getX2(), (int)segment.getLine().getY2()), new Point(x, y)));
+
+
+        if(firstAngle > normalAbsoluteAngleDegrees(targetAngle - offsetAngle) &&  firstAngle < normalAbsoluteAngleDegrees(targetAngle + offsetAngle)){
+            intersections.add(new Point((int) segment.getLine().getX1(), (int) segment.getLine().getY1()));
+            /*checkIntersection((float) (firstAngle + 0.0001), 1);
+            checkIntersection((float) (firstAngle - 0.0001), 1);*/
+        }
+        if(secondAngle > normalAbsoluteAngleDegrees(targetAngle - offsetAngle) &&  secondAngle < normalAbsoluteAngleDegrees(targetAngle + offsetAngle)){
+            intersections.add(new Point((int) segment.getLine().getX2(), (int) segment.getLine().getY2()));
+           /* checkIntersection((float) (secondAngle + 0.0001), 1);
+            checkIntersection((float) (secondAngle - 0.0001), 1);*/
+
+        }
+    }
+
 
     public void toggle() {
         on = !on;
@@ -334,8 +385,8 @@ public class FlashLight {
         Point2D center = new Point2D.Float(x, y);
         RadialGradientPaint p = new RadialGradientPaint(center, RANGE, fractions, colors);
 
-        // Sets the alpha-channel of the black foreground which covers the screen
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, DARKNESS_ALPHA));
+        // Sets the fadeAlpha-channel of the black foreground which covers the screen
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, DARKNESS_ALPHA * batteryPower / 100));
 
         g2d.setColor(Color.BLACK);
 
@@ -351,9 +402,19 @@ public class FlashLight {
         // The flashlight light
         g2d.fillPolygon(poly);
 
-        // Reset the alpha-channel
+        // Reset the fadeAlpha-channel
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
+        //drawIntersections(g2d);
+    }
+
+
+    private void drawIntersections(Graphics2D g2d) {
+        g2d.setColor(Color.red);
+        for (Point intersect : intersections) {
+            g2d.drawLine(x, y, intersect.x, intersect.y);
+            g2d.fillOval(intersect.x - 5, intersect.y - 5, 10, 10);
+        }
     }
 
     /*
@@ -365,5 +426,9 @@ public class FlashLight {
 
     public void setTargetX(int targetX) {
         this.targetX = targetX;
+    }
+
+    public int getBatteryPower() {
+        return batteryPower;
     }
 }

@@ -1,12 +1,10 @@
 package entity;
 
 import animation.Fade;
-import entity.movables.BasicEnemy;
 import main.Sprite;
 import map.TileMap;
 
 import java.awt.*;
-import java.util.ArrayList;
 
 /**
  * All things on the screen which has a position
@@ -24,7 +22,7 @@ public abstract class AEntity
     // Sprite and animation
     protected Sprite sprite;
     protected Fade fade;
-    protected float alpha;
+    protected float fadeAlpha;
 
     // Flags
     protected boolean remove;
@@ -37,6 +35,9 @@ public abstract class AEntity
     protected TileMap tm;
     protected int xMap;
     protected int yMap;
+
+    // If the entity lives
+    protected int hp;
 
     /**
      * Creates an entity object
@@ -63,10 +64,13 @@ public abstract class AEntity
         facingRight = true;
         solid = true;
 
-        alpha = 1.0f;
+        // For the fade effect
+        fadeAlpha = 1.0f;
 
         xMap = 0;
         yMap = 0;
+
+        hp = 100;
     }
 
 
@@ -118,6 +122,14 @@ public abstract class AEntity
     public void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
+    }
+
+    /**
+     * Damage the entity
+     * @param dmg The damage which the enemy takes
+     */
+    public void damage(int dmg){
+        setHp(hp - dmg);
     }
 
     /**
@@ -182,4 +194,15 @@ public abstract class AEntity
     public boolean isHighlight() {
         return highlight;
     }
+
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getHp() {
+        return hp;
+    }
+
 }
+
+
