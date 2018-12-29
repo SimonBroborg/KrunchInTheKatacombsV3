@@ -63,10 +63,15 @@ public class Player extends Damageable
 		fl.toggle();
 	}
 
-
-
 	public FlashLight getFlashLight() {
 		return fl;
+	}
+
+	@Override
+	public void kill() {
+		super.kill();
+		fl.setBatteryPower(100);
+		fl.turnOff();
 	}
 }
 

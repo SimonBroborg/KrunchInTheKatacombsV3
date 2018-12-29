@@ -186,6 +186,7 @@ public abstract class ALevelState implements IGameState {
     @Override
     public void mouseClicked(MouseEvent e) {
         menu.mouseClicked();
+
     }
 
     @Override

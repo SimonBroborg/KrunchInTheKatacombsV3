@@ -23,6 +23,8 @@ public class FlashLight {
     // How dark it should be outside the flashlight
     private static final float DARKNESS_ALPHA = 0.6f;
 
+    private static final int NUMBER_OF_RAYS = 4;
+
     // The "hp" for the flashlight
     private int batteryPower;
     private long currentTime;
@@ -35,7 +37,6 @@ public class FlashLight {
     private int y;
     private int targetX;
     private int targetY;
-
 
     // The polygon which represents the light of the flashlight
     private Polygon poly;
@@ -127,10 +128,6 @@ public class FlashLight {
      */
     public void update(Point mousePos) {
 
-        // lower the battery power
-        drainBattery();
-
-
         // If the mouse has a position
         if (mousePos != null) {
             targetX = (int) mousePos.getX();
@@ -150,6 +147,9 @@ public class FlashLight {
 
         // Only create the polygon if the flashlight is switched on
         if(on) {
+
+            // lower the battery power
+            drainBattery();
 
             targetAngle = (getAngle(new Point(targetX, targetY), new Point(x, y)));
 
@@ -173,7 +173,7 @@ public class FlashLight {
      */
     private void drainBattery(){
         currentTime = System.currentTimeMillis();
-        if(currentTime - previousTime >= 1 * 1000){
+        if(currentTime - previousTime >= 1 * 500){
             if(batteryPower > 0) {
                 batteryPower--;
             }
@@ -269,7 +269,7 @@ public class FlashLight {
         // If there is a valid intersection point
         if (closestIntersection != null) {
             intersections.add(closestIntersection);
-            //checkCornerCollision(closestSegment);
+            checkCornerCollision(closestSegment);
             return true;
         }
         return false;
@@ -310,7 +310,7 @@ public class FlashLight {
      * Sets the intersection points
      */
     private void setIntersections() {
-        for (double i = -offsetAngle; i < offsetAngle; i += (float) offsetAngle * 2 / 20) {
+        for (double i = -offsetAngle; i < offsetAngle; i += (float) offsetAngle * 2 / NUMBER_OF_RAYS) {
 
             // Change the range of the "ray" to form a "light bulb"
             double rangeModifier = (Math.pow(Math.abs(i * 0.5), 2));
@@ -384,7 +384,7 @@ public class FlashLight {
         RadialGradientPaint p = new RadialGradientPaint(center, RANGE, fractions, colors);
 
         // Sets the fadeAlpha-channel of the black foreground which covers the screen
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, DARKNESS_ALPHA * batteryPower / 100));
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, DARKNESS_ALPHA));
 
         g2d.setColor(Color.BLACK);
 
@@ -396,6 +396,8 @@ public class FlashLight {
         //outer.subtract(new Area(new Rectangle(100 + (int) tm.getXMap(), 100 + (int) tm.getYMap(), 500, 50)));
         g2d.fill(outer);
 
+        g2d.setColor(Color.red);
+
         g2d.setPaint(p);
         // The flashlight light
         g2d.fillPolygon(poly);
@@ -403,7 +405,8 @@ public class FlashLight {
         // Reset the fadeAlpha-channel
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
-        //drawIntersections(g2d);
+        drawIntersections(g2d);
+
     }
 
 
@@ -415,18 +418,15 @@ public class FlashLight {
         }
     }
 
-    /*
-    Setters and getters
-     */
-    public void setTargetY(int targetY) {
-        this.targetY = targetY;
-    }
-
-    public void setTargetX(int targetX) {
-        this.targetX = targetX;
-    }
-
     public int getBatteryPower() {
         return batteryPower;
+    }
+
+    public void setBatteryPower(int batteryPower) {
+        this.batteryPower = batteryPower;
+    }
+
+    public void turnOff(){
+        on = false;
     }
 }

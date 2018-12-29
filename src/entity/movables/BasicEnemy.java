@@ -16,7 +16,7 @@ public class BasicEnemy extends Enemy{
 
     @Override
     public void onPlayerColl() {
-        player.damage(10);
+        //player.damage(1);
         kill();
     }
 
@@ -42,6 +42,11 @@ public class BasicEnemy extends Enemy{
                 setJumping(true);
             }
         }
+    }
 
+    @Override
+    public void kill() {
+        super.kill();
+        remove = true;
     }
 }
