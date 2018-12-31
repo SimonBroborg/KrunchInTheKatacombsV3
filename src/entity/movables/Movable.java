@@ -124,54 +124,44 @@ public abstract class Movable extends Entity {
         leftColl = false;
         rightColl = false;
 
+        System.out.println(tm.getTiles().size());
+
 
         // Collision rectangle for the object
         Rectangle cRect = new Rectangle(x + tm.getX(), (int) yDest + tm.getY() + 1, width, height);
 
-        for (int i = yCordPos - 5; i < yCordPos + 5; i++) {
-            for (int j = xCordPos - 5; j < xCordPos + 5; j++) {
-                if (i >= 0 && j >= 0 && i < tm.getHeight() && j < tm.getWidth()) {
-                    Tile tile = tm.getTiles()[i][j];
+        for(Tile tile : tm.getTiles()) {
 
-                    if (cRect.intersects(tile.getRectangle()) && tile.isSolid() && solid) {
-                        // top collision
-                        if ((int) yDest - dy + height <= tile.getY()) {
-                            yTemp = tile.getY() - height;
-                            dy = 0;
-                            falling = false;
-                        }
-                        // bottom collisions
-                        else if (yDest - dy >= tile.getY() + (int) tile.getRectangle().getHeight()) {
-                            yTemp = tile.getY() + (int) tile.getRectangle().getHeight();
-                            dy = fallSpeed;
-                            falling = true;
-                        }
-                    }
+            if (cRect.intersects(tile.getRectangle()) && tile.isSolid() && solid) {
+                // top collision
+                if ((int) yDest - dy + height <= tile.getY()) {
+                    yTemp = tile.getY() - height;
+                    dy = 0;
+                    falling = false;
+                }
+                // bottom collisions
+                else if (yDest - dy >= tile.getY() + (int) tile.getRectangle().getHeight()) {
+                    yTemp = tile.getY() + (int) tile.getRectangle().getHeight();
+                    dy = fallSpeed;
+                    falling = true;
                 }
             }
         }
 
         cRect = new Rectangle((int) xDest + tm.getX(), y + tm.getY(), width, height);
-        for (int i = yCordPos - 5; i < yCordPos + 5; i++) {
-            for (int j = xCordPos - 5; j < xCordPos + 5; j++) {
-                if (i >= 0 && j >= 0 && i < tm.getHeight() && j < tm.getWidth()) {
-
-                    Tile tile = tm.getTiles()[i][j];
-
-                    if (cRect.intersects(tile.getRectangle()) && tile.isSolid() && solid) {
-                        // collision to the right
-                        if (x + width <= tile.getX()) {
-                            xTemp = tile.getX() - width;
-                            dx = 0;
-                            rightColl = true;
-                        }
-                        // collision to the left
-                        else if (x >= tile.getX() + (int) tile.getRectangle().getWidth()) {
-                            xTemp = tile.getX() + (int) tile.getRectangle().getWidth();
-                            dx = 0;
-                            leftColl = true;
-                        }
-                    }
+        for(Tile tile : tm.getTiles()){
+            if (cRect.intersects(tile.getRectangle()) && tile.isSolid() && solid) {
+                // collision to the right
+                if (x + width <= tile.getX()) {
+                    xTemp = tile.getX() - width;
+                    dx = 0;
+                    rightColl = true;
+                }
+                // collision to the left
+                else if (x >= tile.getX() + (int) tile.getRectangle().getWidth()) {
+                    xTemp = tile.getX() + (int) tile.getRectangle().getWidth();
+                    dx = 0;
+                    leftColl = true;
                 }
             }
         }

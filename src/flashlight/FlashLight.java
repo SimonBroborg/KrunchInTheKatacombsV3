@@ -187,47 +187,46 @@ public class FlashLight {
      */
     private void setSegments() {
         // create segments from each tile
-        for (Tile[] tiles : tm.getTiles()) {
-            for (Tile tile : tiles) {
-                // Get the bounding box rect from the tile
-                Rectangle rect = tile.getRectangle();
-                // If the flashlight can collide with the tile
-                if (tile.isSolid() && player.inRange(tile.getX(), tile.getY(), RANGE + 60)) {
-                    // The corners of the tile
-                    Point upperLeft = new Point(rect.x, rect.y);
-                    Point lowerLeft = new Point(rect.x, rect.y + rect.height);
-                    Point upperRight = new Point(rect.x + rect.width, rect.y);
-                    Point lowerRight = new Point(rect.x + rect.width, rect.y + rect.height);
+        for (Tile tile : tm.getTiles()) {
+            // Get the bounding box rect from the tile
+            Rectangle rect = tile.getRectangle();
+            // If the flashlight can collide with the tile
+            if (tile.isSolid() && player.inRange(tile.getX(), tile.getY(), RANGE + 60)) {
+                // The corners of the tile
+                Point upperLeft = new Point(rect.x, rect.y);
+                Point lowerLeft = new Point(rect.x, rect.y + rect.height);
+                Point upperRight = new Point(rect.x + rect.width, rect.y);
+                Point lowerRight = new Point(rect.x + rect.width, rect.y + rect.height);
 
-                    // The sides of the tile
-                    Segment left = new Segment(upperLeft, lowerLeft);
-                    Segment top = new Segment(upperLeft, upperRight);
-                    Segment bottom = new Segment(lowerLeft, lowerRight);
-                    Segment right = new Segment(upperRight, lowerRight);
+                // The sides of the tile
+                Segment left = new Segment(upperLeft, lowerLeft);
+                Segment top = new Segment(upperLeft, upperRight);
+                Segment bottom = new Segment(lowerLeft, lowerRight);
+                Segment right = new Segment(upperRight, lowerRight);
 
-                    // Upper left
-                    if (x <= upperRight.x && y <= lowerLeft.y) {
-                        segments.add(top);
-                        segments.add(left);
-                    }
-                    // Upper right
-                    else if (x >= upperLeft.x && y <= lowerRight.y) {
-                        segments.add(top);
-                        segments.add(right);
-                    }
-                    // Lower right
-                    else if (x >= lowerLeft.x && y >= upperRight.y) {
-                        segments.add(bottom);
-                        segments.add(right);
-                    }
-                    //Lower left
-                    else if (x <= upperLeft.x && y >= lowerRight.y) {
-                        segments.add(bottom);
-                        segments.add(left);
-                    }
+                // Upper left
+                if (x <= upperRight.x && y <= lowerLeft.y) {
+                    segments.add(top);
+                    segments.add(left);
+                }
+                // Upper right
+                else if (x >= upperLeft.x && y <= lowerRight.y) {
+                    segments.add(top);
+                    segments.add(right);
+                }
+                // Lower right
+                else if (x >= lowerLeft.x && y >= upperRight.y) {
+                    segments.add(bottom);
+                    segments.add(right);
+                }
+                //Lower left
+                else if (x <= upperLeft.x && y >= lowerRight.y) {
+                    segments.add(bottom);
+                    segments.add(left);
                 }
             }
         }
+
     }
 
     // TODO: 2018-07-27 Move this function into a separate class (Segment maybe)

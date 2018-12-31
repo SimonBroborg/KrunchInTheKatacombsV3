@@ -17,7 +17,7 @@ import java.util.Map;
 public class TileMap {
     // Map converting
     private String[][] textMap = null; // Convert the map file to a 2D-array
-    private Tile[][] tileMap = null;  // Convert the text map to a 2D-array of tiles
+    private ArrayList<Tile> tileMap;  // Convert the text map to a 2D-array of tiles
 
     // Position
     private int x;
@@ -78,7 +78,7 @@ public class TileMap {
      * Loads the map by creating all the tiles
      */
     private void loadTileMap() {
-        tileMap = new Tile[height][width];
+        tileMap = new ArrayList<>();
 
         // Loops through the text map and adds a tile
         for (int y = 0; y < textMap.length; y++) {
@@ -88,20 +88,11 @@ public class TileMap {
                 if (Integer.parseInt(textMap[y][x]) != 0) {
                     switch (spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(0)) {
                         case "normalTile":
-                            tileMap[y][x] =
+                            tileMap.add(
                                     new NormalTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
-                                            y * tileHeight, this);
+                                            y * tileHeight, this));
                             break;
-
-                        // In case an tile isn't correct
-                        default:
-                            tileMap[y][x] = new EmptyTile("resources/Sprites/tiles/normalTile.png", x * tileWidth, y * tileHeight, this);
                     }
-                }
-                // create an empty tile if the tile isn't valid
-                else {
-                    tileMap[y][x] =
-                            new EmptyTile("resources/Sprites/tiles/normalTile.png", x * tileWidth, y * tileHeight, this);
                 }
             }
         }
@@ -113,12 +104,11 @@ public class TileMap {
      * @param g2d the graphics object
      */
     public void draw(Graphics2D g2d) {
-        for (Tile[] tiles : tileMap) {
-            for (Tile tile : tiles) {
-                if (!(tile.isTransparent())) {
-                    tile.draw(g2d);
-                }
+        for (Tile tile : tileMap) {
+            if (!(tile.isTransparent())) {
+                tile.draw(g2d);
             }
+
         }
     }
 
@@ -133,7 +123,7 @@ public class TileMap {
     }
 
 
-    public Tile[][] getTiles() {
+    public ArrayList<Tile> getTiles() {
         return tileMap;
     }
 
