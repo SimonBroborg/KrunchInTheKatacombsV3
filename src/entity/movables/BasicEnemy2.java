@@ -1,5 +1,6 @@
 package entity.movables;
 
+import main.Sprite;
 import map.TileMap;
 
 public class BasicEnemy2 extends Enemy {
@@ -14,6 +15,9 @@ public class BasicEnemy2 extends Enemy {
      */
     public BasicEnemy2(int x, int y, Player player, TileMap tm) {
         super(x, y, player, tm);
+        sprite = new Sprite("resources/Sprites/Enemies/be2.png");
+        width = sprite.getWidth();
+        height = sprite.getHeight();
     }
 
     @Override
@@ -34,5 +38,7 @@ public class BasicEnemy2 extends Enemy {
             setLeft(true);
             setRight(false);
         }
+
+        setJumping(hasLeftColl() || hasRightColl()); 
     }
 }

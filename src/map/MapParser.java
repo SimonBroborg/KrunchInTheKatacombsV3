@@ -30,7 +30,7 @@ public class MapParser {
     private TileMap tm;
 
     // contains all the files to the
-    private Map<Integer, String> spritePaths;
+    private Map<Integer, ArrayList<String>> spritePaths;
 
     // A document file (for example the map file)
     private Document doc = null;
@@ -99,16 +99,22 @@ public class MapParser {
                 if (nNode.getNodeType() == Node.ELEMENT_NODE) {
                     Element eElement = (Element) nNode;
 
-                    // Get the tile type
+                    // Get the tile id
                     String id = eElement.getAttribute("id");
+
+                    // Get the tile type
+                    String tileType = eElement.getAttribute("type");
 
                     // Get the path to each tile image
                     String spritePath = mapFile.getPath() + "/../" +
                             eElement.getElementsByTagName("image").item(0).getAttributes().getNamedItem("source")
                                     .getNodeValue();
 
+                    ArrayList<String> tileInfo = new ArrayList<>();
+                    tileInfo.add(tileType);
+                    tileInfo.add(spritePath);
                     // Set the sprite to each different tile types
-                    spritePaths.put(Integer.valueOf(id), spritePath);
+                    spritePaths.put(Integer.valueOf(id), tileInfo);
                 }
             }
 
@@ -127,7 +133,7 @@ public class MapParser {
      * Get the hash map containing the sprite path for each tile type
      * @return A hash map containing the sprite paths
      */
-    public Map<Integer, String> getSpritePaths() {
+    public Map<Integer, ArrayList<String>> getSpritePaths() {
         return spritePaths;
     }
 

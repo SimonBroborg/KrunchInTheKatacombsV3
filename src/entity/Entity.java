@@ -51,6 +51,7 @@ public abstract class Entity
         width = 0;
         height = 0;
 
+        // Sprite and animation
         sprite = null;
         fade = null;
 
@@ -66,11 +67,9 @@ public abstract class Entity
 
         xMap = 0;
         yMap = 0;
-
     }
 
-
-    public void newFade(int ms, float from, float to){
+    protected void newFade(int ms, float from, float to){
         fade = new Fade(ms, from, to);
     }
 
@@ -120,12 +119,10 @@ public abstract class Entity
         this.y = y;
     }
 
-
-
     /**
      * Get's the maps position. Used to place the entity based on the "camera".
      */
-    public void setMapPosition() {
+    private void setMapPosition() {
         xMap = tm.getX();
         yMap = tm.getY();
     }
@@ -183,6 +180,15 @@ public abstract class Entity
 
     public boolean isHighlight() {
         return highlight;
+    }
+
+    private Point getCenter(){
+        return new Point(x + width / 2, y + height / 2);
+    }
+
+    // Check if another entity in a chosen range
+    protected boolean inRange(Entity other, int range){
+        return Math.hypot(other.getCenter().getX() - this.getCenter().getX(), other.getCenter().getY() - this.getCenter().getY()) <= range;
     }
 
 

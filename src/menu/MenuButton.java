@@ -49,7 +49,7 @@ public class MenuButton
      *
      * @param g2d The graphics object
      */
-    public void drawCenteredString(Graphics2D g2d) {
+    private void drawCenteredString(Graphics2D g2d) {
         g2d.setColor(textColor);
         g2d.setFont(new Font("Calibri", Font.PLAIN, 40));
 

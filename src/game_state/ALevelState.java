@@ -1,7 +1,7 @@
 package game_state;
 
 import entity.Entity;
-import entity.movables.BasicEnemy;
+import entity.movables.HunterEnemy;
 import entity.movables.BasicEnemy2;
 import entity.movables.Enemy;
 import entity.movables.Player;
@@ -60,7 +60,6 @@ public abstract class ALevelState implements IGameState {
         enemies = new ArrayList<>();
         menu = new Menu(10, 10, gsm);
 
-
         bg = new Background("resources/Backgrounds/background.jpg", 0);
 
         // Everything depending on the tile map must be created after this
@@ -70,8 +69,8 @@ public abstract class ALevelState implements IGameState {
         hud = new HUD(player);
 
 
-        enemies.add(new BasicEnemy(300, -500, player,  tm));
-        enemies.add(new BasicEnemy2(500, -500, player,  tm));
+        enemies.add(new HunterEnemy(300, -500, player,  tm));
+        //enemies.add(new BasicEnemy2(500, -500, player,  tm));
     }
 
     private void reset(){
@@ -80,7 +79,7 @@ public abstract class ALevelState implements IGameState {
         player = new Player(100, -200, tm);
         hud = new HUD(player);
 
-        enemies.add(new BasicEnemy(300, -500, player,  tm));
+        enemies.add(new HunterEnemy(300, -500, player,  tm));
         enemies.add(new BasicEnemy2(500, -500, player,  tm));
 
     }

@@ -21,9 +21,9 @@ public class FlashLight {
     // The range of the flashlight
     private static final int RANGE = 400;
     // How dark it should be outside the flashlight
-    private static final float DARKNESS_ALPHA = 0.6f;
+    private float darknessAlpha;
 
-    private static final int NUMBER_OF_RAYS = 4;
+    private static final int NUMBER_OF_RAYS = 20;
 
     // The "hp" for the flashlight
     private int batteryPower;
@@ -39,7 +39,7 @@ public class FlashLight {
     private int targetY;
 
     // The polygon which represents the light of the flashlight
-    private Polygon poly;
+    private Polygon lightBulb;
 
     private int offsetAngle;
     // The angle to which the cursor is pointing
@@ -61,6 +61,7 @@ public class FlashLight {
         this.tm = tm;
         this.player = player;
 
+        darknessAlpha = 0.95f;
         on = false;
 
         // The center of the flashlight is based on the players position
@@ -78,7 +79,7 @@ public class FlashLight {
         intersections = new ArrayList<>();
 
         // The flashlight polygon ( points will be set )
-        poly = new Polygon(new int[]{0}, new int[]{0}, 0);
+        lightBulb = new Polygon(new int[]{0}, new int[]{0}, 0);
 
         // How broad the flashlight is.
         offsetAngle = 10;
@@ -142,8 +143,8 @@ public class FlashLight {
         segments.clear();
         intersections.clear();
 
-        // The poly which will be the flashlight
-        poly = new Polygon();
+        // The lightBulb which will be the flashlight
+        lightBulb = new Polygon();
 
         // Only create the polygon if the flashlight is switched on
         if(on) {
@@ -160,11 +161,11 @@ public class FlashLight {
             setIntersections();
             // set the points to draw the polygon
             for (Point intersection : intersections) {
-                poly.addPoint(intersection.x, intersection.y);
+                lightBulb.addPoint(intersection.x, intersection.y);
             }
 
             // One point has to be the players position
-            poly.addPoint(x, y);
+            lightBulb.addPoint(x, y);
         }
     }
 
@@ -269,7 +270,7 @@ public class FlashLight {
         // If there is a valid intersection point
         if (closestIntersection != null) {
             intersections.add(closestIntersection);
-            checkCornerCollision(closestSegment);
+            //checkCornerCollision(closestSegment);
             return true;
         }
         return false;
@@ -377,21 +378,21 @@ public class FlashLight {
      */
     public void draw(Graphics2D g2d) {
         // This creates the "tone-out" flashlight effect
-        float[] fractions = new float[]{0.0f, 0.9f};
+        float[] fractions = new float[]{0.0f, 1.0f};
 
         Color[] colors = new Color[]{new Color(0.0f, 0.0f, 0.0f, 0.0f), Color.BLACK};
         Point2D center = new Point2D.Float(x, y);
         RadialGradientPaint p = new RadialGradientPaint(center, RANGE, fractions, colors);
 
         // Sets the fadeAlpha-channel of the black foreground which covers the screen
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, DARKNESS_ALPHA));
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, darknessAlpha));
 
         g2d.setColor(Color.BLACK);
 
         // Sets an area which is the entire frame except the flashlight
         Area outer = new Area(
                 new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
-        outer.subtract(new Area(poly));
+        outer.subtract(new Area(lightBulb));
 
         //outer.subtract(new Area(new Rectangle(100 + (int) tm.getXMap(), 100 + (int) tm.getYMap(), 500, 50)));
         g2d.fill(outer);
@@ -400,12 +401,12 @@ public class FlashLight {
 
         g2d.setPaint(p);
         // The flashlight light
-        g2d.fillPolygon(poly);
+        g2d.fillPolygon(lightBulb);
 
         // Reset the fadeAlpha-channel
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
-        drawIntersections(g2d);
+        //drawIntersections(g2d);
 
     }
 
@@ -428,5 +429,13 @@ public class FlashLight {
 
     public void turnOff(){
         on = false;
+    }
+
+    public Polygon getLightBulb() {
+        return lightBulb;
+    }
+
+    public void setDarknessAlpha(float darknessAlpha) {
+        this.darknessAlpha = darknessAlpha;
     }
 }

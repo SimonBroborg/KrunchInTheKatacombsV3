@@ -43,8 +43,6 @@ public abstract class Enemy extends Damageable {
     @Override
     public void update() {
         super.update();
-
-
         // check if the player can be killed
         if(hasPlayerCollision()){
             onPlayerColl();

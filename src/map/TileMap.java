@@ -7,6 +7,7 @@ import entity.tile_types.NormalTile;
 import main.GameComponent;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -28,7 +29,7 @@ public class TileMap {
     private int width;
     private int height;
 
-    private Map<Integer, String> spritePaths; // Stores the paths to the different tile sprites
+    private Map<Integer, ArrayList<String>> spritePaths; // Stores the paths to the different tile sprites
     private String mapPath; // The path to the map text file
 
     public TileMap(String mapPath) {
@@ -77,22 +78,31 @@ public class TileMap {
      * Loads the map by creating all the tiles
      */
     private void loadTileMap() {
-        tileMap = new Tile[width][height];
+        tileMap = new Tile[height][width];
 
         // Loops through the text map and adds a tile
         for (int y = 0; y < textMap.length; y++) {
             for (int x = 0; x < textMap[y].length; x++) {
-                if (spritePaths.get(Integer.valueOf(Integer.parseInt(textMap[y][x]) - 1)) != null) {
-                    tileMap[y][x] =
-                            new NormalTile(spritePaths.get(Integer.valueOf(Integer.parseInt(textMap[y][x]) - 1)), x * tileWidth,
-                                    y * tileHeight, this);
+
+                // If it's not an empty tile
+                if (Integer.parseInt(textMap[y][x]) != 0) {
+                    switch (spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(0)) {
+                        case "normalTile":
+                            tileMap[y][x] =
+                                    new NormalTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
+                                            y * tileHeight, this);
+                            break;
+
+                        // In case an tile isn't correct
+                        default:
+                            tileMap[y][x] = new EmptyTile("resources/Sprites/tiles/normalTile.png", x * tileWidth, y * tileHeight, this);
+                    }
                 }
-                // If the tile doesn't exist a empty tile is created
+                // create an empty tile if the tile isn't valid
                 else {
                     tileMap[y][x] =
                             new EmptyTile("resources/Sprites/tiles/normalTile.png", x * tileWidth, y * tileHeight, this);
                 }
-
             }
         }
     }
@@ -117,7 +127,7 @@ public class TileMap {
      * @param x X-coordinate
      * @param y Y-coordinate
      */
-    public void setPosition(int x, int y) {
+    private void setPosition(int x, int y) {
         this.x = x;
         this.y = y;
     }
