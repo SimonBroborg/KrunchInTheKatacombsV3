@@ -1,5 +1,6 @@
 package entity;
 
+import entity.movables.Movable;
 import main.Sprite;
 import map.TileMap;
 
@@ -16,19 +17,21 @@ public abstract class Tile extends Entity {
         this.sprite = new Sprite(spritePath);
         this.x = x;
         this.y = y;
-        this.width = tm.getTileWidth();
-        this.height = tm.getTileHeight();
+        this.width = sprite.getWidth(); // tm.getTileWidth();
+        this.height =  sprite.getHeight(); // tm.getTileHeight();
         this.tm = tm;
         this.highlight = false;
+
     }
 
     public Rectangle getRectangle() {
         return new Rectangle(getXMap(), getYMap(), width, height);
     }
 
-    public void draw(Graphics2D g2d) {
-        g2d.drawImage(sprite.getImage(), getXMap(), getYMap(), width, height, null);
-        g2d.setColor(Color.RED);
+    public abstract void movableCollision(Movable o);
 
+    public void draw(Graphics2D g2d) {
+        if(isOnScreen())
+            g2d.drawImage(sprite.getImage(), getXMap(), getYMap(), width, height, null);
     }
 }

@@ -14,7 +14,6 @@ public class Sprite
     private int width;
     private int height;
 
-
     public Sprite(String spritePath){
         // TODO Resource thingy instead of normal try-catch
         try {

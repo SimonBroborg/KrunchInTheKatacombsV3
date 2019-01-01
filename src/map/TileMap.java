@@ -1,9 +1,12 @@
 package map;
 
 import entity.Tile;
+import entity.Usable.Usable;
 import entity.movables.Player;
-import entity.tile_types.EmptyTile;
+import entity.tile_types.LadderTile;
 import entity.tile_types.NormalTile;
+import entity.tile_types.Torch;
+import flashlight.BackgroundTile;
 import main.GameComponent;
 
 import java.awt.*;
@@ -17,7 +20,9 @@ import java.util.Map;
 public class TileMap {
     // Map converting
     private String[][] textMap = null; // Convert the map file to a 2D-array
-    private ArrayList<Tile> tileMap;  // Convert the text map to a 2D-array of tiles
+    private Tile[][] tileMap = null;  // Convert the text map to a 2D-array of tiles
+
+    private ArrayList<Usable> usables;
 
     // Position
     private int x;
@@ -26,8 +31,10 @@ public class TileMap {
     private int tileWidth;
     private int tileHeight;
 
-    private int width;
-    private int height;
+    private int numCols;
+    private int numRows;
+
+    private float tween;
 
     private Map<Integer, ArrayList<String>> spritePaths; // Stores the paths to the different tile sprites
     private String mapPath; // The path to the map text file
@@ -35,20 +42,25 @@ public class TileMap {
     public TileMap(String mapPath) {
         this.mapPath = mapPath;
         spritePaths = new HashMap<>();
+
+        tween = 0.07f;
+
     }
 
     /**
      * Sets the text map, the variables, and the tile map
      */
     public void load() {
-        final MapParser parser = new MapParser(this);
+        final MapParser parser = new MapParser();
 
         parser.loadTMXFile(mapPath);
 
         textMap = parser.getTextMap();
 
-        width = parser.getWidth();
-        height = parser.getHeight();
+        usables = new ArrayList<>();
+
+        numCols = parser.getWidth();
+        numRows = parser.getHeight();
         tileWidth = parser.getTileWidth();
         tileHeight = parser.getTileHeight();
         spritePaths = parser.getSpritePaths();
@@ -64,6 +76,7 @@ public class TileMap {
     public void update(Player player) {
         setPosition(GameComponent.WIDTH / 2 * GameComponent.SCALE - player.getX(),
                 GameComponent.HEIGHT / 2 * GameComponent.SCALE - player.getY());
+
     }
 
     /**
@@ -78,7 +91,7 @@ public class TileMap {
      * Loads the map by creating all the tiles
      */
     private void loadTileMap() {
-        tileMap = new ArrayList<>();
+        tileMap = new Tile[numRows][numCols];
 
         // Loops through the text map and adds a tile
         for (int y = 0; y < textMap.length; y++) {
@@ -87,28 +100,27 @@ public class TileMap {
                 // If it's not an empty tile
                 if (Integer.parseInt(textMap[y][x]) != 0) {
                     switch (spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(0)) {
-                        case "normalTile":
-                            tileMap.add(
+                        case "background":
+                            tileMap[y][x] =
+                                    new BackgroundTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
+                                            y * tileHeight, this);
+                            break;
+
+                        case "ladder":
+                            tileMap[y][x] = new LadderTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
+                                    y * tileHeight, this);
+                            break;
+                        case "torch":
+                            usables.add(new Torch(true,x * tileWidth, y * tileHeight, this));
+                            break;
+                        default:
+                            tileMap[y][x] =
                                     new NormalTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
-                                            y * tileHeight, this));
+                                            y * tileHeight, this);
                             break;
                     }
                 }
             }
-        }
-    }
-
-    /**
-     * Draws all the tiles to the frame
-     *
-     * @param g2d the graphics object
-     */
-    public void draw(Graphics2D g2d) {
-        for (Tile tile : tileMap) {
-            if (!(tile.isTransparent())) {
-                tile.draw(g2d);
-            }
-
         }
     }
 
@@ -118,12 +130,35 @@ public class TileMap {
      * @param y Y-coordinate
      */
     private void setPosition(int x, int y) {
-        this.x = x;
-        this.y = y;
+        // Make the map movement smoother
+        this.x += (x - this.x) * tween;
+        this.y += (y - this.y) * tween;
+
+        if(this.x > 0){
+            this.x = 0;
+        }
+        if(this.y > 0) {
+            this.y = 0;
+        }
+    }
+
+    /**
+     * Draws all the tiles to the frame
+     *
+     * @param g2d the graphics object
+     */
+    public void draw(Graphics2D g2d) {
+        for(Tile tiles[] : tileMap){
+            for(Tile tile : tiles){
+                if( tile != null && !tile.isTransparent()){
+                    tile.draw(g2d);
+                }
+            }
+        }
     }
 
 
-    public ArrayList<Tile> getTiles() {
+    public Tile[][] getTiles() {
         return tileMap;
     }
 
@@ -135,12 +170,12 @@ public class TileMap {
         return tileHeight;
     }
 
-    public int getHeight() {
-        return height;
+    public int getNumRows() {
+        return numRows;
     }
 
-    public int getWidth() {
-        return width;
+    public int getNumCols() {
+        return numCols;
     }
 
     public int getX() {

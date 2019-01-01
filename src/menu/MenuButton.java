@@ -40,8 +40,8 @@ public class MenuButton
         this.state = state;
 
         hovered = false;
-        //this.width = sprite.getWidth();
-        //this.height = sprite.getHeight();
+        //this.width = sprite.getNumCols();
+        //this.height = sprite.getNumRows();
     }
 
     /**
@@ -81,7 +81,7 @@ public class MenuButton
         if (mousePos != null && checkHover(mousePos)) {
             textColor = new Color(0, 100, 255);
         } else {
-            textColor = Color.WHITE;
+            textColor = Color.BLACK;
         }
     }
 

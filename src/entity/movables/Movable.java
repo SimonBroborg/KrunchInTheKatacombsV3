@@ -14,26 +14,32 @@ public abstract class Movable extends Entity {
     private double dx;
     private double dy;
 
-    private double xTemp;
-    private double yTemp;
+    private double xDest;
+    private double yDest;
 
     // Movement flags
-    private boolean left;
-    private boolean right;
+    protected boolean left;
+    protected boolean right;
     private boolean jumping;
     private boolean falling;
     private boolean leftColl;
     private boolean rightColl;
 
+    protected boolean onLadder;
+    protected boolean climbingUp;
+    protected boolean climbDown;
 
     // More movement
     protected double moveSpeed;
     protected double maxSpeed;
     protected double stopSpeed;
+    protected double airStopSpeed;
     protected double fallSpeed;
     protected double maxFallSpeed;
     protected double jumpStart;
     protected double gravity;
+    protected double climbSpeed;
+    protected double wallJumpStart;
 
     /**
      * Creates an entity object
@@ -43,15 +49,12 @@ public abstract class Movable extends Entity {
      */
     protected Movable(int x, int y, final TileMap tm) {
         super(x, y, tm);
-
-
     }
 
     public void update() {
         super.update();
         getNextPosition();
         checkTileMapCollision();
-        setPosition((int) xTemp, (int) yTemp);
 
         if (right) {
             facingRight = true;
@@ -62,6 +65,16 @@ public abstract class Movable extends Entity {
 
     // Sets the movement vectors based on the players current movement
     private void getNextPosition() {
+        if(onLadder){
+            dy = 0;
+            if(climbingUp){
+                dy = -climbSpeed;
+            }
+            else if(climbDown){
+                dy = climbSpeed;
+            }
+        }
+
         // movement
         if (left) {
             dx -= moveSpeed;
@@ -76,17 +89,20 @@ public abstract class Movable extends Entity {
             }
         } else {
             if (dx > 0) {
-                dx -= stopSpeed;
+                if(falling) dx -= airStopSpeed;
+                else dx -= stopSpeed;
                 if (dx < 0) {
                     dx = 0;
                 }
             } else if (dx < 0) {
-                dx += stopSpeed;
+                if(falling) dx += airStopSpeed;
+                else dx += stopSpeed;
                 if (dx > 0) {
                     dx = 0;
                 }
             }
         }
+
         // jumping
         if (jumping && !falling) {
             dy = jumpStart;
@@ -114,61 +130,71 @@ public abstract class Movable extends Entity {
         int xCordPos = x / tm.getTileWidth();
         int yCordPos = y / tm.getTileHeight();
 
-        // Collision
-        double xDest = x + dx;
-        double yDest = y + dy;
-        xTemp = x;
-        yTemp = y;
+        // Where the movable will end up after its movement
+        xDest = x + dx;
+        yDest = y + dy;
 
-        falling = true; // The object will fall unless there is a collision
+        // Flags
+        falling = true;
+        onLadder = false;
         leftColl = false;
         rightColl = false;
 
-        System.out.println(tm.getTiles().size());
+        // Collision rectangle for the object when moving in the y-axis
+        Rectangle verCRect = new Rectangle(x + tm.getX(), (int) yDest + tm.getY() + 1, width, height);
+        Rectangle horCRect = new Rectangle((int) xDest + tm.getX(), y + tm.getY(), width, height);
 
+        // Collision check for the y-axis
+        for (int i = yCordPos - 3; i < yCordPos + 3; i++) {
+            for (int j = xCordPos - 3; j < xCordPos + 3; j++) {
+                if (i >= 0 && j >= 0 && i < tm.getNumRows() && j < tm.getNumCols()) {
+                    Tile tile = tm.getTiles()[i][j];
+                    if(tile != null) {
+                        if (verCRect.intersects(tile.getRectangle())) {
+                            // top collision
+                            if(tile.isSolid() && solid) {
+                                if (y + height <= tile.getY()) {
+                                    y = tile.getY() - height;
+                                    dy = 0;
+                                    falling = false;
+                                }
+                                // bottom collisions
+                                else {
+                                    y = tile.getY() + (int) tile.getRectangle().getHeight();
+                                    dy = fallSpeed;
+                                    falling = true;
+                                }
+                            }
+                            tile.movableCollision(this);
+                        }
 
-        // Collision rectangle for the object
-        Rectangle cRect = new Rectangle(x + tm.getX(), (int) yDest + tm.getY() + 1, width, height);
+                        else if (horCRect.intersects(tile.getRectangle())) {
 
-        for(Tile tile : tm.getTiles()) {
+                            if(tile.isSolid() && solid) {
+                                // collision to the right
+                                if (x + width <= tile.getX()) {
+                                    x = tile.getX() - width;
+                                    rightColl = true;
+                                }
+                                // collision to the left
+                                else {
+                                    x = tile.getX() + (int) tile.getRectangle().getWidth();
+                                    leftColl = true;
+                                }
+                                dx = 0;
+                            }
 
-            if (cRect.intersects(tile.getRectangle()) && tile.isSolid() && solid) {
-                // top collision
-                if ((int) yDest - dy + height <= tile.getY()) {
-                    yTemp = tile.getY() - height;
-                    dy = 0;
-                    falling = false;
-                }
-                // bottom collisions
-                else if (yDest - dy >= tile.getY() + (int) tile.getRectangle().getHeight()) {
-                    yTemp = tile.getY() + (int) tile.getRectangle().getHeight();
-                    dy = fallSpeed;
-                    falling = true;
-                }
-            }
-        }
+                            tile.movableCollision(this);
+                        }
+                    }
 
-        cRect = new Rectangle((int) xDest + tm.getX(), y + tm.getY(), width, height);
-        for(Tile tile : tm.getTiles()){
-            if (cRect.intersects(tile.getRectangle()) && tile.isSolid() && solid) {
-                // collision to the right
-                if (x + width <= tile.getX()) {
-                    xTemp = tile.getX() - width;
-                    dx = 0;
-                    rightColl = true;
-                }
-                // collision to the left
-                else if (x >= tile.getX() + (int) tile.getRectangle().getWidth()) {
-                    xTemp = tile.getX() + (int) tile.getRectangle().getWidth();
-                    dx = 0;
-                    leftColl = true;
                 }
             }
         }
 
         // Move the object based on the collision
-        yTemp += dy;
-        xTemp += dx;
+        y += dy;
+        x += dx;
     }
 
     /**
@@ -215,4 +241,18 @@ public abstract class Movable extends Entity {
     public boolean hasRightColl() {
         return rightColl;
     }
+
+
+    public void setClimbingUp(boolean climbing) {
+        this.climbingUp = climbing;
+    }
+
+    public void setClimbDown(boolean climbDown) {
+        this.climbDown = climbDown;
+    }
+
+    public void onLadder(boolean b){
+        onLadder = b;
+    }
+
 }

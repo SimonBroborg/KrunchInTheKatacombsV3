@@ -1,14 +1,17 @@
 package game_state;
 
 import entity.Entity;
-import entity.movables.HunterEnemy;
-import entity.movables.BasicEnemy2;
-import entity.movables.Enemy;
-import entity.movables.Player;
+import entity.Usable.Chest;
+import entity.Usable.InfoSign;
+import entity.Usable.Usable;
+import entity.movables.*;
 import main.GameStateManager;
 import main.HUD;
+import main.InfoDisplay;
 import map.*;
 import menu.Menu;
+import java.awt.geom.Area;
+
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -29,6 +32,9 @@ public abstract class ALevelState implements IGameState {
     protected Menu menu = null;
 
     protected List<Enemy> enemies;
+    protected List<Usable> usables;
+
+    protected ArrayList<Area> lightSources;
 
     // Path to the map file
     protected String mapPath;
@@ -41,8 +47,10 @@ public abstract class ALevelState implements IGameState {
 
     protected HUD hud;
 
+    protected InfoDisplay info;
+
     /**
-     * The construcotr takes in a string with the path to the map file
+     * The constructor takes in a string with the path to the map file
      *
      * @param mapPath Path to the levels map file
      */
@@ -58,18 +66,27 @@ public abstract class ALevelState implements IGameState {
     public void init(GameStateManager gsm) {
         this.gsm = gsm;
         enemies = new ArrayList<>();
+        usables = new ArrayList<>();
+        lightSources = new ArrayList<>();
+
         menu = new Menu(10, 10, gsm);
 
         bg = new Background("resources/Backgrounds/background.jpg", 0);
 
         // Everything depending on the tile map must be created after this
         tm.load();
+        usables = tm.getUsables(); 
 
-        player = new Player(100, -200, tm);
+        player = new Player(100, 220, tm);
+
         hud = new HUD(player);
+        info = new InfoDisplay(player);
 
+        usables.add(new Chest(300, -700, tm));
+        usables.add(new InfoSign("This is some text",500, -700, tm));
+        lightSources.add(player.getFlashLight().getLightBulb());
 
-        enemies.add(new HunterEnemy(300, -500, player,  tm));
+        //enemies.add(new HunterEnemy(300, -500, player,  tm));
         //enemies.add(new BasicEnemy2(500, -500, player,  tm));
     }
 
@@ -101,15 +118,24 @@ public abstract class ALevelState implements IGameState {
             // the player
             player.update(mousePos);
 
-
-
             // update the enemies
-            Iterator<Enemy> it = enemies.iterator();
-            while (it.hasNext()) {
-                Entity e = it.next();
+            Iterator<Enemy> eIt = enemies.iterator();
+            while (eIt.hasNext()) {
+                Entity e = eIt.next();
                 e.update();
                 if (e.shouldRemove()) {
-                    it.remove();
+                    eIt.remove();
+                }
+            }
+
+            // update the enemies
+            Iterator<Usable> uIt = usables.iterator();
+            while (uIt.hasNext()) {
+                Usable u = uIt.next();
+                u.update(player);
+
+                if (u.shouldRemove()) {
+                    uIt.remove();
                 }
             }
 
@@ -136,11 +162,18 @@ public abstract class ALevelState implements IGameState {
             e.draw(g2d);
         }
 
+
+        for(Usable u : usables){
+            u.draw(g2d);
+        }
+
         player.draw(g2d);
 
         hud.draw(g2d);
 
         menu.draw(g2d);
+
+        info.draw(g2d);
 
         g2d.dispose();
     }
@@ -160,6 +193,19 @@ public abstract class ALevelState implements IGameState {
             case KeyEvent.VK_D:
                 player.setRight(true);
                 break;
+            case KeyEvent.VK_W:
+                player.setClimbingUp(true);
+                break;
+            case KeyEvent.VK_S:
+                player.setClimbDown(true);
+                break;
+            case KeyEvent.VK_E:
+                for(Usable u : usables){
+                    if(u.canUse()){
+                        u.use();
+                    }
+                }
+                break;
             case KeyEvent.VK_SPACE:
                 player.setJumping(true);
                 break;
@@ -171,6 +217,10 @@ public abstract class ALevelState implements IGameState {
                 break;
             case KeyEvent.VK_ESCAPE:
                 menu.toggle();
+                break;
+            case KeyEvent.VK_F3:
+                info.toggle();
+                break;
         }
     }
 
@@ -179,6 +229,8 @@ public abstract class ALevelState implements IGameState {
     public void keyReleased(final int k) {
         if (k == KeyEvent.VK_A) player.setLeft(false);
         if (k == KeyEvent.VK_D) player.setRight(false);
+        if (k == KeyEvent.VK_W) player.setClimbingUp(false);
+        if (k == KeyEvent.VK_S) player.setClimbDown(false);
         if (k == KeyEvent.VK_SPACE) player.setJumping(false);
     }
 

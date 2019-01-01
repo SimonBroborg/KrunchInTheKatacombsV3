@@ -6,6 +6,7 @@ import map.TileMap;
 public abstract class Damageable extends Movable {
     private int hp;
     private boolean dead;
+    private static final int MAX_HP = 100;
 
     /**
      * Creates an entity object
@@ -23,7 +24,6 @@ public abstract class Damageable extends Movable {
     @Override
     public void update() {
         super.update();
-
         if(hp <= 0){
             kill();
         }
@@ -32,10 +32,9 @@ public abstract class Damageable extends Movable {
      * Damage the entity
      * @param dmg The damage which the enemy takes
      */
-    public void damage(int dmg){
-        setHp(hp - dmg);
+    public void damage(int dmg) {
+        hp -= dmg;
     }
-
 
     public void kill(){
         dead = true;
@@ -44,16 +43,12 @@ public abstract class Damageable extends Movable {
 
     public void respawn(int x, int y){
         dead = false;
-        hp = 100;
+        hp = MAX_HP;
         setPosition(x, y);
     }
 
     public boolean isDead() {
         return dead;
-    }
-
-    public void setHp(int hp) {
-        this.hp = hp;
     }
 
     public int getHp() {

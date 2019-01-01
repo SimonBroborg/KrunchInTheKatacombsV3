@@ -1,6 +1,7 @@
 package entity;
 
 import animation.Fade;
+import main.GameComponent;
 import main.Sprite;
 import map.TileMap;
 
@@ -182,13 +183,17 @@ public abstract class Entity
         return highlight;
     }
 
-    private Point getCenter(){
+    public Point getCenter(){
         return new Point(x + width / 2, y + height / 2);
     }
 
     // Check if another entity in a chosen range
-    protected boolean inRange(Entity other, int range){
+    public boolean inRange(Entity other, int range){
         return Math.hypot(other.getCenter().getX() - this.getCenter().getX(), other.getCenter().getY() - this.getCenter().getY()) <= range;
+    }
+
+    public boolean isOnScreen(){
+        return xMap >= 0 && yMap >= 0 && xMap <= GameComponent.SCALED_WIDTH && yMap <= GameComponent.SCALED_HEIGHT;
     }
 
 

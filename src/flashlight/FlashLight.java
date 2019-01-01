@@ -61,7 +61,7 @@ public class FlashLight {
         this.tm = tm;
         this.player = player;
 
-        darknessAlpha = 0.95f;
+        darknessAlpha = 0.6f;
         on = false;
 
         // The center of the flashlight is based on the players position
@@ -187,42 +187,46 @@ public class FlashLight {
      */
     private void setSegments() {
         // create segments from each tile
-        for (Tile tile : tm.getTiles()) {
-            // Get the bounding box rect from the tile
-            Rectangle rect = tile.getRectangle();
-            // If the flashlight can collide with the tile
-            if (tile.isSolid() && player.inRange(tile.getX(), tile.getY(), RANGE + 60)) {
-                // The corners of the tile
-                Point upperLeft = new Point(rect.x, rect.y);
-                Point lowerLeft = new Point(rect.x, rect.y + rect.height);
-                Point upperRight = new Point(rect.x + rect.width, rect.y);
-                Point lowerRight = new Point(rect.x + rect.width, rect.y + rect.height);
+        for (Tile[] tiles : tm.getTiles()) {
+            for (Tile tile : tiles) {
+                // Get the bounding box rect from the tile
+                if(tile != null) {
+                    Rectangle rect = tile.getRectangle();
+                    // If the flashlight can collide with the tile
+                    if (tile.isSolid() && player.inRange(tile.getX(), tile.getY(), RANGE + 60)) {
+                        // The corners of the tile
+                        Point upperLeft = new Point(rect.x, rect.y);
+                        Point lowerLeft = new Point(rect.x, rect.y + rect.height);
+                        Point upperRight = new Point(rect.x + rect.width, rect.y);
+                        Point lowerRight = new Point(rect.x + rect.width, rect.y + rect.height);
 
-                // The sides of the tile
-                Segment left = new Segment(upperLeft, lowerLeft);
-                Segment top = new Segment(upperLeft, upperRight);
-                Segment bottom = new Segment(lowerLeft, lowerRight);
-                Segment right = new Segment(upperRight, lowerRight);
+                        // The sides of the tile
+                        Segment left = new Segment(upperLeft, lowerLeft);
+                        Segment top = new Segment(upperLeft, upperRight);
+                        Segment bottom = new Segment(lowerLeft, lowerRight);
+                        Segment right = new Segment(upperRight, lowerRight);
 
-                // Upper left
-                if (x <= upperRight.x && y <= lowerLeft.y) {
-                    segments.add(top);
-                    segments.add(left);
-                }
-                // Upper right
-                else if (x >= upperLeft.x && y <= lowerRight.y) {
-                    segments.add(top);
-                    segments.add(right);
-                }
-                // Lower right
-                else if (x >= lowerLeft.x && y >= upperRight.y) {
-                    segments.add(bottom);
-                    segments.add(right);
-                }
-                //Lower left
-                else if (x <= upperLeft.x && y >= lowerRight.y) {
-                    segments.add(bottom);
-                    segments.add(left);
+                        // Upper left
+                        if (x <= upperRight.x && y <= lowerLeft.y) {
+                            segments.add(top);
+                            segments.add(left);
+                        }
+                        // Upper right
+                        else if (x >= upperLeft.x && y <= lowerRight.y) {
+                            segments.add(top);
+                            segments.add(right);
+                        }
+                        // Lower right
+                        else if (x >= lowerLeft.x && y >= upperRight.y) {
+                            segments.add(bottom);
+                            segments.add(right);
+                        }
+                        //Lower left
+                        else if (x <= upperLeft.x && y >= lowerRight.y) {
+                            segments.add(bottom);
+                            segments.add(left);
+                        }
+                    }
                 }
             }
         }
@@ -369,7 +373,6 @@ public class FlashLight {
         return null;
     }
 
-
     /**
      * Draw the flashlight
      *
@@ -383,32 +386,36 @@ public class FlashLight {
         Point2D center = new Point2D.Float(x, y);
         RadialGradientPaint p = new RadialGradientPaint(center, RANGE, fractions, colors);
 
+
         // Sets the fadeAlpha-channel of the black foreground which covers the screen
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, darknessAlpha));
 
         g2d.setColor(Color.BLACK);
 
         // Sets an area which is the entire frame except the flashlight
+
         Area outer = new Area(
                 new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
         outer.subtract(new Area(lightBulb));
 
-        //outer.subtract(new Area(new Rectangle(100 + (int) tm.getXMap(), 100 + (int) tm.getYMap(), 500, 50)));
-        g2d.fill(outer);
-
-        g2d.setColor(Color.red);
-
         g2d.setPaint(p);
+        //g2d.fillPolygon(lightBulb);
+
+        g2d.setColor(Color.BLACK);
+
         // The flashlight light
-        g2d.fillPolygon(lightBulb);
+        g2d.setClip(outer);
+        g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
+
+        g2d.setClip(null);
+
+        //g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
 
         // Reset the fadeAlpha-channel
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
         //drawIntersections(g2d);
-
     }
-
 
     private void drawIntersections(Graphics2D g2d) {
         g2d.setColor(Color.red);
@@ -430,8 +437,8 @@ public class FlashLight {
         on = false;
     }
 
-    public Polygon getLightBulb() {
-        return lightBulb;
+    public Area getLightBulb() {
+        return new Area(lightBulb);
     }
 
     public void setDarknessAlpha(float darknessAlpha) {

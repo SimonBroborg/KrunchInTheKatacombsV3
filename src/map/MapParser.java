@@ -27,7 +27,6 @@ public class MapParser {
     private int tileWidth;
     private int tileHeight;
 
-    private TileMap tm;
 
     // contains all the files to the
     private Map<Integer, ArrayList<String>> spritePaths;
@@ -38,9 +37,8 @@ public class MapParser {
     private String[][] textMap = null;
 
 
-    public MapParser(TileMap tm) {
+    public MapParser() {
         spritePaths = new HashMap<>();
-        this.tm = tm;
     }
 
     public void loadTMXFile(String tmxPath) {

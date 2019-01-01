@@ -43,7 +43,7 @@ public class Menu
 		open = false;
 		alpha = 0;
 
-		menuBackground = new Sprite("resources/Sprites/Misc/menuBackground.png");
+		menuBackground = new Sprite("resources/Backgrounds/paper.jpg");
 		logo = new Sprite("resources/Sprites/Misc/gameLogo.png");
 
 		this.width = menuBackground.getWidth();
@@ -84,8 +84,8 @@ public class Menu
 		g2d.setColor(Color.black);
 		g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
 
+		g2d.drawImage(menuBackground.getImage(), 0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT, null);
 		g2d.drawImage(logo.getImage(), GameComponent.SCALED_WIDTH / 2 - logo.getWidth() / 2, y - logo.getHeight(), null);
-		//g2d.drawImage(menuBackground.getImage(), x, y, width, height, null);
 
 		for (MenuButton mb : buttons) {
 			mb.draw(g2d);
