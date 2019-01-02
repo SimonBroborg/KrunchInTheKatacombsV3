@@ -7,54 +7,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="26e9e8a7-62d8-4a8a-b2a4-b3a8cba207ec" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/entity/Animation.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entity/Usable/Chest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entity/Usable/InfoSign.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entity/Usable/InfoSignMessage.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entity/Usable/Usable.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/entity/tile_types/Torch.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/flashlight/BackgroundTile.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/InfoDisplay.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/KrunchInTheKatacombsVFinal.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/KrunchInTheKatacombsVFinal.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KrunchInTheKatacombsVFinal.iws" beforeDir="false" afterPath="$PROJECT_DIR$/KrunchInTheKatacombsVFinal.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/Tile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/Tile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/movables/Player.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/movables/Player.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/tile_types/EmptyTile.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/tile_types/NormalTile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/tile_types/NormalTile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/flashlight/FlashLight.class" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/game_state/ALevelState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/game_state/ALevelState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/main/GameComponent.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/main/GameComponent.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/main/Sprite.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/main/Sprite.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/map/Background.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/map/Background.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/map/MapParser.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/map/MapParser.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/map/TileMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/map/TileMap.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/menu/Menu.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/menu/Menu.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/menu/MenuButton.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/menu/MenuButton.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Backgrounds/Thumbs.db" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Backgrounds/Thumbs.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Maps/map1.tmx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Maps/map1.tmx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Maps/tileset.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Maps/tileset.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Sprites/Misc/Thumbs.db" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Sprites/Misc/Thumbs.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Sprites/Misc/activSprite.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Sprites/Objects/Chest/Thumbs.db" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Sprites/Objects/Chest/Thumbs.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Sprites/Player/Thumbs.db" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Sprites/Player/Thumbs.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resources/Sprites/Tiles/Thumbs.db" beforeDir="false" afterPath="$PROJECT_DIR$/resources/Sprites/Tiles/Thumbs.db" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Damageable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Damageable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Tile.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/flashlight/FlashLight.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/flashlight/FlashLight.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/game_state/ALevelState.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/entity/Usable/Usable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Usable/Usable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entity/movables/Movable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/movables/Movable.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/entity/movables/Player.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/movables/Player.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/tile_types/EmptyTile.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/tile_types/LadderTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/tile_types/LadderTile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/tile_types/NormalTile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/tile_types/NormalTile.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/flashlight/FlashLight.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/flashlight/FlashLight.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/game_state/ALevelState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game_state/ALevelState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/GameComponent.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GameComponent.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/Sprite.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/Sprite.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/map/Background.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/map/Background.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/map/MapParser.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/map/MapParser.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/map/TileMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/map/TileMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/menu/Menu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/menu/Menu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/menu/MenuButton.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/menu/MenuButton.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -66,15 +27,38 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="FlashLight.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="FlashLight.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/flashlight/FlashLight.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="315">
-              <caret line="410" lean-forward="true" selection-start-line="410" selection-end-line="410" />
+            <state relative-caret-position="275">
+              <caret line="407" column="37" lean-forward="true" selection-start-line="407" selection-start-column="8" selection-end-line="407" selection-end-column="37" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#15679#15680#0" expanded="true" />
-                <element signature="e#15711#15712#0" expanded="true" />
+                <element signature="e#406#438#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ALevelState.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/game_state/ALevelState.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="208" column="33" selection-start-line="208" selection-start-column="33" selection-end-line="208" selection-end-column="33" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/entity/movables/Player.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="197">
+              <caret line="161" column="10" selection-start-line="161" selection-start-column="10" selection-end-line="161" selection-end-column="10" />
+              <folding>
+                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -83,7 +67,7 @@
       <file leaf-file-name="Tile.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/entity/Tile.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
+            <state relative-caret-position="459">
               <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -92,11 +76,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InfoSignMessage.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/entity/Usable/InfoSignMessage.java">
+      <file leaf-file-name="Entity.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/entity/Entity.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="289">
-              <caret line="18" column="25" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="25" />
+            <state relative-caret-position="129">
+              <caret line="79" column="26" selection-start-line="79" selection-start-column="22" selection-end-line="79" selection-end-column="26" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -104,25 +88,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="InfoSign.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/entity/Usable/InfoSign.java">
+      <file leaf-file-name="Movable.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/entity/movables/Movable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="35" column="10" selection-start-line="35" selection-start-column="10" selection-end-line="35" selection-end-column="10" />
+            <state relative-caret-position="261">
+              <caret line="155" column="43" selection-start-line="155" selection-start-column="43" selection-end-line="155" selection-end-column="43" />
               <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ALevelState.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/game_state/ALevelState.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="180">
-              <caret line="134" column="31" selection-start-line="134" selection-start-column="25" selection-end-line="134" selection-end-column="31" />
-              <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#6641#6642#0" expanded="true" />
+                <element signature="e#6673#6674#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -132,25 +105,11 @@
         <entry file="file://$PROJECT_DIR$/src/entity/tile_types/Torch.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
-              <caret line="20" column="36" lean-forward="true" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+              <caret line="20" column="36" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#864#865#0" expanded="true" />
                 <element signature="e#888#889#0" expanded="true" />
-                <element signature="e#876#877#0" expanded="true" />
-                <element signature="e#902#903#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="MapParser.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/map/MapParser.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-527">
-              <caret line="39" column="8" lean-forward="true" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
-              <folding>
-                <element signature="imports" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -159,7 +118,7 @@
       <file leaf-file-name="TileMap.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/map/TileMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2083">
+            <state relative-caret-position="2720">
               <caret line="189" column="8" selection-start-line="189" selection-start-column="8" selection-end-line="189" selection-end-column="23" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -173,7 +132,7 @@
       <file leaf-file-name="Sprite.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/Sprite.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
+            <state relative-caret-position="204">
               <caret line="15" selection-start-line="15" selection-end-line="15" />
             </state>
           </provider>
@@ -182,8 +141,8 @@
       <file leaf-file-name="Usable.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/entity/Usable/Usable.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
+            <state relative-caret-position="257">
+              <caret line="40" column="69" selection-start-line="40" selection-start-column="69" selection-end-line="40" selection-end-column="69" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -202,8 +161,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>setleft</find>
-      <find>getrectagle</find>
       <find>alpha</find>
       <find>player</find>
       <find>darkness</find>
@@ -218,7 +175,6 @@
       <find>range</find>
       <find>getrectangle</find>
       <find>sprite</find>
-      <find>entity</find>
       <find>center</find>
       <find>bg.draw</find>
       <find>setsegment</find>
@@ -228,10 +184,13 @@
       <find>textcolor</find>
       <find>tilemap</find>
       <find>setposition</find>
-      <find>draw</find>
       <find>setpositi</find>
       <find>climb</find>
       <find>usables</find>
+      <find>entity</find>
+      <find>fl.dra</find>
+      <find>draw</find>
+      <find>drawdark</find>
     </findStrings>
     <replaceStrings>
       <replace>BUTTON_HEIGHT</replace>
@@ -274,15 +233,11 @@
         <option value="$PROJECT_DIR$/src/entity/Usable.java" />
         <option value="$PROJECT_DIR$/src/menu/Menu.java" />
         <option value="$PROJECT_DIR$/src/menu/MenuButton.java" />
-        <option value="$PROJECT_DIR$/src/entity/Entity.java" />
         <option value="$PROJECT_DIR$/src/main/InfoDisplay.java" />
         <option value="$PROJECT_DIR$/src/main/GameComponent.java" />
-        <option value="$PROJECT_DIR$/src/entity/Usable/Usable.java" />
         <option value="$PROJECT_DIR$/src/entity/tile_types/NormalTile.java" />
         <option value="$PROJECT_DIR$/src/map/Background.java" />
-        <option value="$PROJECT_DIR$/src/entity/movables/Player.java" />
         <option value="$PROJECT_DIR$/src/entity/Usable/Chest.java" />
-        <option value="$PROJECT_DIR$/src/entity/movables/Movable.java" />
         <option value="$PROJECT_DIR$/src/entity/InfoBoard.java" />
         <option value="$PROJECT_DIR$/src/entity/Usable/InfoBoard.java" />
         <option value="$PROJECT_DIR$/resources/Maps/map1.tmx" />
@@ -290,10 +245,14 @@
         <option value="$PROJECT_DIR$/src/entity/Usable/InfoSign.java" />
         <option value="$PROJECT_DIR$/src/entity/Tile.java" />
         <option value="$PROJECT_DIR$/src/entity/tile_types/TorchTile.java" />
-        <option value="$PROJECT_DIR$/src/map/TileMap.java" />
-        <option value="$PROJECT_DIR$/src/game_state/ALevelState.java" />
         <option value="$PROJECT_DIR$/src/entity/tile_types/Torch.java" />
+        <option value="$PROJECT_DIR$/src/map/TileMap.java" />
+        <option value="$PROJECT_DIR$/src/entity/movables/Movable.java" />
+        <option value="$PROJECT_DIR$/src/entity/Entity.java" />
+        <option value="$PROJECT_DIR$/src/entity/Usable/Usable.java" />
         <option value="$PROJECT_DIR$/src/flashlight/FlashLight.java" />
+        <option value="$PROJECT_DIR$/src/entity/movables/Player.java" />
+        <option value="$PROJECT_DIR$/src/game_state/ALevelState.java" />
       </list>
     </option>
   </component>
@@ -308,6 +267,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="PackagesPane" />
       <pane id="AndroidView" />
       <pane id="Scope" />
       <pane id="ProjectPane">
@@ -352,7 +312,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -511,7 +470,14 @@
       <option name="project" value="LOCAL" />
       <updated>1546260859634</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Updated how the flashlight works. Created usables. Chest created. Improved the tilemap creation system. Collision checking is faster.">
+      <created>1546374048521</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1546374048522</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView">
@@ -568,10 +534,10 @@
     <MESSAGE value="Commented the map parser file and created an abstract class called &quot;Damageable&quot;." />
     <MESSAGE value="Update before setting the tilemap to an ArrayList instead of 2D-array." />
     <MESSAGE value="The tilemap is now an ArrayList instead of 2D-array which lowered the number of tiles checked and the empty tile is no longer needed." />
-    <option name="LAST_COMMIT_MESSAGE" value="The tilemap is now an ArrayList instead of 2D-array which lowered the number of tiles checked and the empty tile is no longer needed." />
+    <MESSAGE value="Updated how the flashlight works. Created usables. Chest created. Improved the tilemap creation system. Collision checking is faster." />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated how the flashlight works. Created usables. Chest created. Improved the tilemap creation system. Collision checking is faster." />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar://F:/Program/Java/jdk-9.0.4/lib/src.zip!/java.desktop/javax/swing/plaf/basic/BasicInternalFrameTitlePane.java" />
     <entry file="file://$PROJECT_DIR$/src/entity/movables/BasicEnemy3.java" />
     <entry file="file://$PROJECT_DIR$/src/animation/Fade.java" />
     <entry file="file://$PROJECT_DIR$/src/game_state/IGameState.java">
@@ -719,16 +685,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/entity/Entity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
-          <caret line="195" column="40" lean-forward="true" selection-start-line="195" selection-start-column="40" selection-end-line="195" selection-end-column="40" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/jre/lib/deploy.jar!/com/sun/deploy/cache/IndexFileObjectInputStream.class">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="102">
@@ -785,16 +741,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/entity/movables/Player.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="200">
-          <caret line="50" column="27" selection-start-line="50" selection-start-column="27" selection-end-line="50" selection-end-column="27" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/entity/Usable/Chest.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -811,17 +757,6 @@
           <caret line="34" column="86" selection-start-line="34" selection-start-column="86" selection-end-line="34" selection-end-column="86" />
           <folding>
             <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/entity/movables/Movable.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1666">
-          <caret line="104" selection-start-line="104" selection-end-line="104" />
-          <folding>
-            <element signature="e#6641#6642#0" expanded="true" />
-            <element signature="e#6673#6674#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -858,8 +793,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/map/MapParser.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-527">
-          <caret line="39" column="8" lean-forward="true" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
+        <state relative-caret-position="425">
+          <caret line="39" column="8" selection-start-line="39" selection-start-column="8" selection-end-line="39" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -868,7 +803,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/entity/Tile.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
+        <state relative-caret-position="459">
           <caret line="33" column="8" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="8" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -876,43 +811,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/game_state/ALevelState.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="180">
-          <caret line="134" column="31" selection-start-line="134" selection-start-column="25" selection-end-line="134" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/entity/tile_types/Torch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="20" column="36" lean-forward="true" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#864#865#0" expanded="true" />
-            <element signature="e#888#889#0" expanded="true" />
-            <element signature="e#876#877#0" expanded="true" />
-            <element signature="e#902#903#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/entity/Usable/Usable.java">
+    <entry file="file://$PROJECT_DIR$/src/main/Sprite.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
-          <caret line="35" lean-forward="true" selection-start-line="35" selection-end-line="35" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+          <caret line="15" selection-start-line="15" selection-end-line="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/map/TileMap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2083">
+        <state relative-caret-position="2720">
           <caret line="189" column="8" selection-start-line="189" selection-start-column="8" selection-end-line="189" selection-end-column="23" />
           <folding>
             <element signature="imports" expanded="true" />
@@ -922,21 +830,83 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/Sprite.java">
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/javax/swing/JEditorPane.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        <state relative-caret-position="145">
+          <caret line="2073" column="17" selection-start-line="2073" selection-start-column="17" selection-end-line="2073" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/entity/movables/Movable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="155" column="43" selection-start-line="155" selection-start-column="43" selection-end-line="155" selection-end-column="43" />
+          <folding>
+            <element signature="e#6641#6642#0" expanded="true" />
+            <element signature="e#6673#6674#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/entity/Entity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="129">
+          <caret line="79" column="26" selection-start-line="79" selection-start-column="22" selection-end-line="79" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/entity/Usable/Usable.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="257">
+          <caret line="40" column="69" selection-start-line="40" selection-start-column="69" selection-end-line="40" selection-end-column="69" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/entity/tile_types/Torch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="20" column="36" selection-start-line="20" selection-start-column="36" selection-end-line="20" selection-end-column="36" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#864#865#0" expanded="true" />
+            <element signature="e#888#889#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/entity/movables/Player.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="197">
+          <caret line="161" column="10" selection-start-line="161" selection-start-column="10" selection-end-line="161" selection-end-column="10" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/flashlight/FlashLight.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="315">
-          <caret line="410" lean-forward="true" selection-start-line="410" selection-end-line="410" />
+        <state relative-caret-position="275">
+          <caret line="407" column="37" lean-forward="true" selection-start-line="407" selection-start-column="8" selection-end-line="407" selection-end-column="37" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#15679#15680#0" expanded="true" />
-            <element signature="e#15711#15712#0" expanded="true" />
+            <element signature="e#406#438#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/game_state/ALevelState.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="289">
+          <caret line="208" column="33" selection-start-line="208" selection-start-column="33" selection-end-line="208" selection-end-column="33" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

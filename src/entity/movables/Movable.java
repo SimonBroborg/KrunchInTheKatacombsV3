@@ -153,7 +153,7 @@ public abstract class Movable extends Entity {
                         if (verCRect.intersects(tile.getRectangle())) {
                             // top collision
                             if(tile.isSolid() && solid) {
-                                if (y + height <= tile.getY()) {
+                                if (y - dy + height <= tile.getY()) {
                                     y = tile.getY() - height;
                                     dy = 0;
                                     falling = false;

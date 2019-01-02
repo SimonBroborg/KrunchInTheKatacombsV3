@@ -5,6 +5,7 @@ import entity.Usable.Chest;
 import entity.Usable.InfoSign;
 import entity.Usable.Usable;
 import entity.movables.*;
+import main.GameComponent;
 import main.GameStateManager;
 import main.HUD;
 import main.InfoDisplay;
@@ -16,6 +17,7 @@ import java.awt.geom.Area;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Point2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -34,7 +36,8 @@ public abstract class ALevelState implements IGameState {
     protected List<Enemy> enemies;
     protected List<Usable> usables;
 
-    protected ArrayList<Area> lightSources;
+    protected ArrayList<Rectangle> lightSources;
+    protected Area lightMap;
 
     // Path to the map file
     protected String mapPath;
@@ -58,6 +61,8 @@ public abstract class ALevelState implements IGameState {
         this.mapPath = mapPath;
 
         tm = new TileMap(mapPath);
+
+
     }
 
     /**
@@ -73,9 +78,13 @@ public abstract class ALevelState implements IGameState {
 
         bg = new Background("resources/Backgrounds/background.jpg", 0);
 
+
         // Everything depending on the tile map must be created after this
         tm.load();
-        usables = tm.getUsables(); 
+        usables = tm.getUsables();
+
+        lightMap = new Area(
+                new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
 
         player = new Player(100, 220, tm);
 
@@ -84,7 +93,6 @@ public abstract class ALevelState implements IGameState {
 
         usables.add(new Chest(300, -700, tm));
         usables.add(new InfoSign("This is some text",500, -700, tm));
-        lightSources.add(player.getFlashLight().getLightBulb());
 
         //enemies.add(new HunterEnemy(300, -500, player,  tm));
         //enemies.add(new BasicEnemy2(500, -500, player,  tm));
@@ -167,6 +175,8 @@ public abstract class ALevelState implements IGameState {
             u.draw(g2d);
         }
 
+        drawDark(g2d);
+
         player.draw(g2d);
 
         hud.draw(g2d);
@@ -176,6 +186,45 @@ public abstract class ALevelState implements IGameState {
         info.draw(g2d);
 
         g2d.dispose();
+    }
+
+    public void drawDark(Graphics2D g2d){
+        // This creates the "tone-out" flashlight effect
+        float[] fractions = new float[]{0.0f, 1.0f};
+
+        Color[] colors = new Color[]{new Color(0.0f, 0.0f, 0.0f, 0.0f), Color.BLACK};
+        Point2D center;
+        RadialGradientPaint p;
+
+        lightSources.clear();
+        lightMap = new Area(
+                new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
+        int lightSize = 400;
+
+        for(Usable u : usables){
+            lightSources.add(new Rectangle((int)u.getCenter().getX() + tm.getX() - lightSize /2, (int)u.getCenter().getY() + tm.getY() - lightSize / 2, lightSize, lightSize));
+            lightMap.subtract(new Area(lightSources.get(lightSources.size() -1)));
+        }
+
+        float darknessAlpha = 0.7f;
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, darknessAlpha));
+
+        for(Rectangle light : lightSources){
+            center = new Point((int)light.getX() + (int)light.getWidth() / 2, (int)light.getY() + (int)light.getHeight() / 2);
+            p = new RadialGradientPaint(center, (int)light.getWidth()/2, fractions, colors);
+            g2d.setPaint(p);
+            g2d.fillRect((int)light.getX(), (int)light.getY(), (int)light.getWidth(),(int)light.getHeight());
+        }
+
+
+        g2d.setColor(Color.BLACK);
+
+        g2d.setClip(lightMap);
+        g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
+        g2d.setClip(null);
+
+        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+
     }
 
 

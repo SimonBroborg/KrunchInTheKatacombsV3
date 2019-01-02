@@ -186,8 +186,14 @@ public class FlashLight {
      * Loops through all the tiles and creates line segments based on their sides and the players position.
      */
     private void setSegments() {
+        /*int xOffset = RANGE / tm.getTileWidth();
+        int yOffset = RANGE / tm.getTileHeight();
+
+        int tileX = x / tm.getTileWidth();
+        int tileY = y / tm.getTileHeight()
+           */
         // create segments from each tile
-        for (Tile[] tiles : tm.getTiles()) {
+        for (Tile tiles[] : tm.getTiles()) {
             for (Tile tile : tiles) {
                 // Get the bounding box rect from the tile
                 if(tile != null) {
@@ -399,6 +405,7 @@ public class FlashLight {
         outer.subtract(new Area(lightBulb));
 
         g2d.setPaint(p);
+        g2d.drawRect(x, y, 100, 100);
         //g2d.fillPolygon(lightBulb);
 
         g2d.setColor(Color.BLACK);
@@ -408,8 +415,6 @@ public class FlashLight {
         g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
 
         g2d.setClip(null);
-
-        //g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
 
         // Reset the fadeAlpha-channel
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));

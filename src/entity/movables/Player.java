@@ -159,7 +159,7 @@ public class Player extends Damageable
 
 	@Override
 	public void draw(Graphics2D g2d) {
-		fl.draw(g2d);
+		//fl.draw(g2d);
 
 		if (facingRight) {
 			g2d.drawImage(animation.getImage(), x + xMap, y + yMap, width, height, null);

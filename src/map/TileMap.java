@@ -185,4 +185,8 @@ public class TileMap {
     public int getY() {
         return y;
     }
+
+    public ArrayList<Usable> getUsables() {
+        return usables;
+    }
 }

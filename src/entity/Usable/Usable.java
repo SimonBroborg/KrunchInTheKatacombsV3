@@ -38,7 +38,7 @@ public abstract class Usable extends Movable {
     public void draw(Graphics2D g2d) {
         super.draw(g2d);
         if(canUse){
-            g2d.drawImage(useSprite.getImage(), x + width, y - useSprite.getHeight() - 5, null);
+            g2d.drawImage(useSprite.getImage(), x+ xMap + width, y + yMap - useSprite.getHeight() - 5, null);
         }
     }
 
