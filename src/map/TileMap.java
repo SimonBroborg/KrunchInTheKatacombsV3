@@ -23,6 +23,7 @@ public class TileMap {
     private Tile[][] tileMap = null;  // Convert the text map to a 2D-array of tiles
 
     private ArrayList<Usable> usables;
+    private ArrayList<Torch> torches;
 
     // Position
     private int x;
@@ -58,6 +59,7 @@ public class TileMap {
         textMap = parser.getTextMap();
 
         usables = new ArrayList<>();
+        torches = new ArrayList<>();
 
         numCols = parser.getWidth();
         numRows = parser.getHeight();
@@ -111,7 +113,7 @@ public class TileMap {
                                     y * tileHeight, this);
                             break;
                         case "torch":
-                            usables.add(new Torch(true,x * tileWidth, y * tileHeight, this));
+                            torches.add(new Torch(true,x * tileWidth, y * tileHeight, this));
                             break;
                         default:
                             tileMap[y][x] =
@@ -188,5 +190,9 @@ public class TileMap {
 
     public ArrayList<Usable> getUsables() {
         return usables;
+    }
+
+    public ArrayList<Torch> getTorches() {
+        return torches;
     }
 }

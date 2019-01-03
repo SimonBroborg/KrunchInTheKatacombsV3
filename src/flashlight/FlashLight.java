@@ -394,21 +394,21 @@ public class FlashLight {
 
 
         // Sets the fadeAlpha-channel of the black foreground which covers the screen
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, darknessAlpha));
+       /* g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, darknessAlpha));
 
-        g2d.setColor(Color.BLACK);
+        g2d.setColor(Color.BLACK);*/
 
         // Sets an area which is the entire frame except the flashlight
 
-        Area outer = new Area(
+        /*Area outer = new Area(
                 new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
-        outer.subtract(new Area(lightBulb));
+        outer.subtract(new Area(lightBulb));*/
 
         g2d.setPaint(p);
-        g2d.drawRect(x, y, 100, 100);
-        //g2d.fillPolygon(lightBulb);
 
-        g2d.setColor(Color.BLACK);
+        g2d.fillPolygon(lightBulb);
+
+        /*g2d.setColor(Color.BLACK);
 
         // The flashlight light
         g2d.setClip(outer);
@@ -418,7 +418,7 @@ public class FlashLight {
 
         // Reset the fadeAlpha-channel
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-
+*/
         //drawIntersections(g2d);
     }
 
