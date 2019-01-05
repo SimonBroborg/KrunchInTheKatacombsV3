@@ -55,4 +55,7 @@ public abstract class Enemy extends Damageable {
 
     public abstract void onPlayerColl();
 
+    public void setPlayer(Player player) {
+        this.player = player;
+    }
 }

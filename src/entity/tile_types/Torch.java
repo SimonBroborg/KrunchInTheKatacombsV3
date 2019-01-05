@@ -32,7 +32,6 @@ public class Torch extends Usable {
 
         sprite = new Sprite("resources/Sprites/Tiles/platformerTiles/Tiles/torch.png");
 
-
         animation.setFrames(bi);
         animation.setDelay(400);
 
@@ -46,8 +45,10 @@ public class Torch extends Usable {
     @Override
     public void update(Player p) {
         super.update(p);
-        animation.update();
-        lightSource.update();
+        if(lit) {
+            animation.update();
+            lightSource.update();
+        }
     }
 
     @Override

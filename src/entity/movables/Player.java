@@ -21,6 +21,8 @@ public class Player extends Damageable
 	private FlashLight fl;
 	private Animation animation;
 
+	private Point spawnPoint;
+
 	private ArrayList<BufferedImage[]> sprites;
 	private final int[] numFrames = {
 			2, 8, 1, 2, 4, 2, 5

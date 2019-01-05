@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<tileset name="tileset" tilewidth="70" tileheight="146" tilecount="175" columns="0">
+<tileset name="tileset" tilewidth="70" tileheight="146" tilecount="178" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
  <tile id="1" type="background">
   <image width="40" height="40" source="../Sprites/Tiles/rockTile.gif"/>
@@ -525,5 +525,14 @@
  </tile>
  <tile id="358">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/window.png"/>
+ </tile>
+ <tile id="359" type="player">
+  <image width="66" height="92" source="../Sprites/Tiles/platformerTiles/Player/p1_front.png"/>
+ </tile>
+ <tile id="360" type="hunterEnemy">
+  <image width="40" height="40" source="../Sprites/Enemies/hunterEnemy.png"/>
+ </tile>
+ <tile id="361" type="shadowEnemy">
+  <image width="50" height="50" source="../Sprites/Enemies/shadow.png"/>
  </tile>
 </tileset>

@@ -1,10 +1,11 @@
-package entity.movables;
+package entity.movables.Enemies;
 
+import entity.movables.Enemy;
+import entity.movables.Player;
 import main.Sprite;
 import map.TileMap;
 
-public class HunterEnemy extends Enemy{
-    private boolean alerted;
+public class HunterEnemy extends Enemy {
 
     /**
      * Creates an entity object
@@ -16,6 +17,7 @@ public class HunterEnemy extends Enemy{
     public HunterEnemy(int x, int y, Player player, TileMap tm) {
         super(x, y, player, tm);
         jumpStart = -10;
+        sprite = new Sprite("resources/Sprites/Enemies/hunterEnemy.png");
     }
 
     @Override
@@ -26,7 +28,7 @@ public class HunterEnemy extends Enemy{
     @Override
     public void update() {
         super.update();
-        alerted = false;
+        boolean alerted = false;
 
         // The hunter will find the player uses the flashlight on it
         if(player.getFlashLight().getLightBulb().intersects(this.getRectangle())){

@@ -45,6 +45,8 @@ public class FlashLight {
     // The angle to which the cursor is pointing
     private double targetAngle;
 
+    private Area lightMap;
+
     // The angles in which the lines should be checked
     //private List<Float> uniAngles;
     private List<Segment> segments;
@@ -83,6 +85,8 @@ public class FlashLight {
 
         // How broad the flashlight is.
         offsetAngle = 10;
+
+        lightMap = new Area(new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
 
         batteryPower = 100;
         currentTime = System.currentTimeMillis();
@@ -406,8 +410,10 @@ public class FlashLight {
 
         g2d.setPaint(p);
 
+        g2d.setClip(lightMap);
         g2d.fillPolygon(lightBulb);
 
+        g2d.setClip(null);
         /*g2d.setColor(Color.BLACK);
 
         // The flashlight light
@@ -448,5 +454,9 @@ public class FlashLight {
 
     public void setDarknessAlpha(float darknessAlpha) {
         this.darknessAlpha = darknessAlpha;
+    }
+
+    public void setLightMap(Area lightMap) {
+        this.lightMap = lightMap;
     }
 }

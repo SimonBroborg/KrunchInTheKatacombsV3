@@ -3,10 +3,13 @@ package entity;
 import entity.movables.Movable;
 import map.TileMap;
 
+import java.awt.*;
+
 public abstract class Damageable extends Movable {
     private int hp;
     private boolean dead;
     private static final int MAX_HP = 100;
+    private Point spawnPoint;
 
     /**
      * Creates an entity object
@@ -19,6 +22,8 @@ public abstract class Damageable extends Movable {
         super(x, y, tm);
         dead = false;
         hp = 100;
+
+        spawnPoint = new Point(x, y);
     }
 
     @Override
@@ -41,10 +46,10 @@ public abstract class Damageable extends Movable {
         hp = 0;
     }
 
-    public void respawn(int x, int y){
+    public void respawn(){
         dead = false;
         hp = MAX_HP;
-        setPosition(x, y);
+        setPosition((int) spawnPoint.getX(), (int) spawnPoint.getY());
     }
 
     public boolean isDead() {

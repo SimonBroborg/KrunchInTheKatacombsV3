@@ -2,7 +2,10 @@ package map;
 
 import entity.Tile;
 import entity.Usable.Usable;
+import entity.movables.Enemy;
+import entity.movables.Enemies.HunterEnemy;
 import entity.movables.Player;
+import entity.movables.Enemies.ShadowEnemy;
 import entity.tile_types.LadderTile;
 import entity.tile_types.NormalTile;
 import entity.tile_types.Torch;
@@ -24,6 +27,8 @@ public class TileMap {
 
     private ArrayList<Usable> usables;
     private ArrayList<Torch> torches;
+    private ArrayList<Enemy> enemies;
+    private Player player;
 
     // Position
     private int x;
@@ -52,14 +57,16 @@ public class TileMap {
      * Sets the text map, the variables, and the tile map
      */
     public void load() {
-        final MapParser parser = new MapParser();
+        final MapParser parser = new MapParser(this);
 
         parser.loadTMXFile(mapPath);
 
         textMap = parser.getTextMap();
 
-        usables = new ArrayList<>();
-        torches = new ArrayList<>();
+        player = parser.getPlayer();
+        usables = parser.getUsables();
+        enemies = parser.getEnemies();
+        torches = parser.getTorches();
 
         numCols = parser.getWidth();
         numRows = parser.getHeight();
@@ -78,17 +85,7 @@ public class TileMap {
     public void update(Player player) {
         setPosition(GameComponent.WIDTH / 2 * GameComponent.SCALE - player.getX(),
                 GameComponent.HEIGHT / 2 * GameComponent.SCALE - player.getY());
-
     }
-
-    /**
-     * Set the text map for the tile map
-     * @param textMap A 2D-array containing the map
-     */
-    public void setTextmap(final String[][] textMap) {
-        this.textMap = textMap;
-    }
-
     /**
      * Loads the map by creating all the tiles
      */
@@ -111,9 +108,6 @@ public class TileMap {
                         case "ladder":
                             tileMap[y][x] = new LadderTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
                                     y * tileHeight, this);
-                            break;
-                        case "torch":
-                            torches.add(new Torch(true,x * tileWidth, y * tileHeight, this));
                             break;
                         default:
                             tileMap[y][x] =
@@ -191,8 +185,13 @@ public class TileMap {
     public ArrayList<Usable> getUsables() {
         return usables;
     }
-
     public ArrayList<Torch> getTorches() {
         return torches;
+    }
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
+    public Player getPlayer() {
+        return player;
     }
 }

@@ -38,12 +38,6 @@ public class Chest extends Usable {
     }
 
     @Override
-    public void draw(Graphics2D g2d) {
-
-        super.draw(g2d);
-    }
-
-    @Override
     public void use() {
         if(!opened) {
             sprite = new Sprite("resources/Sprites/Objects/Chest/AChest1_opened.png");

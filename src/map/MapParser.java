@@ -1,5 +1,13 @@
 package map;
 
+import entity.Entity;
+import entity.Usable.Chest;
+import entity.Usable.Usable;
+import entity.movables.Enemies.HunterEnemy;
+import entity.movables.Enemies.ShadowEnemy;
+import entity.movables.Enemy;
+import entity.movables.Player;
+import entity.tile_types.Torch;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -30,15 +38,25 @@ public class MapParser {
 
     // contains all the files to the
     private Map<Integer, ArrayList<String>> spritePaths;
+    private ArrayList<Usable> usables;
+    private ArrayList<Torch> torches;
+    private Player player;
+    private ArrayList<Enemy> enemies;
 
     // A document file (for example the map file)
     private Document doc = null;
 
     private String[][] textMap = null;
 
+    private TileMap tm;
 
-    public MapParser() {
+    public MapParser(TileMap tm ) {
         spritePaths = new HashMap<>();
+        this.tm = tm;
+
+        usables = new ArrayList<>();
+        enemies = new ArrayList<>();
+        torches = new ArrayList<>();
     }
 
     public void loadTMXFile(String tmxPath) {
@@ -119,6 +137,41 @@ public class MapParser {
             // Load the map file again
             doc = dBuilder.parse(mapFile);
 
+            NodeList objectList = doc.getElementsByTagName("object");
+
+            for (int i = 0; i < objectList.getLength(); i++) {
+                Node nNode = objectList.item(i);
+                if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+                    Element eElement = (Element) nNode;
+                    System.out.println("Object type \"" + eElement.getAttribute("name") + "\" added! ");
+
+                    int x = (int) Float.parseFloat(eElement.getAttribute("x")) + tm.getX();
+                    int y = (int) Float.parseFloat(eElement.getAttribute("y")) + tm.getY();
+
+                    switch (eElement.getAttribute("name")) {
+                        case "player":
+                            player = new Player(x, y, tm);
+                            break;
+                        case "chest":
+                            usables.add(new Chest(x, y, tm));
+                            break;
+                        case "torch":
+                            torches.add(new Torch(true, x, y, tm));
+                            break;
+                        case "hunterEnemy":
+                            enemies.add(new HunterEnemy(x, y, player, tm));
+                            break;
+                        case "shadowEnemy":
+                            enemies.add(new ShadowEnemy(x, y, player, tm));
+                            break;
+
+                        default:
+                            System.out.println("The object type:  " + eElement.getAttribute("name") + " does not exist.");
+                            break;
+                    }
+                }
+            }
+
 
         } catch (ParserConfigurationException | IOException | SAXException e) {
             e.printStackTrace();
@@ -177,5 +230,21 @@ public class MapParser {
 
     public int getTileWidth() {
         return tileWidth;
+    }
+
+    public Player getPlayer() {
+        return player;
+    }
+
+    public ArrayList<Enemy> getEnemies() {
+        return enemies;
+    }
+
+    public ArrayList<Torch> getTorches() {
+        return torches;
+    }
+
+    public ArrayList<Usable> getUsables() {
+        return usables;
     }
 }

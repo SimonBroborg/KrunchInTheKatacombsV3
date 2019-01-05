@@ -61,57 +61,42 @@ public abstract class ALevelState implements IGameState {
      */
     protected ALevelState(String mapPath) {
         this.mapPath = mapPath;
-
         tm = new TileMap(mapPath);
+        tm.load();
     }
 
     /**
+     * Initialize lists and instances
      * @param gsm the game state manager which controls the current state
      */
     public void init(GameStateManager gsm) {
         this.gsm = gsm;
+
+        // Initialize the array lists
         enemies = new ArrayList<>();
         usables = new ArrayList<>();
         torches = new ArrayList<>();
-
         menu = new Menu(10, 10, gsm);
 
         bg = new Background("resources/Backgrounds/background.jpg", 0);
 
-
-        // Everything depending on the tile map must be created after this
-        tm.load();
-
+        // Set the usables and torches
         usables = tm.getUsables();
         torches = tm.getTorches();
         usables.addAll(torches);
+        player = tm.getPlayer();
+        enemies = tm.getEnemies();
 
         lightMap = new Area(
                 new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
 
-        player = new Player(100, 220, tm);
 
         hud = new HUD(player);
         info = new InfoDisplay(player);
 
         usables.add(new Chest(300, -700, tm));
         usables.add(new InfoSign("This is some text",500, -700, tm));
-
-        //enemies.add(new HunterEnemy(300, -500, player,  tm));
-        //enemies.add(new BasicEnemy2(500, -500, player,  tm));
     }
-
-    private void reset(){
-        enemies.clear();
-
-        player = new Player(100, -200, tm);
-        hud = new HUD(player);
-
-        enemies.add(new HunterEnemy(300, -500, player,  tm));
-        enemies.add(new BasicEnemy2(500, -500, player,  tm));
-
-    }
-
 
     /**
      * Updates everything on the screen
@@ -139,7 +124,7 @@ public abstract class ALevelState implements IGameState {
                 }
             }
 
-            // update the enemies
+            // Update the usables
             Iterator<Usable> uIt = usables.iterator();
             while (uIt.hasNext()) {
                 Usable u = uIt.next();
@@ -150,12 +135,13 @@ public abstract class ALevelState implements IGameState {
                 }
             }
 
+            // Update the HUD
             hud.update();
-
         }
 
+        // Respawn the player if it dies
         if(player.isDead()){
-            player.respawn(100, -500);
+            player.respawn();
             //reset();
         }
     }
@@ -173,20 +159,17 @@ public abstract class ALevelState implements IGameState {
             e.draw(g2d);
         }
 
-
         for(Usable u : usables){
             u.draw(g2d);
         }
-
-        player.draw(g2d);
-
         drawDark(g2d);
 
+        player.getFlashLight().draw(g2d);
+        player.draw(g2d);
 
+        // Draw
         hud.draw(g2d);
-
         menu.draw(g2d);
-
         info.draw(g2d);
 
         g2d.dispose();
@@ -199,10 +182,6 @@ public abstract class ALevelState implements IGameState {
         float darknessAlpha = 0.95f;
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, darknessAlpha));
 
-
-        lightMap.subtract(player.getFlashLight().getLightBulb());
-        player.getFlashLight().draw(g2d);
-
         for(Torch t : torches){
             if(t.isLit()) {
                 LightSource ls = t.getLightSource();
@@ -210,12 +189,14 @@ public abstract class ALevelState implements IGameState {
                 ls.draw(g2d);
             }
         }
-
+        player.getFlashLight().setLightMap(lightMap);
+        lightMap.subtract(player.getFlashLight().getLightBulb());
 
         g2d.setColor(Color.BLACK);
 
         g2d.setClip(lightMap);
         g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
+
         g2d.setClip(null);
 
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
@@ -254,7 +235,7 @@ public abstract class ALevelState implements IGameState {
                 player.setJumping(true);
                 break;
             case KeyEvent.VK_R:
-                player.setPosition(100, 100);
+                player.respawn();
                 break;
             case KeyEvent.VK_T:
                 player.toggleFlashlight();
