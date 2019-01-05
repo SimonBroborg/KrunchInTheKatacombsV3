@@ -20,7 +20,7 @@ public class Chest extends Usable {
      */
     public Chest(int x, int y, TileMap tm) {
         super(x, y, tm);
-        sprite = new Sprite("resources/Sprites/Objects/Chest/AChest1.png");
+        sprite = new Sprite("resources/Sprites/Tiles/platformerTiles/Tiles/boxAlt.png");
 
         fallSpeed = 0.5;
         maxFallSpeed = 10;
@@ -40,10 +40,9 @@ public class Chest extends Usable {
     @Override
     public void use() {
         if(!opened) {
-            sprite = new Sprite("resources/Sprites/Objects/Chest/AChest1_opened.png");
+            sprite = new Sprite("resources/Sprites/Tiles/platformerTiles/Tiles/boxEmpty.png");
             width = sprite.getWidth();
             height = sprite.getHeight();
-            y -= width / 2;
             setJumping(true);
         }
         opened = true;

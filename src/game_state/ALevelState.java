@@ -7,7 +7,6 @@ import entity.Usable.InfoSign;
 import entity.Usable.Usable;
 import entity.movables.*;
 import entity.tile_types.Torch;
-import javafx.scene.effect.Blend;
 import main.GameComponent;
 import main.GameStateManager;
 import main.HUD;
@@ -162,10 +161,11 @@ public abstract class ALevelState implements IGameState {
         for(Usable u : usables){
             u.draw(g2d);
         }
-        drawDark(g2d);
 
         player.getFlashLight().draw(g2d);
         player.draw(g2d);
+
+        drawDark(g2d);
 
         // Draw
         hud.draw(g2d);

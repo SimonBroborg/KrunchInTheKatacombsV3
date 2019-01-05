@@ -151,18 +151,28 @@ public class MapParser {
                     switch (eElement.getAttribute("name")) {
                         case "player":
                             player = new Player(x, y, tm);
+                            player.setPosition(x, player.getY() - player.getHeight());
                             break;
                         case "chest":
-                            usables.add(new Chest(x, y, tm));
+                            Chest c = new Chest(x, y, tm);
+                            c.setPosition(x, c.getY() - c.getHeight());
+                            usables.add(c);
                             break;
                         case "torch":
-                            torches.add(new Torch(true, x, y, tm));
+                            Torch t = new Torch(true, x, y, tm);
+                            t.setPosition(x, t.getY() - t.getHeight());
+                            torches.add(t);
+
                             break;
                         case "hunterEnemy":
-                            enemies.add(new HunterEnemy(x, y, player, tm));
+                            Enemy he = new HunterEnemy(x, y, player, tm);
+                            he.setPosition(x, he.getY() - he.getHeight());
+                            enemies.add(he);
                             break;
                         case "shadowEnemy":
-                            enemies.add(new ShadowEnemy(x, y, player, tm));
+                            Enemy se = new ShadowEnemy(x, y, player, tm);
+                            se.setPosition(x, se.getY() - se.getHeight());
+                            enemies.add(se);
                             break;
 
                         default:

@@ -4,7 +4,6 @@ import entity.Animation;
 import entity.LightSource;
 import entity.Usable.Usable;
 import entity.movables.Player;
-import javafx.scene.effect.Light;
 import main.Sprite;
 import map.TileMap;
 
@@ -38,7 +37,7 @@ public class Torch extends Usable {
         width = sprite.getWidth();
         height = sprite.getHeight();
 
-        lightSource = new LightSource((int)getCenter().getX(), (int)getCenter().getY(), tm);
+        lightSource = new LightSource((int)getCenter().getX(), (int)getCenter().getY() - height, tm);
 
     }
 

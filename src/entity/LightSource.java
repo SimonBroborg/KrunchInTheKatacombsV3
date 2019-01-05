@@ -1,6 +1,5 @@
 package entity;
 
-import javafx.scene.shape.Circle;
 import map.TileMap;
 
 import java.awt.*;
