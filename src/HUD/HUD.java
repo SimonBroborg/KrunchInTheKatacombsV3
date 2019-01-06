@@ -1,6 +1,7 @@
-package main;
+package HUD;
 
 import entity.movables.Player;
+import main.Sprite;
 
 import java.awt.*;
 

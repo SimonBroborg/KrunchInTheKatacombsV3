@@ -2,13 +2,13 @@ package game_state;
 
 import entity.Entity;
 import entity.LightSource;
+import entity.Usable.EventPortal;
 import entity.Usable.Usable;
 import entity.movables.*;
 import entity.tile_types.Torch;
 import main.GameComponent;
 import main.GameStateManager;
-import main.HUD;
-import main.InfoDisplay;
+import HUD.*;
 import map.*;
 import menu.Menu;
 import java.awt.geom.Area;
@@ -17,6 +17,7 @@ import java.awt.geom.Area;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -42,6 +43,7 @@ public abstract class ALevelState implements GameState {
     protected List<Torch> torches;
 
     protected Area lightMap;
+    protected BufferedImage lightMapImage;
 
     // Path to the map file
     protected String mapPath;
@@ -52,9 +54,10 @@ public abstract class ALevelState implements GameState {
 
     protected GameStateManager gsm = null;
 
+    // HUD
     protected HUD hud;
-
     protected InfoDisplay info;
+    protected PopupWindowQueue popupQ;
 
     protected Rectangle foreground;
     protected float foregroundAlpha;
@@ -68,7 +71,6 @@ public abstract class ALevelState implements GameState {
         this.mapPath = mapPath;
         tm = new TileMap(mapPath);
         tm.load();
-
         inited = false;
         loadNext = false;
         loadPrev = false;
@@ -95,14 +97,27 @@ public abstract class ALevelState implements GameState {
         usables = tm.getUsables();
         torches = tm.getTorches();
         usables.addAll(torches);
+
+        for(Usable u : usables){
+            if(u instanceof EventPortal){
+                ((EventPortal) u).setAls(this);
+            }
+        }
         player = tm.getPlayer();
         enemies = tm.getEnemies();
 
         lightMap = new Area(
                 new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
 
+        lightMapImage = new BufferedImage(GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+
         hud = new HUD(player);
         info = new InfoDisplay(player);
+        popupQ = new PopupWindowQueue();
+
+        popupQ.addPopup(new PopupWindow("Welcome to your doom! :D"));
+        popupQ.addPopup(new PopupWindow("I really like popups!"));
+        popupQ.addPopup(new PopupWindow("More popups :P "));
 
         inited = true;
     }
@@ -117,8 +132,10 @@ public abstract class ALevelState implements GameState {
             foregroundAlpha -= 0.01;
         }
         menu.update(mousePos);
+        popupQ.update();
+
         // The game pauses if the menu is open, aka nothing updates
-        if (!menu.isOpen()) {
+        if (!menu.isOpen() && !popupQ.isDisplaying()) {
 
             tm.update(player);
             bg.update();
@@ -190,7 +207,6 @@ public abstract class ALevelState implements GameState {
 
         drawDark(g2d);
 
-
         if(foregroundAlpha > 0.0f){
             g2d.setColor(new Color(0.0f, 0.0f, 0.0f, foregroundAlpha));
             g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
@@ -198,6 +214,7 @@ public abstract class ALevelState implements GameState {
 
 
         // Draw
+        popupQ.draw(g2d);
         hud.draw(g2d);
         menu.draw(g2d);
         info.draw(g2d);
@@ -206,8 +223,12 @@ public abstract class ALevelState implements GameState {
     }
 
     private void drawDark(Graphics2D g2d){
+
         lightMap = new Area(
                 new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
+
+        lightMapImage = new BufferedImage(GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+
 
         float darknessAlpha = 0.95f;
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, darknessAlpha));
@@ -219,6 +240,7 @@ public abstract class ALevelState implements GameState {
                 ls.draw(g2d);
             }
         }
+
         player.getFlashLight().setLightMap(lightMap);
         lightMap.subtract(player.getFlashLight().getLightBulb());
 
@@ -231,8 +253,13 @@ public abstract class ALevelState implements GameState {
 
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
 
-    }
+        BufferedImage image = new BufferedImage(GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT, BufferedImage.TYPE_INT_ARGB);
+        Graphics2D g2 = (Graphics2D) image.createGraphics();
 
+        g2.setColor(Color.black);
+
+        g2.drawRect(0, 0, image.getWidth(), image.getHeight());
+    }
 
     /**
      * Checks if a key is pressed and act correspondingly
@@ -255,11 +282,16 @@ public abstract class ALevelState implements GameState {
                 player.setClimbDown(true);
                 break;
             case KeyEvent.VK_E:
-                for(Usable u : usables){
-                    if(u.canUse()){
-                        u.use();
+                if(popupQ.isDisplaying()){
+                    popupQ.nextPopup();
+                }else {
+                    for (Usable u : usables) {
+                        if (u.canUse()) {
+                            u.use();
+                        }
                     }
                 }
+
                 break;
             case KeyEvent.VK_O:
                 loadPrev = true;
@@ -308,5 +340,13 @@ public abstract class ALevelState implements GameState {
 
     public boolean isInited() {
         return inited;
+    }
+
+    public void setLoadNext(boolean loadNext) {
+        this.loadNext = loadNext;
+    }
+
+    public void setLoadPrev(boolean loadPrev) {
+        this.loadPrev = loadPrev;
     }
 }

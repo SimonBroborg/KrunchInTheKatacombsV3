@@ -27,6 +27,7 @@ public class GameStateManager
         levels = new ArrayList<>();
         levels.add(new Level1State("resources/Maps/map1.tmx"));
         levels.add(new Level1State("resources/Maps/map2.tmx"));
+        levels.add(new Level1State("resources/Maps/map3.tmx"));
 
         currentState = levels.get(currentLevel);
 
@@ -34,6 +35,9 @@ public class GameStateManager
         currentState.init(this);
     }
 
+    /**
+     * Load the previous level if possible
+     */
     public void prevLevel(){
         if(currentLevel > LEVEL1) {
             currentLevel--;
@@ -44,6 +48,9 @@ public class GameStateManager
         }
     }
 
+    /**
+     * Load the next level if possible
+     */
     public void nextLevel(){
         if(currentLevel < levels.size() - 1) {
             currentLevel++;

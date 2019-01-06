@@ -21,7 +21,6 @@ public abstract class Tile extends Entity {
         this.height =  sprite.getHeight(); // tm.getTileHeight();
         this.tm = tm;
         this.highlight = false;
-
     }
 
     public Rectangle getRectangle() {

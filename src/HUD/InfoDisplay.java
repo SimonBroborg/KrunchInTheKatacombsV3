@@ -1,6 +1,7 @@
-package main;
+package HUD;
 
 import entity.movables.Player;
+import main.GameComponent;
 
 import java.awt.*;
 
@@ -24,7 +25,6 @@ public class InfoDisplay {
 
         this.x = 200;
         this.y = 100;
-
     }
 
     public void draw(Graphics2D g2d){

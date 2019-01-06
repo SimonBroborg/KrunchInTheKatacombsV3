@@ -23,7 +23,7 @@ public abstract class Damageable extends Movable {
         dead = false;
         hp = 100;
 
-        spawnPoint = new Point(x, y);
+        spawnPoint = new Point(x, y - 70);
     }
 
     @Override

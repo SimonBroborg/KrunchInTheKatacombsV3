@@ -3,13 +3,9 @@ package map;
 import entity.Tile;
 import entity.Usable.Usable;
 import entity.movables.Enemy;
-import entity.movables.Enemies.HunterEnemy;
 import entity.movables.Player;
-import entity.movables.Enemies.ShadowEnemy;
-import entity.tile_types.LadderTile;
-import entity.tile_types.NormalTile;
-import entity.tile_types.Torch;
-import flashlight.BackgroundTile;
+import entity.tile_types.*;
+import entity.tile_types.BackgroundTile;
 import main.GameComponent;
 
 import java.awt.*;
@@ -107,6 +103,11 @@ public class TileMap {
 
                         case "ladder":
                             tileMap[y][x] = new LadderTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
+                                    y * tileHeight, this);
+                            break;
+
+                        case "abyss":
+                            tileMap[y][x] = new AbyssTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
                                     y * tileHeight, this);
                             break;
                         default:

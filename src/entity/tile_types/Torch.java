@@ -37,7 +37,7 @@ public class Torch extends Usable {
         width = sprite.getWidth();
         height = sprite.getHeight();
 
-        lightSource = new LightSource((int)getCenter().getX(), (int)getCenter().getY() - height, tm);
+        lightSource = new LightSource(400, (int)getCenter().getX(), (int)getCenter().getY() - height, tm);
 
     }
 

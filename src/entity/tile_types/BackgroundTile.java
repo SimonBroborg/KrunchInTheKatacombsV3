@@ -1,4 +1,4 @@
-package flashlight;
+package entity.tile_types;
 
 import entity.Tile;
 import entity.movables.Movable;
@@ -11,6 +11,5 @@ public class BackgroundTile extends Tile {
 
     @Override
     public void movableCollision(Movable o) {
-
     }
 }

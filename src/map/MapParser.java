@@ -2,6 +2,7 @@ package map;
 
 import entity.Entity;
 import entity.Usable.Chest;
+import entity.Usable.EventPortal;
 import entity.Usable.Usable;
 import entity.movables.Enemies.HunterEnemy;
 import entity.movables.Enemies.ShadowEnemy;
@@ -153,22 +154,43 @@ public class MapParser {
                             player = new Player(x, y, tm);
                             player.setPosition(x, player.getY() - player.getHeight());
                             break;
+
+                        case "eventPortalNext":
+                            EventPortal epn = new EventPortal(true, x, y, tm);
+                            epn.setPosition(x, epn.getY() - epn.getHeight());
+                            usables.add(epn);
+                            break;
+
+                        case "eventPortalPrev":
+                            EventPortal epp = new EventPortal(false, x, y, tm);
+                            epp.setPosition(x, epp.getY() - epp.getHeight());
+                            usables.add(epp);
+                            break;
+
                         case "chest":
                             Chest c = new Chest(x, y, tm);
                             c.setPosition(x, c.getY() - c.getHeight());
                             usables.add(c);
                             break;
+
                         case "torch":
-                            Torch t = new Torch(true, x, y, tm);
+                            Torch t = new Torch(false, x, y, tm);
                             t.setPosition(x, t.getY() - t.getHeight());
                             torches.add(t);
-
                             break;
+
+                        case "torchLit":
+                            Torch tl = new Torch(true, x, y, tm);
+                            tl.setPosition(x, tl.getY() - tl.getHeight());
+                            torches.add(tl);
+                            break;
+
                         case "hunterEnemy":
                             Enemy he = new HunterEnemy(x, y, player, tm);
                             he.setPosition(x, he.getY() - he.getHeight());
                             enemies.add(he);
                             break;
+
                         case "shadowEnemy":
                             Enemy se = new ShadowEnemy(x, y, player, tm);
                             se.setPosition(x, se.getY() - se.getHeight());

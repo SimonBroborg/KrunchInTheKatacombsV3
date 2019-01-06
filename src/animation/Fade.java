@@ -1,6 +1,7 @@
 package animation;
 
 import main.GameComponent;
+import main.Sprite;
 
 /**
  * Animation which let's an entity fade in and out
@@ -9,6 +10,8 @@ public class Fade
 {
     private int ms;
     private boolean running;
+
+    private Sprite sprite;
 
     private float from;
     private float to;

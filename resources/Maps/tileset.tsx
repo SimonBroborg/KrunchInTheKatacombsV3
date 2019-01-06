@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <tileset name="tileset" tilewidth="70" tileheight="146" tilecount="178" columns="0">
  <grid orientation="orthogonal" width="1" height="1"/>
- <tile id="1" type="background">
-  <image width="40" height="40" source="../Sprites/Tiles/rockTile.gif"/>
+ <tile id="1" type="rubble">
+  <image width="70" height="70" source="../Sprites/Tiles/rockTile.png"/>
  </tile>
  <tile id="2" type="background">
-  <image width="40" height="40" source="../Sprites/Tiles/normalTile2.png"/>
+  <image width="70" height="70" source="../Sprites/Tiles/normalTilestone.png"/>
  </tile>
  <tile id="3" type="background">
-  <image width="40" height="40" source="../Sprites/Tiles/normalTile.png"/>
+  <image width="70" height="70" source="../Sprites/Tiles/normaltileBrick.png"/>
  </tile>
  <tile id="187">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/box.png"/>
  </tile>
- <tile id="188">
+ <tile id="188" type="crate">
+  <properties>
+   <property name="content" value="pickaxe"/>
+  </properties>
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/boxAlt.png"/>
  </tile>
  <tile id="189">
@@ -87,6 +90,10 @@
  </tile>
  <tile id="212">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/castleHalf.png"/>
+  <objectgroup draworder="index">
+   <object id="5" x="70" y="0" height="70"/>
+   <object id="7" x="0" y="0" width="70" height="70"/>
+  </objectgroup>
  </tile>
  <tile id="213">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/castleHalfLeft.png"/>
@@ -199,7 +206,7 @@
  <tile id="249">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/fence.png"/>
  </tile>
- <tile id="250">
+ <tile id="250" type="background">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/fenceBroken.png"/>
  </tile>
  <tile id="251">
@@ -277,7 +284,7 @@
  <tile id="275" type="ladder">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/ladder_mid.png"/>
  </tile>
- <tile id="276">
+ <tile id="276" type="ladder">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/ladder_top.png"/>
  </tile>
  <tile id="277">
@@ -385,16 +392,19 @@
  <tile id="311">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/sandRight.png"/>
  </tile>
- <tile id="312">
+ <tile id="312" type="textSign">
+  <properties>
+   <property name="text" value="It's a sign!"/>
+  </properties>
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/sign.png"/>
  </tile>
- <tile id="313">
+ <tile id="313" type="sign">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/signExit.png"/>
  </tile>
- <tile id="314">
+ <tile id="314" type="sign">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/signLeft.png"/>
  </tile>
- <tile id="315">
+ <tile id="315" type="sign">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/signRight.png"/>
  </tile>
  <tile id="316">
@@ -514,25 +524,25 @@
  <tile id="354">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/stoneWall.png"/>
  </tile>
- <tile id="355" type="torch">
+ <tile id="355" type="torchLit">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/tochLit.png"/>
  </tile>
- <tile id="356">
-  <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/tochLit2.png"/>
- </tile>
- <tile id="357">
+ <tile id="357" type="torch">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/torch.png"/>
  </tile>
  <tile id="358">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/window.png"/>
  </tile>
- <tile id="359" type="player">
+ <tile id="363" type="player">
   <image width="66" height="92" source="../Sprites/Tiles/platformerTiles/Player/p1_front.png"/>
  </tile>
- <tile id="360" type="hunterEnemy">
-  <image width="40" height="40" source="../Sprites/Enemies/hunterEnemy.png"/>
+ <tile id="364" type="zombEnemy">
+  <image width="66" height="92" source="../Sprites/Tiles/platformerTiles/Player/p2_front.png"/>
  </tile>
- <tile id="361" type="shadowEnemy">
-  <image width="50" height="50" source="../Sprites/Enemies/shadow.png"/>
+ <tile id="365" type="corpse">
+  <image width="67" height="72" source="../Sprites/Tiles/platformerTiles/Player/p2_duck.png"/>
+ </tile>
+ <tile id="366" type="abyss">
+  <image width="70" height="70" source="../Sprites/Tiles/abyss.png"/>
  </tile>
 </tileset>

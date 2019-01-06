@@ -1,6 +1,5 @@
 package entity;
 
-import main.GameComponent;
 import map.TileMap;
 
 import java.awt.*;
@@ -23,10 +22,10 @@ public class LightSource extends Entity {
      * @param y  the y-position
      * @param tm the levels tiles, used to check collisions etc
      */
-    public LightSource(int x, int y, TileMap tm) {
+    public LightSource(int range, int x, int y, TileMap tm) {
         super(x, y, tm);
 
-        range = 400;
+        this.range = range;
 
         colors = new Color[]{new Color(0.0f, 0.0f, 0.0f, 0.0f), Color.BLACK};
         fractions = new float[]{0.0f, 1.0f};
@@ -35,7 +34,6 @@ public class LightSource extends Entity {
     @Override
     public void update() {
         super.update();
-
 
         // Set the rectangle in the center
         light  = new Rectangle(x - range /2 + tm.getX(), y - range / 2 + tm.getY(), range, range);
@@ -50,7 +48,8 @@ public class LightSource extends Entity {
     @Override
     public void draw(Graphics2D g2d) {
         g2d.setPaint(p);
-        g2d.fillOval(light.x, light.y, light.width, light.height);
+        g2d.fillRect(light.x, light.y, light.width, light.height);
+
     }
 
     public Area getLight() {
