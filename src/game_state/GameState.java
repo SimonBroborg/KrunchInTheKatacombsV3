@@ -7,7 +7,7 @@ import main.*;
 /**
  *
  */
-public interface IGameState
+public interface GameState
 
 {
     /**

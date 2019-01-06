@@ -1,28 +1,62 @@
 package main;
 
-import game_state.IGameState;
-import game_state.Level1State;
+import game_state.ALevelState;
+import game_state.GameState;
+import game_state.LevelStates.Level1State;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
+import java.util.logging.Level;
 
 /**
  * This manages and keeps track of the game states and switching between them
  */
 public class GameStateManager
 {
-    private Level1State level1;
-    private IGameState currentState;
+    private GameState currentState;
+    private int currentLevel;
+
+    private ArrayList<ALevelState> levels;
+
+    private static int LEVEL1 = 0;
+    private static int LEVEL2 = 1;
 
     public GameStateManager() {
-        currentState = new Level1State("resources/Maps/map1.tmx");
+        currentLevel = LEVEL1;
+        levels = new ArrayList<>();
+        levels.add(new Level1State("resources/Maps/map1.tmx"));
+        levels.add(new Level1State("resources/Maps/map2.tmx"));
+
+        currentState = levels.get(currentLevel);
+
         // Sets the gsm for every state
         currentState.init(this);
     }
 
+    public void prevLevel(){
+        if(currentLevel > LEVEL1) {
+            currentLevel--;
+            currentState = levels.get(currentLevel);
+            if (!((ALevelState) currentState).isInited()) {
+                currentState.init(this);
+            }
+        }
+    }
+
+    public void nextLevel(){
+        if(currentLevel < levels.size() - 1) {
+            currentLevel++;
+            currentState = levels.get(currentLevel);
+            if (!((ALevelState) currentState).isInited()) {
+                currentState.init(this);
+            }
+        }
+    }
+
     /**
      * Update the current game state
-     * @param mousePos The mous position on the game component
+     * @param mousePos The mouse position on the game component
      */
     public void update(Point mousePos) {
         currentState.update(mousePos);
@@ -35,7 +69,6 @@ public class GameStateManager
     public void draw(Graphics2D g2d) {
         currentState.draw(g2d);
     }
-
 
     public void keyPressed(int k) {
         currentState.keyPressed(k);
@@ -58,7 +91,7 @@ public class GameStateManager
      * Change the current state to a new one
      * @param state The wanted game state
      */
-    public void setState(IGameState state){
+    public void setState(GameState state){
         currentState = state;
     }
 
@@ -67,7 +100,7 @@ public class GameStateManager
      * Get the current game state
      * @return The current game state
      */
-    public IGameState getCurrentState() {
+    public GameState getCurrentState() {
         return currentState;
     }
 }

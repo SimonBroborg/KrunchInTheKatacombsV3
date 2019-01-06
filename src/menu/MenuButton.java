@@ -1,6 +1,6 @@
 package menu;
 
-import game_state.IGameState;
+import game_state.GameState;
 import main.Sprite;
 
 import java.awt.*;
@@ -22,12 +22,12 @@ public class MenuButton
 
     private boolean hovered;
 
-    private IGameState state;
+    private GameState state;
 
     /**
      * Creates a new button
      */
-    public MenuButton(int width, int height, String text, IGameState state) {
+    public MenuButton(int width, int height, String text, GameState state) {
         sprite = null;
 
         this.text = text;
@@ -99,7 +99,7 @@ public class MenuButton
         return hovered;
     }
 
-    public IGameState getState() {
+    public GameState getState() {
         return state;
     }
 

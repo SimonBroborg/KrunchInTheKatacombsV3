@@ -8,7 +8,7 @@ import java.awt.event.MouseEvent;
 /**
  * This state exits the game immidietaly
  */
-public class QuitState implements IGameState
+public class QuitState implements GameState
 {
     public QuitState(GameStateManager gsm) {
 

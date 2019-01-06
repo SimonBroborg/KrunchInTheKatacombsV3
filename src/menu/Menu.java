@@ -1,6 +1,5 @@
 package menu;
 
-import game_state.Level1State;
 import game_state.QuitState;
 import main.GameComponent;
 import main.GameStateManager;

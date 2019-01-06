@@ -2,8 +2,6 @@ package game_state;
 
 import entity.Entity;
 import entity.LightSource;
-import entity.Usable.Chest;
-import entity.Usable.InfoSign;
 import entity.Usable.Usable;
 import entity.movables.*;
 import entity.tile_types.Torch;
@@ -26,7 +24,12 @@ import java.util.List;
 /**
  * Abstract class level state. Sets the default behavior and methods for the levels of the game.
  */
-public abstract class ALevelState implements IGameState {
+public abstract class ALevelState implements GameState {
+
+    private boolean inited;
+
+    private boolean loadNext;
+    private boolean loadPrev;
 
     protected TileMap tm;
 
@@ -53,6 +56,9 @@ public abstract class ALevelState implements IGameState {
 
     protected InfoDisplay info;
 
+    protected Rectangle foreground;
+    protected float foregroundAlpha;
+
     /**
      * The constructor takes in a string with the path to the map file
      *
@@ -62,6 +68,10 @@ public abstract class ALevelState implements IGameState {
         this.mapPath = mapPath;
         tm = new TileMap(mapPath);
         tm.load();
+
+        inited = false;
+        loadNext = false;
+        loadPrev = false;
     }
 
     /**
@@ -78,6 +88,8 @@ public abstract class ALevelState implements IGameState {
         menu = new Menu(10, 10, gsm);
 
         bg = new Background("resources/Backgrounds/background.jpg", 0);
+        foreground = new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
+        foregroundAlpha = 1.0f;
 
         // Set the usables and torches
         usables = tm.getUsables();
@@ -89,12 +101,10 @@ public abstract class ALevelState implements IGameState {
         lightMap = new Area(
                 new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
 
-
         hud = new HUD(player);
         info = new InfoDisplay(player);
 
-        usables.add(new Chest(300, -700, tm));
-        usables.add(new InfoSign("This is some text",500, -700, tm));
+        inited = true;
     }
 
     /**
@@ -103,6 +113,9 @@ public abstract class ALevelState implements IGameState {
      * @param mousePos the position of the mouse
      */
     public void update(Point mousePos) {
+        if(foregroundAlpha > 0.0f){
+            foregroundAlpha -= 0.01;
+        }
         menu.update(mousePos);
         // The game pauses if the menu is open, aka nothing updates
         if (!menu.isOpen()) {
@@ -143,6 +156,16 @@ public abstract class ALevelState implements IGameState {
             player.respawn();
             //reset();
         }
+
+        // Check if another level should be loaded
+        if(loadNext){
+            gsm.nextLevel();
+            loadNext = false;
+        }
+        else if(loadPrev){
+            gsm.prevLevel();
+            loadPrev = false;
+        }
     }
 
     /**
@@ -166,6 +189,13 @@ public abstract class ALevelState implements IGameState {
         player.draw(g2d);
 
         drawDark(g2d);
+
+
+        if(foregroundAlpha > 0.0f){
+            g2d.setColor(new Color(0.0f, 0.0f, 0.0f, foregroundAlpha));
+            g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
+        }
+
 
         // Draw
         hud.draw(g2d);
@@ -231,6 +261,12 @@ public abstract class ALevelState implements IGameState {
                     }
                 }
                 break;
+            case KeyEvent.VK_O:
+                loadPrev = true;
+                break;
+            case KeyEvent.VK_P:
+                loadNext = true;
+                break;
             case KeyEvent.VK_SPACE:
                 player.setJumping(true);
                 break;
@@ -270,4 +306,7 @@ public abstract class ALevelState implements IGameState {
         // DO nothing
     }
 
+    public boolean isInited() {
+        return inited;
+    }
 }

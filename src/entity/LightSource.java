@@ -1,5 +1,6 @@
 package entity;
 
+import main.GameComponent;
 import map.TileMap;
 
 import java.awt.*;
@@ -49,7 +50,7 @@ public class LightSource extends Entity {
     @Override
     public void draw(Graphics2D g2d) {
         g2d.setPaint(p);
-        g2d.fill(light);
+        g2d.fillOval(light.x, light.y, light.width, light.height);
     }
 
     public Area getLight() {

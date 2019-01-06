@@ -25,9 +25,13 @@ public class GameComponent extends JComponent
 	 */
 	public static final int SCALED_WIDTH = WIDTH * SCALE;
 
+
+
 	// FPS
 	public static final int FPS = 60;
 	private static final long TARGET_TIME = 1000 / FPS;
+
+	JFrame frame;
 
 
 	// Game state manager
@@ -46,7 +50,7 @@ public class GameComponent extends JComponent
 	 * Create a frame from the game and add the component and listeners
 	 */
 	private void setFrame() {
-		final JFrame frame = new JFrame("Krunch in the Katacombs");
+		frame = new JFrame("Krunch in the Katacombs");
 		Cursor gameCursor = Toolkit.getDefaultToolkit()
 				.createCustomCursor(new Sprite("resources/Sprites/Misc/sketchedCursor.png").getImage(), new Point(0, 0),
 						"Game cursor");
@@ -59,6 +63,7 @@ public class GameComponent extends JComponent
 		frame.setFocusTraversalKeysEnabled(false); // this enables tab to be listened to
 		frame.add(this, BorderLayout.CENTER);
 		frame.pack();
+
 		frame.addKeyListener(new InputHandler(gsm));
 		this.addMouseListener(new MouseHandler(gsm));
 		frame.setFocusable(true);
@@ -72,6 +77,8 @@ public class GameComponent extends JComponent
 
 		// Used to count the fps: https://www.youtube.com/watch?v=rh31YOZh5ZM
 
+
+		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
 		long timer = System.currentTimeMillis();
 		int updates = 0;
 		while (true) {
@@ -110,7 +117,7 @@ public class GameComponent extends JComponent
 		gsm.update(this.getMousePosition());
 	}
 
-	/**wwww
+	/**
 	 * Paint everything to the screen
 	 * @param g The graphics object used
 	 */

@@ -109,8 +109,6 @@ public class Player extends Damageable
 		fl = new FlashLight(tm, this);
 	}
 
-
-
 	/**
 	 * Checks if an object is positioned within a specific range to the player.
 	 *
@@ -125,7 +123,6 @@ public class Player extends Damageable
 	public void update(Point mousePos) {
 		fl.update(mousePos);
 		super.update();
-
 
 		if(this.getDy() > 0) {
 			if (currentAction != FALLING) {
