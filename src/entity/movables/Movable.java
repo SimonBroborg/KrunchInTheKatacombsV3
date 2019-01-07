@@ -2,6 +2,7 @@ package entity.movables;
 
 import entity.Entity;
 import entity.Tile;
+import map.Chunk;
 import map.TileMap;
 
 import java.awt.*;
@@ -146,53 +147,57 @@ public abstract class Movable extends Entity {
         Rectangle verCRect = new Rectangle(x + tm.getX(), (int) yDest + tm.getY() + 1, width, height);
         Rectangle horCRect = new Rectangle((int) xDest + tm.getX(), y + tm.getY(), width, height);
 
-        // Collision check for the y-axis
-        for (int i = yCordPos - 2; i < yCordPos + 2; i++) {
-            for (int j = xCordPos - 2; j < xCordPos + 2; j++) {
-                if (i >= 0 && j >= 0 && i < tm.getNumRows() && j < tm.getNumCols()) {
-                    Tile tile = tm.getTiles()[i][j];
-                    if(tile != null) {
-                        if (verCRect.intersects(tile.getRectangle())) {
-                            // top collision
-                            if(tile.isSolid() && solid) {
-                                if (y - dy + height <= tile.getY()) {
-                                    y = tile.getY() - height;
-                                    dy = 0;
-                                    falling = false;
+        int counter = 0;
+        for(Chunk[] chunks : tm.getChunks()){
+            for(Chunk c : chunks) {
+                if (verCRect.intersects(c.getRectangle()) || horCRect.intersects(c.getRectangle())) {
+                    for (Tile tile : c.getTiles()) {
+                        // Collision check for the y-axis
+
+                        if (tile != null) {
+                            counter++;
+                            if (verCRect.intersects(tile.getRectangle())) {
+                                // top collision
+                                if (tile.isSolid() && solid) {
+                                    if (y - dy + height <= tile.getY()) {
+                                        y = tile.getY() - height;
+                                        dy = 0;
+                                        falling = false;
+                                    }
+                                    // bottom collisions
+                                    else {
+                                        y = tile.getY() + (int) tile.getRectangle().getHeight();
+                                        dy = fallSpeed;
+                                        falling = true;
+                                    }
                                 }
-                                // bottom collisions
-                                else {
-                                    y = tile.getY() + (int) tile.getRectangle().getHeight();
-                                    dy = fallSpeed;
-                                    falling = true;
+                                tile.movableCollision(this);
+                            } else if (horCRect.intersects(tile.getRectangle())) {
+
+                                if (tile.isSolid() && solid) {
+                                    // collision to the right
+                                    if (x + width <= tile.getX()) {
+                                        x = tile.getX() - width;
+                                        rightColl = true;
+                                    }
+                                    // collision to the left
+                                    else {
+                                        x = tile.getX() + (int) tile.getRectangle().getWidth();
+                                        leftColl = true;
+                                    }
+                                    dx = 0;
                                 }
+
+                                tile.movableCollision(this);
                             }
-                            tile.movableCollision(this);
-                        }
-
-                        else if (horCRect.intersects(tile.getRectangle())) {
-
-                            if(tile.isSolid() && solid) {
-                                // collision to the right
-                                if (x + width <= tile.getX()) {
-                                    x = tile.getX() - width;
-                                    rightColl = true;
-                                }
-                                // collision to the left
-                                else {
-                                    x = tile.getX() + (int) tile.getRectangle().getWidth();
-                                    leftColl = true;
-                                }
-                                dx = 0;
-                            }
-
-                            tile.movableCollision(this);
                         }
                     }
-
                 }
             }
+
         }
+
+        System.out.println(counter);
 
         // Move the object based on the collision
         y += dy;

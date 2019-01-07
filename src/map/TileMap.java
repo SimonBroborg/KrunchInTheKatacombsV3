@@ -19,7 +19,9 @@ import java.util.Map;
 public class TileMap {
     // Map converting
     private String[][] textMap = null; // Convert the map file to a 2D-array
-    private Tile[][] tileMap = null;  // Convert the text map to a 2D-array of tiles
+    private ArrayList<Tile> tileMap;  // Convert the text map to a 2D-array of tiles
+    private Chunk[][] chunks;
+
 
     private ArrayList<Usable> usables;
     private ArrayList<Torch> torches;
@@ -36,6 +38,9 @@ public class TileMap {
     private int numCols;
     private int numRows;
 
+    private int chunkNumRows;
+    private int chunkNumCols;
+
     private int rowOffset;
     private int colOffset;
     private int numRowsToDraw;
@@ -48,9 +53,14 @@ public class TileMap {
 
     public TileMap(String mapPath) {
         this.mapPath = mapPath;
+
         spritePaths = new HashMap<>();
 
+        tileMap = new ArrayList<>();
         tween = 0.07f;
+
+        chunkNumCols = 5;
+        chunkNumRows = 5;
     }
 
     /**
@@ -74,11 +84,25 @@ public class TileMap {
         tileHeight = parser.getTileHeight();
         spritePaths = parser.getSpritePaths();
 
-        numRowsToDraw = GameComponent.SCALED_HEIGHT / tileHeight + 2;
-        numColsToDraw = GameComponent.SCALED_WIDTH / tileWidth + 2;
+        numRowsToDraw = (int)Math.ceil(GameComponent.SCALED_HEIGHT / (chunkNumRows * tileHeight) + 3);
+        numColsToDraw = (int)Math.ceil(GameComponent.SCALED_WIDTH / (chunkNumCols * tileWidth) + 3);
 
+        createChunks();
 
-                loadTileMap();
+        loadTileMap();
+    }
+
+    private void createChunks(){
+        int numChunkCols = numCols  / chunkNumCols + 2;
+        int numChunkRows = numRows / chunkNumRows + 2;
+
+        chunks = new Chunk[numChunkRows][numChunkCols];
+
+        for(int row = 0; row < numChunkRows; row++){
+            for(int col = 0; col < numChunkCols; col++){
+                chunks[row][col] = new Chunk(col * tileWidth * chunkNumCols, row * tileHeight * chunkNumCols, numCols * tileWidth, numRows * tileHeight, this);
+            }
+        }
     }
 
     /**
@@ -89,12 +113,18 @@ public class TileMap {
     public void update(Player player) {
         setPosition(GameComponent.SCALED_WIDTH / 2 - player.getX(),
                 GameComponent.SCALED_HEIGHT / 2 - player.getY());
+
+        for(Chunk[] chunks : chunks) {
+            for (Chunk c : chunks){
+                c.update();
+            }
+        }
     }
     /**
      * Loads the map by creating all the tiles
      */
     private void loadTileMap() {
-        tileMap = new Tile[numRows][numCols];
+        tileMap = new ArrayList<>();
 
         // Loops through the text map and adds a tile
         for (int y = 0; y < textMap.length; y++) {
@@ -102,28 +132,35 @@ public class TileMap {
 
                 // If it's not an empty tile
                 if (Integer.parseInt(textMap[y][x]) != 0) {
+                    Tile tile;
                     switch (spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(0)) {
+
                         case "background":
-                            tileMap[y][x] =
-                                    new BackgroundTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
-                                            y * tileHeight, this);
+                            tile = new BackgroundTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
+                                    y * tileHeight, this);
                             break;
 
                         case "ladder":
-                            tileMap[y][x] = new LadderTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
+                            tile = new LadderTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
                                     y * tileHeight, this);
                             break;
 
                         case "abyss":
-                            tileMap[y][x] = new AbyssTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
+                            tile = new AbyssTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
                                     y * tileHeight, this);
                             break;
                         default:
-                            tileMap[y][x] =
-                                    new NormalTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
-                                            y * tileHeight, this);
+                            tile = new NormalTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
+                                    y * tileHeight, this);
                             break;
                     }
+                    int chunkRow;
+                    int chunkCol;
+
+                    chunkRow = y / chunkNumRows;
+                    chunkCol = x / chunkNumCols;
+
+                    chunks[chunkRow][chunkCol].addTile(tile);
                 }
             }
         }
@@ -146,8 +183,8 @@ public class TileMap {
             this.y = 0;
         }
 
-        colOffset = -this.x / tileWidth;
-        rowOffset = -this.y / tileHeight;
+        colOffset = -this.x / (chunkNumCols * tileWidth);
+        rowOffset = -this.y / (chunkNumRows * tileHeight);
     }
 
     /**
@@ -156,7 +193,7 @@ public class TileMap {
      * @param g2d the graphics object
      */
     public void draw(Graphics2D g2d) {
-        for(int row = rowOffset; row < rowOffset + numRowsToDraw; row++){
+        /*for(int row = rowOffset; row < rowOffset + numRowsToDraw; row++){
             if(row >= numRows ) break;
             for(int col = colOffset; col < colOffset + numColsToDraw; col++){
                 if(col >= numCols) break;
@@ -165,11 +202,19 @@ public class TileMap {
                     tile.draw(g2d);
                 }
             }
+        }*/
+
+        for(int row = rowOffset; row <= rowOffset + numRowsToDraw; row++){
+            if(row >= chunks.length ) break;
+            for(int col = colOffset; col <= colOffset + numColsToDraw; col++){
+                if(col >= chunks[row].length) break;
+                chunks[row][col].draw(g2d);
+            }
         }
     }
 
 
-    public Tile[][] getTiles() {
+    public ArrayList<Tile> getTiles() {
         return tileMap;
     }
 
@@ -208,5 +253,9 @@ public class TileMap {
     }
     public Player getPlayer() {
         return player;
+    }
+
+    public Chunk[][] getChunks() {
+        return chunks;
     }
 }

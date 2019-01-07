@@ -1,7 +1,6 @@
 package entity;
 
 import entity.tile_types.Torch;
-import main.GameComponent;
 import map.TileMap;
 
 import java.awt.*;
@@ -39,7 +38,6 @@ public class Lightmap extends Entity {
 
     public void update(){
         x = tm.getX();
-        System.out.println(x);
         y = tm.getY();
     }
 
