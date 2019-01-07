@@ -1,5 +1,6 @@
 package game_state;
 
+import sound.SoundPlayer;
 import entity.Entity;
 import entity.LightSource;
 import entity.Usable.EventPortal;
@@ -62,6 +63,8 @@ public abstract class ALevelState implements GameState {
     protected Rectangle foreground;
     protected float foregroundAlpha;
 
+    private SoundPlayer backgroundSound;
+
     /**
      * The constructor takes in a string with the path to the map file
      *
@@ -119,6 +122,7 @@ public abstract class ALevelState implements GameState {
         popupQ.addPopup(new PopupWindow("I really like popups!"));
         popupQ.addPopup(new PopupWindow("More popups :P "));
 
+        backgroundSound = new SoundPlayer("resources/Sounds/background/Bog-Creatures-On-the-Move_Looping.wav");
         inited = true;
     }
 
@@ -128,6 +132,9 @@ public abstract class ALevelState implements GameState {
      * @param mousePos the position of the mouse
      */
     public void update(Point mousePos) {
+        if(!backgroundSound.playing()){
+            backgroundSound.playOnce();
+        }
         if(foregroundAlpha > 0.0f){
             foregroundAlpha -= 0.01;
         }
@@ -330,7 +337,6 @@ public abstract class ALevelState implements GameState {
     @Override
     public void mouseClicked(MouseEvent e) {
         menu.mouseClicked();
-
     }
 
     @Override
@@ -344,9 +350,11 @@ public abstract class ALevelState implements GameState {
 
     public void setLoadNext(boolean loadNext) {
         this.loadNext = loadNext;
+        backgroundSound.stop();
     }
 
     public void setLoadPrev(boolean loadPrev) {
         this.loadPrev = loadPrev;
+        backgroundSound.stop();
     }
 }

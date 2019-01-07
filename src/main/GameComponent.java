@@ -10,20 +10,20 @@ import java.awt.*;
 public class GameComponent extends JComponent
 {
 	// Dimensions
-	public static final int HEIGHT = 480;
-	public static final int WIDTH = 640;
-	public static final int SCALE = 2;
+	public static int HEIGHT = 480;
+	public static int WIDTH = 640;
+	public static int SCALE = 2;
 
 	public static int ups;
 
 	/**
 	 * The height of the frame
 	 */
-	public static final int SCALED_HEIGHT = HEIGHT * SCALE;
+	public static int SCALED_HEIGHT = HEIGHT * SCALE;
 	/**
 	 * The width of the frame
 	 */
-	public static final int SCALED_WIDTH = WIDTH * SCALE;
+	public static int SCALED_WIDTH = WIDTH * SCALE;
 
 
 
@@ -56,10 +56,13 @@ public class GameComponent extends JComponent
 						"Game cursor");
 		frame.setCursor(gameCursor);
 
+		Dimension fullSize = new Dimension(Toolkit.getDefaultToolkit().getScreenSize());
+		SCALED_WIDTH = fullSize.width;
+		SCALED_HEIGHT = fullSize.height;
 		// Frame 'settings'
 		frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 		frame.setResizable(false);
-		frame.setPreferredSize(new Dimension(SCALED_WIDTH, SCALED_HEIGHT));
+		frame.setPreferredSize(fullSize);
 		frame.setFocusTraversalKeysEnabled(false); // this enables tab to be listened to
 		frame.add(this, BorderLayout.CENTER);
 		frame.pack();
@@ -78,7 +81,7 @@ public class GameComponent extends JComponent
 		// Used to count the fps: https://www.youtube.com/watch?v=rh31YOZh5ZM
 
 
-		//frame.setExtendedState(JFrame.MAXIMIZED_BOTH);
+
 		long timer = System.currentTimeMillis();
 		int updates = 0;
 		while (true) {
@@ -107,7 +110,6 @@ public class GameComponent extends JComponent
 				updates = 0;
 			}
 		}
-
 	}
 
 	/**
@@ -129,5 +131,13 @@ public class GameComponent extends JComponent
 		g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
 		g2d.setClip(0, 0, SCALED_WIDTH, SCALED_HEIGHT);
 		gsm.draw(g2d);
+	}
+
+	public static void setHEIGHT(int HEIGHT) {
+		GameComponent.SCALED_HEIGHT = HEIGHT;
+	}
+
+	public static void setWIDTH(int WIDTH) {
+		GameComponent.SCALED_WIDTH = WIDTH;
 	}
 }

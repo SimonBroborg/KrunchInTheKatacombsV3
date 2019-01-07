@@ -1,0 +1,5 @@
+181228
+Fixed hp and damage system for entities
+Fixed a quick HUD 
+The flashlight now has a battery power which gets drained
+I've startet to create a function to get the corner collision for the flashlight to make it smoother

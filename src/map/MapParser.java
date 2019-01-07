@@ -1,6 +1,5 @@
 package map;
 
-import entity.Entity;
 import entity.Usable.Chest;
 import entity.Usable.EventPortal;
 import entity.Usable.Usable;
@@ -9,6 +8,7 @@ import entity.movables.Enemies.ShadowEnemy;
 import entity.movables.Enemy;
 import entity.movables.Player;
 import entity.tile_types.Torch;
+
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -54,6 +54,7 @@ public class MapParser {
     public MapParser(TileMap tm ) {
         spritePaths = new HashMap<>();
         this.tm = tm;
+
 
         usables = new ArrayList<>();
         enemies = new ArrayList<>();

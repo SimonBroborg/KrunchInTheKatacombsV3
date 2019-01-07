@@ -79,8 +79,8 @@ public class TileMap {
      * @param player the player object which the position of the textMap is based on
      */
     public void update(Player player) {
-        setPosition(GameComponent.WIDTH / 2 * GameComponent.SCALE - player.getX(),
-                GameComponent.HEIGHT / 2 * GameComponent.SCALE - player.getY());
+        setPosition(GameComponent.SCALED_WIDTH / 2 - player.getX(),
+                GameComponent.SCALED_HEIGHT / 2 - player.getY());
     }
     /**
      * Loads the map by creating all the tiles
