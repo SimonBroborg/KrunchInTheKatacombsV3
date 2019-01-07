@@ -38,8 +38,6 @@
   <object id="54" name="torchLit" gid="370" x="1120" y="910" width="70" height="70"/>
   <object id="57" name="crate" gid="369" x="2030" y="980" width="70" height="70"/>
   <object id="58" name="torch" gid="371" x="1750" y="910" width="70" height="70"/>
-  <object id="59" gid="371" x="3010" y="1610" width="70" height="70"/>
-  <object id="60" gid="371" x="3010" y="1610" width="70" height="70"/>
   <object id="61" name="torch" gid="371" x="3010" y="1610" width="70" height="70"/>
   <object id="62" name="eventPortalNext" gid="372" x="3290" y="1680" width="70" height="70"/>
  </objectgroup>

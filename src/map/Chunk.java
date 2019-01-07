@@ -9,13 +9,6 @@ import java.util.ArrayList;
 public class Chunk extends Entity {
     private ArrayList<Tile> tiles;
 
-    private int numCols;
-    private int numRows;
-
-    private int minX;
-    private int maxX;
-    private int minY;
-    private int maxY;
 
     /**
      * Creates an entity object
@@ -26,8 +19,7 @@ public class Chunk extends Entity {
      */
     public Chunk(int x, int y, int numCols, int numRows, TileMap tm) {
         super(x, y, tm);
-        this.numRows = numRows;
-        this.numCols = numCols;
+
         tiles = new ArrayList<>();
 
         width = tm.getTileWidth() * numCols;
@@ -36,10 +28,6 @@ public class Chunk extends Entity {
 
     @Override
     public void draw(Graphics2D g2d) {
-        g2d.setColor(Color.black);
-
-        g2d.drawRect(x + xMap, y + yMap, width, height);
-
         for(Tile t : tiles){
             t.draw(g2d);
         }

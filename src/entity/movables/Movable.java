@@ -147,7 +147,7 @@ public abstract class Movable extends Entity {
         Rectangle verCRect = new Rectangle(x + tm.getX(), (int) yDest + tm.getY() + 1, width, height);
         Rectangle horCRect = new Rectangle((int) xDest + tm.getX(), y + tm.getY(), width, height);
 
-        int counter = 0;
+
         for(Chunk[] chunks : tm.getChunks()){
             for(Chunk c : chunks) {
                 if (verCRect.intersects(c.getRectangle()) || horCRect.intersects(c.getRectangle())) {
@@ -155,7 +155,6 @@ public abstract class Movable extends Entity {
                         // Collision check for the y-axis
 
                         if (tile != null) {
-                            counter++;
                             if (verCRect.intersects(tile.getRectangle())) {
                                 // top collision
                                 if (tile.isSolid() && solid) {
@@ -196,8 +195,6 @@ public abstract class Movable extends Entity {
             }
 
         }
-
-        System.out.println(counter);
 
         // Move the object based on the collision
         y += dy;

@@ -1,6 +1,7 @@
 package entity;
 
 import entity.tile_types.Torch;
+import main.GameComponent;
 import map.TileMap;
 
 import java.awt.*;
@@ -37,15 +38,15 @@ public class Lightmap extends Entity {
     }
 
     public void update(){
-        x = tm.getX();
-        y = tm.getY();
     }
 
     public void draw(Graphics2D g2d){
         float darknessAlpha = 0.95f;
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, darknessAlpha));
 
-        for(Torch t : torches){
+        g2d.setColor(Color.black);
+        g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
+        /*for(Torch t : torches){
             if(t.isLit()) {
                 t.getLightSource().draw(g2d);
             }
@@ -57,7 +58,7 @@ public class Lightmap extends Entity {
         g2d.fillRect(x, y, width, height);
 
         g2d.setClip(null);
-
+*/
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
     }
 }

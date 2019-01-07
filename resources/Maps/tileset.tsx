@@ -89,20 +89,20 @@
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/castleCliffRightAlt.png"/>
  </tile>
  <tile id="212">
-  <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/castleHalf.png"/>
+  <image width="70" height="35" source="../Sprites/Tiles/platformerTiles/Tiles/castleHalf.png"/>
   <objectgroup draworder="index">
    <object id="5" x="70" y="0" height="70"/>
    <object id="7" x="0" y="0" width="70" height="70"/>
   </objectgroup>
  </tile>
  <tile id="213">
-  <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/castleHalfLeft.png"/>
+  <image width="70" height="35" source="../Sprites/Tiles/platformerTiles/Tiles/castleHalfLeft.png"/>
  </tile>
  <tile id="214">
-  <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/castleHalfMid.png"/>
+  <image width="70" height="35" source="../Sprites/Tiles/platformerTiles/Tiles/castleHalfMid.png"/>
  </tile>
  <tile id="215">
-  <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/castleHalfRight.png"/>
+  <image width="70" height="35" source="../Sprites/Tiles/platformerTiles/Tiles/castleHalfRight.png"/>
  </tile>
  <tile id="216">
   <image width="70" height="70" source="../Sprites/Tiles/platformerTiles/Tiles/castleHillLeft.png"/>

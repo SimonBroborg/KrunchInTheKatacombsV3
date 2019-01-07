@@ -59,8 +59,8 @@ public class TileMap {
         tileMap = new ArrayList<>();
         tween = 0.07f;
 
-        chunkNumCols = 5;
-        chunkNumRows = 5;
+        chunkNumCols = 3;
+        chunkNumRows = 3;
     }
 
     /**
@@ -84,8 +84,8 @@ public class TileMap {
         tileHeight = parser.getTileHeight();
         spritePaths = parser.getSpritePaths();
 
-        numRowsToDraw = (int)Math.ceil(GameComponent.SCALED_HEIGHT / (chunkNumRows * tileHeight) + 3);
-        numColsToDraw = (int)Math.ceil(GameComponent.SCALED_WIDTH / (chunkNumCols * tileWidth) + 3);
+        numRowsToDraw = (int)Math.ceil(GameComponent.SCALED_HEIGHT / (chunkNumRows * tileHeight) ) +3;
+        numColsToDraw = (int)Math.ceil(GameComponent.SCALED_WIDTH / (chunkNumCols * tileWidth) ) + 3;
 
         createChunks();
 

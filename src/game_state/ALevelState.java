@@ -211,7 +211,7 @@ public abstract class ALevelState implements GameState {
         //player.getFlashLight().draw(g2d);
         player.draw(g2d);
 
-        //lightMap.draw(g2d);
+        lightMap.draw(g2d);
 
         if(foregroundAlpha > 0.0f){
             g2d.setColor(new Color(0.0f, 0.0f, 0.0f, foregroundAlpha));
