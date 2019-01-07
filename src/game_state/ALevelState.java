@@ -1,5 +1,6 @@
 package game_state;
 
+import entity.Lightmap;
 import sound.SoundPlayer;
 import entity.Entity;
 import entity.LightSource;
@@ -41,10 +42,9 @@ public abstract class ALevelState implements GameState {
 
     protected List<Enemy> enemies;
     protected List<Usable> usables;
-    protected List<Torch> torches;
+    protected ArrayList<Torch> torches;
 
-    protected Area lightMap;
-    protected BufferedImage lightMapImage;
+    protected Lightmap lightMap;
 
     // Path to the map file
     protected String mapPath;
@@ -73,6 +73,7 @@ public abstract class ALevelState implements GameState {
     protected ALevelState(String mapPath) {
         this.mapPath = mapPath;
         tm = new TileMap(mapPath);
+
         tm.load();
         inited = false;
         loadNext = false;
@@ -101,6 +102,9 @@ public abstract class ALevelState implements GameState {
         torches = tm.getTorches();
         usables.addAll(torches);
 
+        lightMap = new Lightmap(tm.getX(), tm.getY(), tm);
+        lightMap.setTorches(torches);
+
         for(Usable u : usables){
             if(u instanceof EventPortal){
                 ((EventPortal) u).setAls(this);
@@ -109,18 +113,11 @@ public abstract class ALevelState implements GameState {
         player = tm.getPlayer();
         enemies = tm.getEnemies();
 
-        lightMap = new Area(
-                new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
 
-        lightMapImage = new BufferedImage(GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT, BufferedImage.TYPE_INT_ARGB);
 
         hud = new HUD(player);
         info = new InfoDisplay(player);
         popupQ = new PopupWindowQueue();
-
-        popupQ.addPopup(new PopupWindow("Welcome to your doom! :D"));
-        popupQ.addPopup(new PopupWindow("I really like popups!"));
-        popupQ.addPopup(new PopupWindow("More popups :P "));
 
         backgroundSound = new SoundPlayer("resources/Sounds/background/Bog-Creatures-On-the-Move_Looping.wav");
         inited = true;
@@ -133,7 +130,7 @@ public abstract class ALevelState implements GameState {
      */
     public void update(Point mousePos) {
         if(!backgroundSound.playing()){
-           //backgroundSound.playOnce();
+            //backgroundSound.playOnce();
         }
         if(foregroundAlpha > 0.0f){
             foregroundAlpha -= 0.01;
@@ -146,6 +143,7 @@ public abstract class ALevelState implements GameState {
 
             tm.update(player);
             bg.update();
+            lightMap.update();
 
             // the player
             player.update(mousePos);
@@ -203,16 +201,18 @@ public abstract class ALevelState implements GameState {
 
         for (Entity e : enemies) {
             e.draw(g2d);
+
         }
 
         for(Usable u : usables){
             u.draw(g2d);
+
         }
 
         player.getFlashLight().draw(g2d);
         player.draw(g2d);
 
-        drawDark(g2d);
+        lightMap.draw(g2d);
 
         if(foregroundAlpha > 0.0f){
             g2d.setColor(new Color(0.0f, 0.0f, 0.0f, foregroundAlpha));
@@ -227,45 +227,6 @@ public abstract class ALevelState implements GameState {
         info.draw(g2d);
 
         g2d.dispose();
-    }
-
-    private void drawDark(Graphics2D g2d){
-
-        lightMap = new Area(
-                new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
-
-        lightMapImage = new BufferedImage(GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-
-
-        float darknessAlpha = 0.95f;
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, darknessAlpha));
-
-        for(Torch t : torches){
-            if(t.isLit()) {
-                LightSource ls = t.getLightSource();
-                lightMap.subtract(ls.getLight());
-                ls.draw(g2d);
-            }
-        }
-
-        player.getFlashLight().setLightMap(lightMap);
-        lightMap.subtract(player.getFlashLight().getLightBulb());
-
-        g2d.setColor(Color.BLACK);
-
-        g2d.setClip(lightMap);
-        g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
-
-        g2d.setClip(null);
-
-        g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
-
-        BufferedImage image = new BufferedImage(GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT, BufferedImage.TYPE_INT_ARGB);
-        Graphics2D g2 = (Graphics2D) image.createGraphics();
-
-        g2.setColor(Color.black);
-
-        g2.drawRect(0, 0, image.getWidth(), image.getHeight());
     }
 
     /**

@@ -192,11 +192,6 @@ public abstract class Entity
         return Math.hypot(other.getCenter().getX() - this.getCenter().getX(), other.getCenter().getY() - this.getCenter().getY()) <= range;
     }
 
-    public boolean isOnScreen(){
-        return xMap >= 0 && yMap >= 0 && xMap <= GameComponent.SCALED_WIDTH && yMap <= GameComponent.SCALED_HEIGHT;
-    }
-
-
 }
 
 

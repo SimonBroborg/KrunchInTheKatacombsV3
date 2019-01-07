@@ -3,6 +3,7 @@ package entity.tile_types;
 import entity.Animation;
 import entity.LightSource;
 import entity.Usable.Usable;
+import entity.movables.Movable;
 import entity.movables.Player;
 import main.Sprite;
 import map.TileMap;

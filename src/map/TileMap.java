@@ -36,6 +36,11 @@ public class TileMap {
     private int numCols;
     private int numRows;
 
+    private int rowOffset;
+    private int colOffset;
+    private int numRowsToDraw;
+    private int numColsToDraw;
+
     private float tween;
 
     private Map<Integer, ArrayList<String>> spritePaths; // Stores the paths to the different tile sprites
@@ -46,7 +51,6 @@ public class TileMap {
         spritePaths = new HashMap<>();
 
         tween = 0.07f;
-
     }
 
     /**
@@ -70,7 +74,11 @@ public class TileMap {
         tileHeight = parser.getTileHeight();
         spritePaths = parser.getSpritePaths();
 
-        loadTileMap();
+        numRowsToDraw = GameComponent.SCALED_HEIGHT / tileHeight + 2;
+        numColsToDraw = GameComponent.SCALED_WIDTH / tileWidth + 2;
+
+
+                loadTileMap();
     }
 
     /**
@@ -137,6 +145,9 @@ public class TileMap {
         if(this.y > 0) {
             this.y = 0;
         }
+
+        colOffset = -this.x / tileWidth;
+        rowOffset = -this.y / tileHeight;
     }
 
     /**
@@ -145,10 +156,12 @@ public class TileMap {
      * @param g2d the graphics object
      */
     public void draw(Graphics2D g2d) {
-
-        for(Tile tiles[] : tileMap){
-            for(Tile tile : tiles){
-                if( tile != null && !tile.isTransparent()){
+        for(int row = rowOffset; row < rowOffset + numRowsToDraw; row++){
+            if(row >= numRows ) break;
+            for(int col = colOffset; col < colOffset + numColsToDraw; col++){
+                if(col >= numCols) break;
+                    Tile tile = tileMap[row][col];
+                if(tile != null){
                     tile.draw(g2d);
                 }
             }

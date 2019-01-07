@@ -14,7 +14,6 @@ public abstract class Usable extends Movable {
     protected boolean canUse;
     private Sprite useSprite;
 
-
     /**
      * Creates an entity object
      *

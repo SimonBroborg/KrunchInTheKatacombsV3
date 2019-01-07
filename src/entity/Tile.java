@@ -30,7 +30,6 @@ public abstract class Tile extends Entity {
     public abstract void movableCollision(Movable o);
 
     public void draw(Graphics2D g2d) {
-        if(isOnScreen())
-            g2d.drawImage(sprite.getImage(), getXMap(), getYMap(), width, height, null);
+        g2d.drawImage(sprite.getImage(), getXMap(), getYMap(), width, height, null);
     }
 }

@@ -53,8 +53,10 @@ public abstract class Movable extends Entity {
 
     public void update() {
         super.update();
+
         getNextPosition();
         checkTileMapCollision();
+
 
         if (right) {
             facingRight = true;
@@ -145,8 +147,8 @@ public abstract class Movable extends Entity {
         Rectangle horCRect = new Rectangle((int) xDest + tm.getX(), y + tm.getY(), width, height);
 
         // Collision check for the y-axis
-        for (int i = yCordPos - 3; i < yCordPos + 3; i++) {
-            for (int j = xCordPos - 3; j < xCordPos + 3; j++) {
+        for (int i = yCordPos - 2; i < yCordPos + 2; i++) {
+            for (int j = xCordPos - 2; j < xCordPos + 2; j++) {
                 if (i >= 0 && j >= 0 && i < tm.getNumRows() && j < tm.getNumCols()) {
                     Tile tile = tm.getTiles()[i][j];
                     if(tile != null) {
