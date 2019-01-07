@@ -6,30 +6,13 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="26e9e8a7-62d8-4a8a-b2a4-b3a8cba207ec" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/src/entity/Lightmap.java" afterDir="false" />
+    <list default="true" id="26e9e8a7-62d8-4a8a-b2a4-b3a8cba207ec" name="Default" comment="save before remaking the">
+      <change beforePath="$PROJECT_DIR$/KrunchInTheKatacombsVFinal.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/KrunchInTheKatacombsVFinal.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/KrunchInTheKatacombsVFinal.iws" beforeDir="false" afterPath="$PROJECT_DIR$/KrunchInTheKatacombsVFinal.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/Entity.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/Entity.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/LightSource.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/LightSource.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/Tile.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/Tile.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/Usable/Usable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/Usable/Usable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/movables/Movable.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/movables/Movable.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/tile_types/Torch.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/entity/tile_types/Torch.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/game_state/ALevelState.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/game_state/ALevelState.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/main/GameStateManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/main/GameStateManager.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/map/TileMap.class" beforeDir="false" afterPath="$PROJECT_DIR$/out/production/KrunchInTheKatacombsVFinal/map/TileMap.class" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Entity.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Entity.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/LightSource.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/LightSource.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Tile.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Tile.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/Usable/Usable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/Usable/Usable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/movables/Movable.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/movables/Movable.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/entity/tile_types/Torch.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/entity/tile_types/Torch.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/game_state/ALevelState.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/game_state/ALevelState.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/map/TileMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/map/TileMap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/GameStateManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/GameStateManager.java" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
-    <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -45,26 +28,20 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="ALevelState.java" pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/game_state/ALevelState.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1035">
-              <caret line="104" column="58" selection-start-line="104" selection-start-column="58" selection-end-line="104" selection-end-column="58" />
-              <folding>
-                <element signature="e#9078#9079#0" expanded="true" />
-                <element signature="e#9113#9114#0" expanded="true" />
-                <element signature="e#9232#9233#0" expanded="true" />
-                <element signature="e#9261#9262#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="2599">
+              <caret line="134" column="35" selection-start-line="134" selection-start-column="35" selection-end-line="134" selection-end-column="35" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Lightmap.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/entity/Lightmap.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/map/MapParser.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="231">
-              <caret line="25" column="61" selection-start-line="25" selection-start-column="61" selection-end-line="25" selection-end-column="61" />
+            <state relative-caret-position="-2668">
+              <caret line="49" column="25" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -72,136 +49,92 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Entity.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/entity/Entity.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/sound/SoundPlayer.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1584">
-              <caret line="193" selection-start-line="193" selection-end-line="193" />
+            <state relative-caret-position="616">
+              <caret line="32" selection-start-line="32" selection-end-line="32" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#4023#4024#0" expanded="true" />
-                <element signature="e#4086#4087#0" expanded="true" />
+                <element signature="e#700#701#0" expanded="true" />
+                <element signature="e#729#730#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Tile.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/entity/Tile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="185">
-              <caret line="31" column="38" selection-start-line="31" selection-start-column="38" selection-end-line="31" selection-end-column="38" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#963#964#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="GameComponent.java" pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/GameComponent.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="23">
+            <state relative-caret-position="253">
               <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TileMap.java" pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/map/TileMap.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="322">
-              <caret line="167" column="9" selection-start-line="167" selection-start-column="9" selection-end-line="167" selection-end-column="9" />
+            <state relative-caret-position="90">
+              <caret line="15" column="3" lean-forward="true" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#5307#5308#0" expanded="true" />
-                <element signature="e#5337#5338#0" expanded="true" />
-                <element signature="e#5370#5371#0" expanded="true" />
-                <element signature="e#5402#5403#0" expanded="true" />
-                <element signature="e#5436#5437#0" expanded="true" />
-                <element signature="e#5469#5470#0" expanded="true" />
-                <element signature="e#5500#5501#0" expanded="true" />
-                <element signature="e#5530#5531#0" expanded="true" />
-                <element signature="e#5561#5562#0" expanded="true" />
-                <element signature="e#5591#5592#0" expanded="true" />
-                <element signature="e#5616#5617#0" expanded="true" />
-                <element signature="e#5640#5641#0" expanded="true" />
-                <element signature="e#5665#5666#0" expanded="true" />
-                <element signature="e#5689#5690#0" expanded="true" />
-                <element signature="e#5734#5735#0" expanded="true" />
-                <element signature="e#5764#5765#0" expanded="true" />
-                <element signature="e#5807#5808#0" expanded="true" />
-                <element signature="e#5837#5838#0" expanded="true" />
-                <element signature="e#5880#5881#0" expanded="true" />
-                <element signature="e#5910#5911#0" expanded="true" />
-                <element signature="e#5942#5943#0" expanded="true" />
-                <element signature="e#5971#5972#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LightSource.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/entity/LightSource.java">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/GameStateManager.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="277">
-              <caret line="33" lean-forward="true" selection-start-line="33" selection-end-line="33" />
+            <state relative-caret-position="346">
+              <caret line="38" column="25" lean-forward="true" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/entity/Lightmap.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="248">
+              <caret line="42" column="22" lean-forward="true" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#1367#1368#0" expanded="true" />
-                <element signature="e#1405#1406#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Torch.java" pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/entity/movables/Player.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="736">
+              <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#3766#3767#0" expanded="true" />
+                <element signature="e#3782#3783#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/Sprite.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="276">
+              <caret line="15" selection-start-line="15" selection-end-line="15" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/entity/tile_types/Torch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-207">
-              <caret line="25" column="20" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
+            <state relative-caret-position="713">
+              <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
               <folding>
                 <element signature="imports" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Movable.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/entity/movables/Movable.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="115">
-              <caret line="150" column="55" selection-start-line="150" selection-start-column="55" selection-end-line="150" selection-end-column="55" />
-              <folding>
-                <element signature="e#1194#1195#0" expanded="true" />
-                <element signature="e#1225#1226#0" expanded="true" />
-                <element signature="e#6145#6146#0" expanded="true" />
-                <element signature="e#6201#6202#0" expanded="true" />
-                <element signature="e#6239#6240#0" expanded="true" />
-                <element signature="e#6263#6264#0" expanded="true" />
-                <element signature="e#6302#6303#0" expanded="true" />
-                <element signature="e#6327#6328#0" expanded="true" />
-                <element signature="e#6361#6362#0" expanded="true" />
-                <element signature="e#6391#6392#0" expanded="true" />
-                <element signature="e#6432#6433#0" expanded="true" />
-                <element signature="e#6459#6460#0" expanded="true" />
-                <element signature="e#6493#6494#0" expanded="true" />
-                <element signature="e#6523#6524#0" expanded="true" />
-                <element signature="e#6552#6553#0" expanded="true" />
-                <element signature="e#6577#6578#0" expanded="true" />
-                <element signature="e#6606#6607#0" expanded="true" />
-                <element signature="e#6631#6632#0" expanded="true" />
-                <element signature="e#6667#6668#0" expanded="true" />
-                <element signature="e#6698#6699#0" expanded="true" />
-                <element signature="e#6735#6736#0" expanded="true" />
-                <element signature="e#6767#6768#0" expanded="true" />
-                <element signature="e#6819#6820#0" expanded="true" />
-                <element signature="e#6861#6862#0" expanded="true" />
-                <element signature="e#6912#6913#0" expanded="true" />
-                <element signature="e#6954#6955#0" expanded="true" />
-                <element signature="e#6992#6993#0" expanded="true" />
-                <element signature="e#7020#7021#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -300,7 +233,6 @@
         <option value="$PROJECT_DIR$/src/sound/SoundPlayer.java" />
         <option value="$PROJECT_DIR$/src/main/GameComponent.java" />
         <option value="$PROJECT_DIR$/src/entity/movables/Player.java" />
-        <option value="$PROJECT_DIR$/src/main/GameStateManager.java" />
         <option value="$PROJECT_DIR$/src/entity/Usable/Usable.java" />
         <option value="$PROJECT_DIR$/src/entity/tile_types/Torch.java" />
         <option value="$PROJECT_DIR$/src/entity/movables/Movable.java" />
@@ -309,6 +241,7 @@
         <option value="$PROJECT_DIR$/src/map/TileMap.java" />
         <option value="$PROJECT_DIR$/src/game_state/ALevelState.java" />
         <option value="$PROJECT_DIR$/src/entity/LightSource.java" />
+        <option value="$PROJECT_DIR$/src/main/GameStateManager.java" />
         <option value="$PROJECT_DIR$/src/entity/Lightmap.java" />
       </list>
     </option>
@@ -325,40 +258,83 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="AndroidView" />
       <pane id="PackagesPane" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="KrunchInTheKatacombsVFinal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KrunchInTheKatacombsV3" type="462c0819:PsiDirectoryNode" />
+              <item name="KrunchInTheKatacombsVFinal" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="KrunchInTheKatacombsVFinal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KrunchInTheKatacombsV3" type="462c0819:PsiDirectoryNode" />
+              <item name="KrunchInTheKatacombsVFinal" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="KrunchInTheKatacombsVFinal" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KrunchInTheKatacombsVFinal" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="Maps" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="KrunchInTheKatacombsVFinal" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KrunchInTheKatacombsVFinal" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="Sprites" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="KrunchInTheKatacombsVFinal" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KrunchInTheKatacombsVFinal" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="KrunchInTheKatacombsVFinal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KrunchInTheKatacombsV3" type="462c0819:PsiDirectoryNode" />
+              <item name="KrunchInTheKatacombsVFinal" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="entity" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="KrunchInTheKatacombsVFinal" type="b2602c69:ProjectViewProjectNode" />
-              <item name="KrunchInTheKatacombsV3" type="462c0819:PsiDirectoryNode" />
+              <item name="KrunchInTheKatacombsVFinal" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="tile_types" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="KrunchInTheKatacombsVFinal" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KrunchInTheKatacombsVFinal" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="entity" type="462c0819:PsiDirectoryNode" />
+              <item name="Usable" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="KrunchInTheKatacombsVFinal" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KrunchInTheKatacombsVFinal" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="flashlight" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="KrunchInTheKatacombsVFinal" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KrunchInTheKatacombsVFinal" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="HUD" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="KrunchInTheKatacombsVFinal" type="b2602c69:ProjectViewProjectNode" />
+              <item name="KrunchInTheKatacombsVFinal" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="AndroidView" />
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546861527114" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1546882552070" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/KrunchInTheKatacombsVFinal.ipr" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
@@ -385,11 +361,11 @@
     </option>
   </component>
   <component name="RunManager">
-    <configuration default="true" type="Applet" factoryName="Applet">
+    <configuration default="true" type="Applet">
       <option name="HEIGHT" value="0" />
       <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
       <option name="WIDTH" value="0" />
-      <method>
+      <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
@@ -403,54 +379,29 @@
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <method>
+      <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <patterns />
-      <method>
+      <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration default="true" type="TestNG" factoryName="TestNG">
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="SUITE_NAME" />
-      <option name="PACKAGE_NAME" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="METHOD_NAME" />
-      <option name="GROUP_NAME" />
-      <option name="TEST_OBJECT" value="CLASS" />
+    <configuration default="true" type="TestNG">
       <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="%MODULE_WORKING_DIR%" />
-      <option name="OUTPUT_DIRECTORY" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <option name="USE_DEFAULT_REPORTERS" value="false" />
-      <option name="PROPERTIES_FILE" />
       <properties />
       <listeners />
-      <method>
+      <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
@@ -582,43 +533,40 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="784" extended-state="6" />
+    <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info anchor="right" id="Palette" order="3" />
-      <window_info anchor="bottom" id="TODO" order="6" weight="0.32917964" />
-      <window_info anchor="bottom" id="Messages" order="11" weight="0.3281412" />
-      <window_info anchor="right" id="Palette&#9;" order="6" />
-      <window_info id="Image Layers" order="2" />
-      <window_info anchor="right" id="Capture Analysis" order="4" />
-      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50053304" side_tool="true" weight="0.26583594" />
-      <window_info anchor="right" id="Maven Projects" order="7" />
-      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32917964" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.26452598" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32917964" />
-      <window_info id="Capture Tool" order="5" />
-      <window_info id="Designer" order="3" />
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15080526" />
-      <window_info anchor="bottom" id="Statistic" order="7" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15298508" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info id="Image Layers" order="2" />
+      <window_info id="Designer" order="3" />
       <window_info id="UI Designer" order="4" />
-      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info id="Capture Tool" order="5" />
       <window_info id="Favorites" order="6" side_tool="true" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.2522936" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="bottom" id="Find" order="1" weight="0.26272067" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info anchor="right" id="Coverage" order="9" side_tool="true" weight="0.32995737" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="right" id="Maven" order="8" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Find" order="1" weight="0.26272067" />
+      <window_info active="true" anchor="bottom" id="Run" order="2" sideWeight="0.49946696" visible="true" weight="0.26272067" />
+      <window_info anchor="bottom" id="Debug" order="3" weight="0.2522936" />
+      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
+      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
+      <window_info anchor="bottom" id="TODO" order="6" weight="0.32917964" />
+      <window_info anchor="bottom" id="Statistic" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" weight="0.32917964" />
+      <window_info anchor="bottom" id="Event Log" order="9" sideWeight="0.50053304" side_tool="true" weight="0.26583594" />
+      <window_info anchor="bottom" id="Version Control" order="10" weight="0.32917964" />
+      <window_info anchor="bottom" id="Messages" order="11" weight="0.3281412" />
       <window_info anchor="bottom" id="Inspection Results" order="12" weight="0.32954547" />
+      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
+      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
+      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
+      <window_info anchor="right" id="Palette" order="3" />
+      <window_info anchor="right" id="Capture Analysis" order="4" />
+      <window_info anchor="right" id="Theme Preview" order="5" />
+      <window_info anchor="right" id="Palette&#9;" order="6" />
+      <window_info anchor="right" id="Maven Projects" order="7" />
+      <window_info anchor="right" id="Maven" order="8" />
+      <window_info anchor="right" id="Coverage" order="9" side_tool="true" weight="0.32995737" />
     </layout>
-  </component>
-  <component name="VcsContentAnnotationSettings">
-    <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Created a simple enemy class. Moved the flashlight to the player from the level." />
@@ -855,28 +803,27 @@
       </provider>
     </entry>
     <entry file="jar://F:/Program/Java/jdk-9.0.4/lib/src.zip!/java.desktop/javax/sound/sampled/AudioSystem.java" />
-    <entry file="file://$PROJECT_DIR$/src/map/MapParser.java">
+    <entry file="file://$PROJECT_DIR$/src/sound/SoundPlayer.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="644">
-          <caret line="51" column="23" selection-start-line="51" selection-start-column="23" selection-end-line="51" selection-end-column="23" />
+        <state relative-caret-position="616">
+          <caret line="32" selection-start-line="32" selection-end-line="32" />
           <folding>
             <element signature="imports" expanded="true" />
+            <element signature="e#700#701#0" expanded="true" />
+            <element signature="e#729#730#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/sound/SoundPlayer.java" />
     <entry file="file://$PROJECT_DIR$/src/entity/movables/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-713">
-          <caret line="121" column="10" selection-start-line="121" selection-start-column="10" selection-end-line="121" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/GameStateManager.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="30" column="55" selection-start-line="30" selection-start-column="55" selection-end-line="30" selection-end-column="55" />
+        <state relative-caret-position="736">
+          <caret line="42" column="21" selection-start-line="42" selection-start-column="21" selection-end-line="42" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#3766#3767#0" expanded="true" />
+            <element signature="e#3782#3783#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -904,7 +851,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/GameComponent.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="23">
+        <state relative-caret-position="253">
           <caret line="12" column="25" selection-start-line="12" selection-start-column="25" selection-end-line="12" selection-end-column="25" />
         </state>
       </provider>
@@ -946,38 +893,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/map/TileMap.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="167" column="9" selection-start-line="167" selection-start-column="9" selection-end-line="167" selection-end-column="9" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#5307#5308#0" expanded="true" />
-            <element signature="e#5337#5338#0" expanded="true" />
-            <element signature="e#5370#5371#0" expanded="true" />
-            <element signature="e#5402#5403#0" expanded="true" />
-            <element signature="e#5436#5437#0" expanded="true" />
-            <element signature="e#5469#5470#0" expanded="true" />
-            <element signature="e#5500#5501#0" expanded="true" />
-            <element signature="e#5530#5531#0" expanded="true" />
-            <element signature="e#5561#5562#0" expanded="true" />
-            <element signature="e#5591#5592#0" expanded="true" />
-            <element signature="e#5616#5617#0" expanded="true" />
-            <element signature="e#5640#5641#0" expanded="true" />
-            <element signature="e#5665#5666#0" expanded="true" />
-            <element signature="e#5689#5690#0" expanded="true" />
-            <element signature="e#5734#5735#0" expanded="true" />
-            <element signature="e#5764#5765#0" expanded="true" />
-            <element signature="e#5807#5808#0" expanded="true" />
-            <element signature="e#5837#5838#0" expanded="true" />
-            <element signature="e#5880#5881#0" expanded="true" />
-            <element signature="e#5910#5911#0" expanded="true" />
-            <element signature="e#5942#5943#0" expanded="true" />
-            <element signature="e#5971#5972#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/entity/Tile.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="185">
@@ -989,30 +904,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/awt/geom/Area.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="146">
-          <caret line="125" selection-start-line="125" selection-end-line="125" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="jar://C:/Program Files/Java/jdk1.8.0_171/src.zip!/java/awt/geom/Area.java" />
     <entry file="file://$PROJECT_DIR$/src/game_state/ALevelState.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1035">
-          <caret line="104" column="58" selection-start-line="104" selection-start-column="58" selection-end-line="104" selection-end-column="58" />
-          <folding>
-            <element signature="e#9078#9079#0" expanded="true" />
-            <element signature="e#9113#9114#0" expanded="true" />
-            <element signature="e#9232#9233#0" expanded="true" />
-            <element signature="e#9261#9262#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="2599">
+          <caret line="134" column="35" selection-start-line="134" selection-start-column="35" selection-end-line="134" selection-end-column="35" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/entity/tile_types/Torch.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-207">
-          <caret line="25" column="20" selection-start-line="25" selection-start-column="20" selection-end-line="25" selection-end-column="20" />
+        <state relative-caret-position="713">
+          <caret line="40" column="41" selection-start-line="40" selection-start-column="41" selection-end-line="40" selection-end-column="41" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1043,10 +946,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/GameStateManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="346">
+          <caret line="38" column="25" lean-forward="true" selection-start-line="38" selection-start-column="25" selection-end-line="38" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/map/MapParser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2668">
+          <caret line="49" column="25" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/map/TileMap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="15" column="3" lean-forward="true" selection-start-line="15" selection-start-column="3" selection-end-line="15" selection-end-column="3" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/entity/Lightmap.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="25" column="61" selection-start-line="25" selection-start-column="61" selection-end-line="25" selection-end-column="61" />
+        <state relative-caret-position="248">
+          <caret line="42" column="22" lean-forward="true" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -1095,7 +1025,7 @@
       </state>
       <state key="JdkListConfigurable.UI">
         <settings>
-          <last-edited>1.8</last-edited>
+          <last-edited>9</last-edited>
           <splitter-proportions>
             <option name="proportions">
               <list>

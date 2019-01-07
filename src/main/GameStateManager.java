@@ -28,7 +28,6 @@ public class GameStateManager
         levels.add(new Level1State("resources/Maps/map1.tmx"));
         levels.add(new Level1State("resources/Maps/map2.tmx"));
         levels.add(new Level1State("resources/Maps/map3.tmx"));
-        levels.add(new Level1State("resources/Maps/map4.tmx"));
 
         currentState = levels.get(currentLevel);
 
