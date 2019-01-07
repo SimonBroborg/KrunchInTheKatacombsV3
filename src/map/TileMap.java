@@ -145,6 +145,7 @@ public class TileMap {
      * @param g2d the graphics object
      */
     public void draw(Graphics2D g2d) {
+
         for(Tile tiles[] : tileMap){
             for(Tile tile : tiles){
                 if( tile != null && !tile.isTransparent()){

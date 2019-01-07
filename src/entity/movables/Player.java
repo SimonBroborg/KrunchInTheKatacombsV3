@@ -22,8 +22,6 @@ public class Player extends Damageable
 	private FlashLight fl;
 	private Animation animation;
 
-	private SoundPlayer jump;
-
 	private ArrayList<BufferedImage[]> sprites;
 	private final int[] numFrames = {
 			2, 8, 1, 2, 4, 2, 5
@@ -42,9 +40,6 @@ public class Player extends Damageable
 	public Player(int x, int y, TileMap tm) {
 		super(x, y, tm);
 		animation = new Animation();
-
-		jump = new SoundPlayer("resources/Sounds/player/mariojump.wav");
-
 		// dimensions
 		width = 30;
 		height = 30;
@@ -124,11 +119,7 @@ public class Player extends Damageable
 	}
 
 	public void update(Point mousePos) {
-		if(isJumping()){
-			jump.playOnce();
-		}
-
-		fl.update(mousePos);
+		//fl.update(mousePos);
 		super.update();
 
 		if(this.getDy() > 0) {

@@ -1,19 +1,18 @@
 package entity;
 
+import main.Sprite;
 import map.TileMap;
 
 import java.awt.*;
 import java.awt.geom.Area;
-import java.awt.geom.Point2D;
 
 public class LightSource extends Entity {
     private Rectangle light;
     private int range;
 
-    private float[] fractions;
-    private Color[] colors;
-
     private RadialGradientPaint p;
+
+    private Sprite lightSprite;
 
     /**
      * Creates an entity object
@@ -24,6 +23,8 @@ public class LightSource extends Entity {
      */
     public LightSource(int range, int x, int y, TileMap tm) {
         super(x, y, tm);
+
+        lightSprite = new Sprite("resources/Sprites/Flashlight/light.png");
 
         this.range = range;
 
@@ -39,17 +40,17 @@ public class LightSource extends Entity {
         light  = new Rectangle(x - range /2 + tm.getX(), y - range / 2 + tm.getY(), range, range);
 
         // The center of the rectangle
-        Point2D center = new Point(x + tm.getX(), y + tm.getY());
+        //Point2D center = new Point(x + tm.getX(), y + tm.getY());
 
         // The paint in the center of the rectangle
-        p  = new RadialGradientPaint(center, range / 2 , fractions, colors);
+        //p  = new RadialGradientPaint(center, range / 2 , fractions, colors);
     }
 
     @Override
     public void draw(Graphics2D g2d) {
-        g2d.setPaint(p);
-        g2d.fillRect(light.x, light.y, light.width, light.height);
-
+        //g2d.setPaint(p);
+        //g2d.fillRect(light.x, light.y, light.width, light.height);
+        g2d.drawImage(lightSprite.getImage(), light.x, light.y, null);
     }
 
     public Area getLight() {

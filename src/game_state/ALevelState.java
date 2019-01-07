@@ -133,7 +133,7 @@ public abstract class ALevelState implements GameState {
      */
     public void update(Point mousePos) {
         if(!backgroundSound.playing()){
-            backgroundSound.playOnce();
+           //backgroundSound.playOnce();
         }
         if(foregroundAlpha > 0.0f){
             foregroundAlpha -= 0.01;
