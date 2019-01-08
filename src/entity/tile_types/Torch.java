@@ -3,7 +3,6 @@ package entity.tile_types;
 import entity.Animation;
 import entity.LightSource;
 import entity.Usable.Usable;
-import entity.movables.Movable;
 import entity.movables.Player;
 import main.Sprite;
 import map.TileMap;
@@ -19,7 +18,7 @@ public class Torch extends Usable {
     private static final int RANGE = 100;
 
     public Torch(boolean isLit, int x, int y, TileMap tm) {
-        super(x, y, tm);
+        super(x, y, "resources/Sprites/Tiles/platformerTiles/Tiles/torch.png", tm);
 
         animation = new Animation();
 
@@ -29,8 +28,6 @@ public class Torch extends Usable {
                 new Sprite("resources/Sprites/Tiles/platformerTiles/Tiles/tochLit.png").getImage(),
                 new Sprite("resources/Sprites/Tiles/platformerTiles/Tiles/tochLit2.png").getImage()
         };
-
-        sprite = new Sprite("resources/Sprites/Tiles/platformerTiles/Tiles/torch.png");
 
         animation.setFrames(bi);
         animation.setDelay(400);

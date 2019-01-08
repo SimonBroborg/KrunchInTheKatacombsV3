@@ -18,7 +18,7 @@ public class Chunk extends Entity {
      * @param tm the levels tiles, used to check collisions etc
      */
     public Chunk(int x, int y, int numCols, int numRows, TileMap tm) {
-        super(x, y, tm);
+        super(x, y, null, tm);
 
         tiles = new ArrayList<>();
 

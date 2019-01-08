@@ -43,17 +43,20 @@ public abstract class Entity
      * @param y the y-position
      * @param tm the levels tiles, used to check collisions etc
      */
-    protected Entity(int x, int y, TileMap tm) {
+    protected Entity(int x, int y, String spritePath, TileMap tm) {
         this.tm = tm;
         this.x = x;
         this.y = y;
 
-        // Dimensions
-        width = 0;
-        height = 0;
+        if (spritePath != null) {
+            this.sprite = new Sprite(spritePath);
+            // Dimensions
+            width = sprite.getWidth();
+            height = sprite.getHeight();
+        }
+
 
         // Sprite and animation
-        sprite = null;
         fade = null;
 
         // Flags

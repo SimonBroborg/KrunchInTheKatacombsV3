@@ -21,15 +21,13 @@ public abstract class Usable extends Movable {
      * @param y  the y-position
      * @param tm the levels tiles, used to check collisions etc
      */
-    protected Usable(int x, int y, TileMap tm) {
-        super(x, y, tm);
+    protected Usable(int x, int y, String spritePath, TileMap tm) {
+        super(x, y, spritePath, tm);
         useSprite = new Sprite("resources/Sprites/Misc/useSprite.png");
     }
 
-
     public void update(Player p) {
         super.update();
-
         canUse = inRange(p, 70);
     }
 

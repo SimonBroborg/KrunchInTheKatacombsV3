@@ -1,25 +1,25 @@
 package game_state;
 
-import entity.Lightmap;
-import sound.SoundPlayer;
+import HUD.HUD;
+import HUD.InfoDisplay;
+import HUD.PopupWindowQueue;
 import entity.Entity;
-import entity.LightSource;
+import entity.Lightmap;
 import entity.Usable.EventPortal;
 import entity.Usable.Usable;
-import entity.movables.*;
+import entity.movables.Enemy;
+import entity.movables.Player;
 import entity.tile_types.Torch;
 import main.GameComponent;
 import main.GameStateManager;
-import HUD.*;
-import map.*;
+import map.Background;
+import map.TileMap;
 import menu.Menu;
-import java.awt.geom.Area;
-
+import sound.SoundPlayer;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
-import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -143,7 +143,7 @@ public abstract class ALevelState implements GameState {
 
             tm.update(player);
             bg.update();
-            //lightMap.update();
+            lightMap.update();
 
             // the player
             player.update(mousePos);

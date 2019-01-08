@@ -24,7 +24,7 @@ public class LightSource extends Entity {
      * @param tm the levels tiles, used to check collisions etc
      */
     public LightSource(int range, int x, int y, TileMap tm) {
-        super(x, y, tm);
+        super(x, y, null, tm);
 
         this.range = range;
 

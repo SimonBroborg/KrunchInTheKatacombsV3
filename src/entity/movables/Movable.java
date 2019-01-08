@@ -48,8 +48,8 @@ public abstract class Movable extends Entity {
      * @param y The y-position
      * @param tm the levels tiles, used to check collisions etc
      */
-    protected Movable(int x, int y, final TileMap tm) {
-        super(x, y, tm);
+    protected Movable(int x, int y, String spritePath, final TileMap tm) {
+        super(x, y, spritePath, tm);
     }
 
     public void update() {
@@ -195,7 +195,6 @@ public abstract class Movable extends Entity {
             }
 
         }
-
         // Move the object based on the collision
         y += dy;
         x += dx;
@@ -238,11 +237,11 @@ public abstract class Movable extends Entity {
         return dx;
     }
 
-    public boolean hasLeftColl() {
+    protected boolean hasLeftColl() {
         return leftColl;
     }
 
-    public boolean hasRightColl() {
+    protected boolean hasRightColl() {
         return rightColl;
     }
 
@@ -257,6 +256,30 @@ public abstract class Movable extends Entity {
 
     public void onLadder(boolean b){
         onLadder = b;
+    }
+
+    /**
+     * Move in the opposite direction of the current
+     */
+    protected void turn() {
+        left = !left;
+        right = !right;
+    }
+
+    /**
+     * Move to the right
+     */
+    protected void moveRight() {
+        right = true;
+        left = false;
+    }
+
+    /**
+     * Move to the left
+     */
+    protected void moveLeft() {
+        left = true;
+        right = false;
     }
 
 }

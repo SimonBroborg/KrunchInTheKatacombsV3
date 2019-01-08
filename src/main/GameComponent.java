@@ -14,16 +14,18 @@ public class GameComponent extends JComponent
 	public static int WIDTH = 640;
 	public static int SCALE = 2;
 
+	private static Dimension fullSize = new Dimension(Toolkit.getDefaultToolkit().getScreenSize());
+
 	public static int ups;
 
 	/**
 	 * The height of the frame
 	 */
-	public static int SCALED_HEIGHT = HEIGHT * SCALE;
+	public static int SCALED_HEIGHT = (int) fullSize.getHeight();
 	/**
 	 * The width of the frame
 	 */
-	public static int SCALED_WIDTH = WIDTH * SCALE;
+	public static int SCALED_WIDTH = (int) fullSize.getWidth();
 
 
 
@@ -56,7 +58,7 @@ public class GameComponent extends JComponent
 						"Game cursor");
 		frame.setCursor(gameCursor);
 
-		Dimension fullSize = new Dimension(Toolkit.getDefaultToolkit().getScreenSize());
+
 		SCALED_WIDTH = fullSize.width;
 		SCALED_HEIGHT = fullSize.height;
 		// Frame 'settings'
@@ -79,8 +81,6 @@ public class GameComponent extends JComponent
 	public void run() {
 
 		// Used to count the fps: https://www.youtube.com/watch?v=rh31YOZh5ZM
-
-
 
 		long timer = System.currentTimeMillis();
 		int updates = 0;

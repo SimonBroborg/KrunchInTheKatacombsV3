@@ -1,7 +1,6 @@
 package dialog;
 
 import entity.Entity;
-import main.Sprite;
 import map.TileMap;
 
 import java.awt.*;
@@ -21,9 +20,9 @@ public class DialogBox extends Entity
      * @param tm the levels tiles, used to check collisions etc
      */
     public DialogBox(String text, final int x, final int y, final TileMap tm) {
-        super(x, y, tm);
+        super(x, y, "resources/Sprites/misc/dialogueBox.png", tm);
         this.text = text;
-        sprite = new Sprite("resources/Sprites/misc/dialogueBox.png");
+
 
         newFade(5000,1.0f, 0.0f);
         fade.run();

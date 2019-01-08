@@ -5,7 +5,6 @@ import entity.Usable.Usable;
 import entity.movables.Enemy;
 import entity.movables.Player;
 import entity.tile_types.*;
-import entity.tile_types.BackgroundTile;
 import main.GameComponent;
 
 import java.awt.*;
@@ -178,10 +177,15 @@ public class TileMap {
 
         if(this.x > 0){
             this.x = 0;
+        } else if (this.x + tileWidth * numCols < GameComponent.SCALED_WIDTH) {
+            this.x = GameComponent.SCALED_WIDTH - tileWidth * numCols;
         }
         if(this.y > 0) {
             this.y = 0;
+        } else if (this.y + tileHeight * numRows < GameComponent.SCALED_HEIGHT) {
+            this.y = GameComponent.SCALED_HEIGHT - tileHeight * numRows;
         }
+
 
         colOffset = -this.x / (chunkNumCols * tileWidth);
         rowOffset = -this.y / (chunkNumRows * tileHeight);

@@ -4,8 +4,6 @@ import entity.movables.Player;
 import main.Sprite;
 import map.TileMap;
 
-import java.awt.*;
-
 /**
  * A chest which can contain things and be opened by the player
  */
@@ -19,16 +17,12 @@ public class Chest extends Usable {
      * @param tm the levels tiles, used to check collisions etc
      */
     public Chest(int x, int y, TileMap tm) {
-        super(x, y, tm);
-        sprite = new Sprite("resources/Sprites/Tiles/platformerTiles/Tiles/boxAlt.png");
+        super(x, y, "resources/Sprites/Tiles/platformerTiles/Tiles/boxAlt.png", tm);
 
         fallSpeed = 0.5;
         maxFallSpeed = 10;
         gravity = 0.3;
         jumpStart = -5;
-
-        width = sprite.getWidth();
-        height = sprite.getHeight();
     }
 
     @Override

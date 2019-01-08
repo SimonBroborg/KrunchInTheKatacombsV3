@@ -1,7 +1,5 @@
 package entity.Usable;
 
-import entity.Usable.Usable;
-import main.Sprite;
 import map.TileMap;
 
 public class InfoSign extends Usable {
@@ -15,10 +13,7 @@ public class InfoSign extends Usable {
      * @param tm the levels tiles, used to check collisions etc
      */
     public InfoSign(String text, int x, int y, TileMap tm) {
-        super(x, y, tm);
-
-
-        sprite = new Sprite("resources/Sprites/Tiles/PlatformerTiles/Tiles/sign.png");
+        super(x, y, "resources/Sprites/Tiles/PlatformerTiles/Tiles/sign.png", tm);
 
         fallSpeed = 0.5;
         maxFallSpeed = 10;

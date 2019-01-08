@@ -18,8 +18,8 @@ public abstract class Damageable extends Movable {
      * @param y  The y-position
      * @param tm the levels tiles, used to check collisions etc
      */
-    protected Damageable(int x, int y, TileMap tm) {
-        super(x, y, tm);
+    protected Damageable(int x, int y, String spritePath, TileMap tm) {
+        super(x, y, spritePath, tm);
         dead = false;
         hp = 100;
 

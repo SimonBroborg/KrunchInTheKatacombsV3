@@ -1,7 +1,6 @@
 package entity.Usable;
 
 import game_state.ALevelState;
-import main.GameStateManager;
 import main.Sprite;
 import map.TileMap;
 
@@ -16,7 +15,7 @@ public class EventPortal extends Usable {
      * @param tm the levels tiles, used to check collisions etc
      */
     public EventPortal(boolean direction, int x, int y, TileMap tm) {
-        super(x, y, tm);
+        super(x, y, null, tm);
 
         if(direction){
             sprite = new Sprite("resources/Sprites/Tiles/eventPortalNext.png");

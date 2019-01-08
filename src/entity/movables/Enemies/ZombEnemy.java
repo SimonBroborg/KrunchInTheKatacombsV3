@@ -2,10 +2,9 @@ package entity.movables.Enemies;
 
 import entity.movables.Enemy;
 import entity.movables.Player;
-import main.Sprite;
 import map.TileMap;
 
-public class HunterEnemy extends Enemy {
+public class ZombEnemy extends Enemy {
 
     /**
      * Creates an entity object
@@ -14,10 +13,9 @@ public class HunterEnemy extends Enemy {
      * @param y the y-position
      * @param tm the levels tiles, used to check collisions etc
      */
-    public HunterEnemy(int x, int y, Player player, TileMap tm) {
-        super(x, y, player, tm);
+    public ZombEnemy(int x, int y, Player player, TileMap tm) {
+        super(x, y, player, "resources/Sprites/Enemies/zombEnemy.png", tm);
         jumpStart = -10;
-        sprite = new Sprite("resources/Sprites/Enemies/hunterEnemy.png");
     }
 
     @Override
@@ -39,11 +37,9 @@ public class HunterEnemy extends Enemy {
             // Hunt the player horizontally
             // jump over obstacles
             if (this.x < player.getX()) {
-                setRight(true);
-                setLeft(false);
+                moveRight();
             } else if (x > player.getX()) {
-                setRight(false);
-                setLeft(true);
+                moveLeft();
             }
             if(player.getFlashLight().getLightBulb().intersects(this.getRectangle())){
                 maxSpeed = 1;
@@ -53,27 +49,9 @@ public class HunterEnemy extends Enemy {
         }
         else{
             maxSpeed = 1;
-            if(hasLeftColl()){
-                setLeft(false);
-                setRight(true);
-            }
-            else if(hasRightColl()){
-                setLeft(true);
-                setRight(false);
+            if (hasLeftColl() || hasRightColl()) {
+                turn();
             }
         }
-
-        if(alerted){
-            sprite = new Sprite("resources/Sprites/Enemies/hunterEnemyAlerted.png");
-            setJumping(hasLeftColl() || hasRightColl());
-        } else{
-            sprite = new Sprite("resources/Sprites/Enemies/hunterEnemy.png");
-        }
-    }
-
-    @Override
-    public void kill() {
-        super.kill();
-        remove = true;
     }
 }

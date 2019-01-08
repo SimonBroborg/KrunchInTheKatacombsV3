@@ -1,7 +1,6 @@
 package entity;
 
 import entity.movables.Movable;
-import main.Sprite;
 import map.TileMap;
 
 import java.awt.*;
@@ -11,14 +10,11 @@ import java.awt.*;
  */
 public abstract class Tile extends Entity {
     protected Tile(boolean solid, boolean transparent, String spritePath, int x, int y, TileMap tm) {
-        super(x, y, tm);
+        super(x, y, spritePath, tm);
         this.solid = solid;
         this.transparent = transparent;
-        this.sprite = new Sprite(spritePath);
         this.x = x;
         this.y = y;
-        this.width = sprite.getWidth(); // tm.getTileWidth();
-        this.height =  sprite.getHeight(); // tm.getTileHeight();
         this.tm = tm;
         this.highlight = false;
     }

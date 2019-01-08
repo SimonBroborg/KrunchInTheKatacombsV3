@@ -3,11 +3,8 @@ package entity.movables;
 import entity.Animation;
 import entity.Damageable;
 import flashlight.FlashLight;
-import main.Sprite;
 import map.TileMap;
-import sound.SoundPlayer;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
@@ -38,7 +35,7 @@ public class Player extends Damageable
 	private static final int SCRATCHING = 6;
 
 	public Player(int x, int y, TileMap tm) {
-		super(x, y, tm);
+		super(x, y, "resources/Sprites/Player/playersprites.gif", tm);
 		animation = new Animation();
 		// dimensions
 		width = 30;
@@ -57,13 +54,10 @@ public class Player extends Damageable
 
 		wallJumpStart = -7;
 
-		sprite = new Sprite("resources/Sprites/Player/playersprites.gif");
 		// load sprites
 		try {
 
-			BufferedImage spritesheet = new Sprite(
-					"resources/Sprites/Player/playersprites.gif"
-			).getImage();
+			BufferedImage spritesheet = sprite.getImage();
 
 			sprites = new ArrayList<>();
 			for(int i = 0; i < 7; i++) {
@@ -119,8 +113,8 @@ public class Player extends Damageable
 	}
 
 	public void update(Point mousePos) {
-		//fl.update(mousePos);
 		super.update();
+		fl.update(mousePos);
 
 		if(this.getDy() > 0) {
 			if (currentAction != FALLING) {
@@ -152,8 +146,6 @@ public class Player extends Damageable
 		}
 
 		animation.update();
-
-
 	}
 
 	@Override

@@ -1,7 +1,6 @@
 package entity.movables;
 
 import entity.Damageable;
-import main.Sprite;
 import map.TileMap;
 
 public abstract class Enemy extends Damageable {
@@ -14,16 +13,13 @@ public abstract class Enemy extends Damageable {
      * @param y the y-position
      * @param tm the levels tiles, used to check collisions etc
      */
-    public Enemy(int x, int y, Player player,  TileMap tm) {
-        super(x, y, tm);
+    public Enemy(int x, int y, Player player, String spritePath, TileMap tm) {
+        super(x, y, spritePath, tm);
 
         this.player = player;
 
         setRight(true);
 
-        // dimensions
-        width = 40;
-        height = 40;
 
         // movement
         moveSpeed = 0.7;
@@ -33,8 +29,6 @@ public abstract class Enemy extends Damageable {
         maxFallSpeed = 10;
         jumpStart = -7;
         gravity = 0.3;
-
-        sprite = new Sprite("resources/Sprites/Objects/Pickups/test.png");
     }
 
     /**
@@ -57,5 +51,11 @@ public abstract class Enemy extends Damageable {
 
     public void setPlayer(Player player) {
         this.player = player;
+    }
+
+    @Override
+    public void kill() {
+        super.kill();
+        remove = true;
     }
 }

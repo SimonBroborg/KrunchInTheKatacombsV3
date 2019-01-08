@@ -19,11 +19,11 @@ public class Lightmap extends Entity {
      * @param tm the levels tiles, used to check collisions etc
      */
     public Lightmap(int x, int y, TileMap tm) {
-        super(x, y, tm);
+        super(x, y, null, tm);
 
         width = tm.getNumCols() * tm.getTileWidth();
         height = tm.getNumRows() * tm.getTileHeight();
-        lightmap = new Area(new Rectangle(x, y, width, height));
+        lightmap = new Area(new Rectangle(x, y, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
     }
 
     public void setTorches(ArrayList<Torch> torches) {
@@ -38,27 +38,28 @@ public class Lightmap extends Entity {
     }
 
     public void update(){
+        lightmap = new Area(new Rectangle(x, y, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
     }
 
     public void draw(Graphics2D g2d){
         float darknessAlpha = 0.95f;
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, darknessAlpha));
 
-        g2d.setColor(Color.black);
-        g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
-        /*for(Torch t : torches){
+
+        for (Torch t : torches) {
             if(t.isLit()) {
-                t.getLightSource().draw(g2d);
+                LightSource ls = t.getLightSource();
+                ls.draw(g2d);
+                lightmap.subtract(ls.getLight());
             }
         }
 
         g2d.setColor(Color.BLACK);
 
-        g2d.setClip(lightmap);
-        g2d.fillRect(x, y, width, height);
+        g2d.fill(lightmap);
 
-        g2d.setClip(null);
-*/
+
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1));
+
     }
 }

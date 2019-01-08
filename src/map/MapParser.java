@@ -3,17 +3,12 @@ package map;
 import entity.Usable.Chest;
 import entity.Usable.EventPortal;
 import entity.Usable.Usable;
-import entity.movables.Enemies.HunterEnemy;
 import entity.movables.Enemies.ShadowEnemy;
+import entity.movables.Enemies.ZombEnemy;
 import entity.movables.Enemy;
 import entity.movables.Player;
 import entity.tile_types.Torch;
-
-import org.w3c.dom.DOMException;
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
+import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -186,10 +181,10 @@ public class MapParser {
                             torches.add(tl);
                             break;
 
-                        case "hunterEnemy":
-                            Enemy he = new HunterEnemy(x, y, player, tm);
-                            he.setPosition(x, he.getY() - he.getHeight());
-                            enemies.add(he);
+                        case "zombEnemy":
+                            Enemy ze = new ZombEnemy(x, y, player, tm);
+                            ze.setPosition(x, ze.getY() - ze.getHeight());
+                            enemies.add(ze);
                             break;
 
                         case "shadowEnemy":
