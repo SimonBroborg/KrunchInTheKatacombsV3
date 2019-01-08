@@ -5,14 +5,14 @@ import map.TileMap;
 import java.awt.*;
 import java.awt.geom.Area;
 import java.awt.geom.Ellipse2D;
-import java.awt.geom.Point2D;
 
+/**
+ * A transparent ellipse which is representing a light source
+ */
 public class LightSource extends Entity {
     private Ellipse2D light;
-    private int range;
 
-    private float[] fractions;
-    private Color[] colors;
+    private float diameter;
 
     private RadialGradientPaint p;
 
@@ -23,39 +23,31 @@ public class LightSource extends Entity {
      * @param y  the y-position
      * @param tm the levels tiles, used to check collisions etc
      */
-    public LightSource(int range, int x, int y, TileMap tm) {
+    public LightSource(float diameter, int x, int y, TileMap tm) {
         super(x, y, "resources/Sprites/Misc/lightsource.png", tm);
 
-        this.range = range;
+        this.diameter = diameter;
 
-        colors = new Color[]{new Color(0.0f, 0.0f, 0.0f, 0.0f), Color.BLACK};
-        fractions = new float[]{0.0f, 1.0f};
-        light  = new Ellipse2D.Float(x - range /2 + tm.getX(), y - range / 2 + tm.getY(), range -2, range -2);
+        this.x = (int) (x - diameter / 2);
+        this.y = (int) (y - diameter / 2);
 
+        light = new Ellipse2D.Float(x + tm.getX(), y + tm.getY(), diameter - 1, diameter - 1);
     }
 
     @Override
     public void update() {
         super.update();
 
-        // Set the rectangle in the center
-        light  = new Ellipse2D.Float(x - range /2 + tm.getX(), y - range / 2 + tm.getY(), range -2, range -2);
-
-        // The center of the rectangle
-        Point2D center = new Point(x + tm.getX(), y + tm.getY());
-
-        // The paint in the center of the rectangle
-        p  = new RadialGradientPaint(center, range / 2 , fractions, colors);
+        // The circle which will be subtracted from the lightmap
+        light = new Ellipse2D.Float(x + tm.getX(), y + tm.getY(), diameter - 1, diameter - 1);
     }
 
     @Override
     public void draw(Graphics2D g2d) {
-        g2d.setPaint(p);
-        g2d.drawImage(sprite.getImage(), (int) light.getX(), (int)light.getY(), null);
-
+        g2d.drawImage(sprite.getImage(), (int) light.getX(), (int) light.getY(), (int) diameter, (int) diameter, null);
     }
 
-    public Area getLight() {
+    Area getLight() {
         return new Area(light);
     }
 }

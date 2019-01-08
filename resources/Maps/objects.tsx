@@ -20,6 +20,6 @@
   <image width="70" height="70" source="../Sprites/Tiles/eventPortalPrev.png"/>
  </tile>
  <tile id="6" type="zombEnemy">
-  <image width="66" height="92" source="../Sprites/Tiles/platformerTiles/Player/p2_front(1).png"/>
+  <image width="66" height="92" source="../Sprites/Tiles/platformerTiles/Player/p2_front.png"/>
  </tile>
 </tileset>

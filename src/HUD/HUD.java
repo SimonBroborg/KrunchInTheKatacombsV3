@@ -5,9 +5,13 @@ import main.Sprite;
 
 import java.awt.*;
 
+/**
+ * A HUD which displays things on the screen such as the players hp and the flashlights battery
+ */
 public class HUD {
     private Player player;
     private Sprite sprite;
+
     public HUD(Player p){
         player = p;
         sprite = new Sprite("resources/Sprites/HUD/hud.png");

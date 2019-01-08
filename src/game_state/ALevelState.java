@@ -38,30 +38,25 @@ public abstract class ALevelState implements GameState {
 
     protected Player player = null;
 
-    protected Menu menu = null;
+    private Menu menu = null;
 
-    protected List<Enemy> enemies;
-    protected List<Usable> usables;
-    protected ArrayList<Torch> torches;
+    private List<Enemy> enemies;
+    private List<Usable> usables;
+    private ArrayList<Torch> torches;
 
-    protected Lightmap lightMap;
+    private Lightmap lightMap;
 
-    // Path to the map file
-    protected String mapPath;
+    private Background bg = null;
 
-    protected boolean restart;
-
-    protected Background bg = null;
-
-    protected GameStateManager gsm = null;
+    private GameStateManager gsm = null;
 
     // HUD
-    protected HUD hud;
-    protected InfoDisplay info;
-    protected PopupWindowQueue popupQ;
+    private HUD hud;
+    private InfoDisplay info;
+    private PopupWindowQueue popupQ;
 
-    protected Rectangle foreground;
-    protected float foregroundAlpha;
+    private Rectangle foreground;
+    private float foregroundAlpha;
 
     private SoundPlayer backgroundSound;
 
@@ -71,7 +66,7 @@ public abstract class ALevelState implements GameState {
      * @param mapPath Path to the levels map file
      */
     protected ALevelState(String mapPath) {
-        this.mapPath = mapPath;
+        // Path to the map file
         tm = new TileMap(mapPath);
 
         tm.load();
@@ -112,8 +107,6 @@ public abstract class ALevelState implements GameState {
         }
         player = tm.getPlayer();
         enemies = tm.getEnemies();
-
-
 
         hud = new HUD(player);
         info = new InfoDisplay(player);
@@ -199,16 +192,14 @@ public abstract class ALevelState implements GameState {
         bg.draw(g2d);
         tm.draw(g2d);
 
-        for (Entity e : enemies) {
-            e.draw(g2d);
-
-        }
-
         for(Usable u : usables){
             u.draw(g2d);
         }
 
-        //player.getFlashLight().draw(g2d);
+        for (Entity e : enemies) {
+            e.draw(g2d);
+        }
+
         player.draw(g2d);
 
         lightMap.draw(g2d);
@@ -219,7 +210,7 @@ public abstract class ALevelState implements GameState {
         }
 
 
-        // Draw
+        // Draw HUD and menu
         popupQ.draw(g2d);
         hud.draw(g2d);
         menu.draw(g2d);
@@ -249,6 +240,7 @@ public abstract class ALevelState implements GameState {
                 player.setClimbDown(true);
                 break;
             case KeyEvent.VK_E:
+                // Prioritizes closing popups
                 if(popupQ.isDisplaying()){
                     popupQ.nextPopup();
                 }else {
@@ -258,7 +250,6 @@ public abstract class ALevelState implements GameState {
                         }
                     }
                 }
-
                 break;
             case KeyEvent.VK_O:
                 loadPrev = true;

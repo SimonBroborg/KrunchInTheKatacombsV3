@@ -45,12 +45,13 @@ public class Lightmap extends Entity {
         float darknessAlpha = 0.95f;
         g2d.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, darknessAlpha));
 
-
         for (Torch t : torches) {
             if(t.isLit()) {
                 LightSource ls = t.getLightSource();
-                ls.draw(g2d);
-                lightmap.subtract(ls.getLight());
+                if (ls.isOnScreen()) {
+                    ls.draw(g2d);
+                    lightmap.subtract(ls.getLight());
+                }
             }
         }
 

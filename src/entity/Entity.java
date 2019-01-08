@@ -23,12 +23,11 @@ public abstract class Entity
     // Sprite and animation
     protected Sprite sprite;
     protected Fade fade;
-    protected float fadeAlpha;
+    private float fadeAlpha;
 
     // Flags
     protected boolean remove;
     protected boolean solid; // If it can be collided with
-    protected boolean highlight; // If it should get highlighted
     protected boolean transparent; // If it is visible
     protected boolean facingRight;
 
@@ -61,7 +60,6 @@ public abstract class Entity
 
         // Flags
         remove = false;
-        highlight = false;
         transparent = false;
         facingRight = true;
         solid = true;
@@ -78,7 +76,7 @@ public abstract class Entity
     }
 
     /**
-     * Draws the entity to the frame
+     * Draws the entity to the screen
      *
      * @param g2d the drawing object
      */
@@ -96,7 +94,7 @@ public abstract class Entity
     }
 
     /**
-     * Returns the collision rectangle of the entity
+     * Returns the collision rectangle of the entity relative to the tilemap
      *
      * @return a rectangle with the size and position of the entity
      * @see javafx.scene.shape.Rectangle
@@ -131,14 +129,6 @@ public abstract class Entity
         yMap = tm.getY();
     }
 
-    public int getWidth() {
-        return width;
-    }
-
-    public int getHeight() {
-        return height;
-    }
-
     /**
      * Tells if the object should be removed from the map.
      *
@@ -149,7 +139,43 @@ public abstract class Entity
     }
 
     /**
-     * Get the x-position.
+     * Check if the entity is solid (can have collision)
+     * @return Boolean telling if it's solid
+     */
+    public boolean isSolid() {
+        return solid;
+    }
+
+    /**
+     * Returns the center point of the entity
+     *
+     * @return the center point
+     * @see Point
+     */
+    public Point getCenter(){
+        return new Point(x + width / 2, y + height / 2);
+    }
+
+    /**
+     * Check if another entity is inside a chosen range
+     * @param other The other entity
+     * @param range The chosen range
+     * @return Boolean telling if it is inside the range
+     */
+    public boolean inRange(Entity other, int range){
+        return Math.hypot(other.getCenter().getX() - this.getCenter().getX(), other.getCenter().getY() - this.getCenter().getY()) <= range;
+    }
+
+    /**
+     * Check if the entity is inside the screen border
+     * @return boolean telling if it is inside
+     */
+    public boolean isOnScreen() {
+        return x + width + xMap >= 0 && y + height + yMap >= 0 && x <= GameComponent.SCALED_WIDTH && y + yMap <= GameComponent.SCALED_HEIGHT;
+    }
+
+    /**
+     * Get the x-position relative to the tilemap
      *
      * @return the x-position as an integer
      */
@@ -158,7 +184,7 @@ public abstract class Entity
     }
 
     /**
-     * Get the y-position
+     * Get the y-position relative to the tilemap
      *
      * @return the y-position as an integer
      */
@@ -174,31 +200,13 @@ public abstract class Entity
         return y;
     }
 
-    public boolean isSolid() {
-        return solid;
+    public int getWidth() {
+        return width;
     }
 
-    public boolean isTransparent() {
-        return transparent;
+    public int getHeight() {
+        return height;
     }
-
-    public boolean isHighlight() {
-        return highlight;
-    }
-
-    public Point getCenter(){
-        return new Point(x + width / 2, y + height / 2);
-    }
-
-    // Check if another entity in a chosen range
-    public boolean inRange(Entity other, int range){
-        return Math.hypot(other.getCenter().getX() - this.getCenter().getX(), other.getCenter().getY() - this.getCenter().getY()) <= range;
-    }
-
-    public boolean isOnScreen(){
-        return xMap >= 0 && yMap >= 0 && xMap <= GameComponent.SCALED_WIDTH && yMap <= GameComponent.SCALED_HEIGHT;
-    }
-
 }
 
 

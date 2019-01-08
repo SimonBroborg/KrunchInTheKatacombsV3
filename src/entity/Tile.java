@@ -16,7 +16,6 @@ public abstract class Tile extends Entity {
         this.x = x;
         this.y = y;
         this.tm = tm;
-        this.highlight = false;
     }
 
     public Rectangle getRectangle() {
@@ -26,6 +25,7 @@ public abstract class Tile extends Entity {
     public abstract void movableCollision(Movable o);
 
     public void draw(Graphics2D g2d) {
-        g2d.drawImage(sprite.getImage(), getXMap(), getYMap(), width, height, null);
+        if (isOnScreen())
+            g2d.drawImage(sprite.getImage(), getXMap(), getYMap(), width, height, null);
     }
 }

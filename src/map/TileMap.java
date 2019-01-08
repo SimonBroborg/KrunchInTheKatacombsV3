@@ -83,8 +83,8 @@ public class TileMap {
         tileHeight = parser.getTileHeight();
         spritePaths = parser.getSpritePaths();
 
-        numRowsToDraw = (int)Math.ceil(GameComponent.SCALED_HEIGHT / (chunkNumRows * tileHeight) ) +3;
-        numColsToDraw = (int)Math.ceil(GameComponent.SCALED_WIDTH / (chunkNumCols * tileWidth) ) + 3;
+        numRowsToDraw = (int) Math.ceil(GameComponent.SCALED_HEIGHT / (chunkNumRows * tileHeight));
+        numColsToDraw = (int) Math.ceil(GameComponent.SCALED_WIDTH / (chunkNumCols * tileWidth));
 
         createChunks();
 
@@ -92,8 +92,8 @@ public class TileMap {
     }
 
     private void createChunks(){
-        int numChunkCols = numCols  / chunkNumCols + 2;
-        int numChunkRows = numRows / chunkNumRows + 2;
+        int numChunkCols = numCols / chunkNumCols + 1;
+        int numChunkRows = numRows / chunkNumRows + 1;
 
         chunks = new Chunk[numChunkRows][numChunkCols];
 
@@ -192,22 +192,11 @@ public class TileMap {
     }
 
     /**
-     * Draws all the tiles to the frame
+     * Draws the chunks to the screen (if they are inside the screen)
      *
      * @param g2d the graphics object
      */
     public void draw(Graphics2D g2d) {
-        /*for(int row = rowOffset; row < rowOffset + numRowsToDraw; row++){
-            if(row >= numRows ) break;
-            for(int col = colOffset; col < colOffset + numColsToDraw; col++){
-                if(col >= numCols) break;
-                    Tile tile = tileMap[row][col];
-                if(tile != null){
-                    tile.draw(g2d);
-                }
-            }
-        }*/
-
         for(int row = rowOffset; row <= rowOffset + numRowsToDraw; row++){
             if(row >= chunks.length ) break;
             for(int col = colOffset; col <= colOffset + numColsToDraw; col++){
