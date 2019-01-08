@@ -24,13 +24,13 @@ public class LightSource extends Entity {
      * @param tm the levels tiles, used to check collisions etc
      */
     public LightSource(int range, int x, int y, TileMap tm) {
-        super(x, y, null, tm);
+        super(x, y, "resources/Sprites/Misc/lightsource.png", tm);
 
         this.range = range;
 
         colors = new Color[]{new Color(0.0f, 0.0f, 0.0f, 0.0f), Color.BLACK};
         fractions = new float[]{0.0f, 1.0f};
-        light  = new Ellipse2D.Float(x - range /2 + tm.getX(), y - range / 2 + tm.getY(), range, range);
+        light  = new Ellipse2D.Float(x - range /2 + tm.getX(), y - range / 2 + tm.getY(), range -2, range -2);
 
     }
 
@@ -39,7 +39,7 @@ public class LightSource extends Entity {
         super.update();
 
         // Set the rectangle in the center
-        light  = new Ellipse2D.Float(x - range /2 + tm.getX(), y - range / 2 + tm.getY(), range, range);
+        light  = new Ellipse2D.Float(x - range /2 + tm.getX(), y - range / 2 + tm.getY(), range -2, range -2);
 
         // The center of the rectangle
         Point2D center = new Point(x + tm.getX(), y + tm.getY());
@@ -51,7 +51,7 @@ public class LightSource extends Entity {
     @Override
     public void draw(Graphics2D g2d) {
         g2d.setPaint(p);
-        g2d.fill(light);
+        g2d.drawImage(sprite.getImage(), (int) light.getX(), (int)light.getY(), null);
 
     }
 
