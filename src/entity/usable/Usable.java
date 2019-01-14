@@ -1,4 +1,4 @@
-package entity.Usable;
+package entity.usable;
 
 import entity.movables.Movable;
 import entity.movables.Player;
@@ -27,7 +27,7 @@ public abstract class Usable extends Movable {
     }
 
     public void update(Player p) {
-        super.update();
+        update();
         canUse = inRange(p, 70);
     }
 

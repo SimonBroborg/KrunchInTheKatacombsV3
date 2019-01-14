@@ -21,14 +21,11 @@ public abstract class Entity
     protected int height;
 
     // Sprite and animation
-    protected Sprite sprite;
-    protected Fade fade;
-    private float fadeAlpha;
+    protected Sprite sprite = null;
+    protected Fade fade = null;
 
     // Flags
     protected boolean remove;
-    protected boolean solid; // If it can be collided with
-    protected boolean transparent; // If it is visible
     protected boolean facingRight;
 
     //Tile stuff
@@ -55,17 +52,13 @@ public abstract class Entity
         }
 
 
-        // Sprite and animation
-        fade = null;
-
         // Flags
         remove = false;
-        transparent = false;
         facingRight = true;
-        solid = true;
+
 
         // For the fade effect
-        fadeAlpha = 1.0f;
+        final float fadeAlpha = 1.0f;
 
         xMap = 0;
         yMap = 0;
@@ -104,7 +97,7 @@ public abstract class Entity
     }
 
     /**
-     * A static object only has to change it's map position when updates
+     * Update the position etc. of an Entity
      */
     public void update() {
         setMapPosition();
@@ -139,14 +132,6 @@ public abstract class Entity
     }
 
     /**
-     * Check if the entity is solid (can have collision)
-     * @return Boolean telling if it's solid
-     */
-    public boolean isSolid() {
-        return solid;
-    }
-
-    /**
      * Returns the center point of the entity
      *
      * @return the center point
@@ -166,12 +151,17 @@ public abstract class Entity
         return Math.hypot(other.getCenter().getX() - this.getCenter().getX(), other.getCenter().getY() - this.getCenter().getY()) <= range;
     }
 
+    public boolean collisionWith(Entity other) {
+        return other.getRectangle().intersects(this.getRectangle());
+    }
+
     /**
      * Check if the entity is inside the screen border
      * @return boolean telling if it is inside
      */
     public boolean isOnScreen() {
-        return x + width + xMap >= 0 && y + height + yMap >= 0 && x <= GameComponent.SCALED_WIDTH && y + yMap <= GameComponent.SCALED_HEIGHT;
+        return x + width + xMap >= 0 && y + height + yMap >= 0 && x + xMap <= GameComponent.SCALED_WIDTH &&
+               y + yMap <= GameComponent.SCALED_HEIGHT;
     }
 
     /**

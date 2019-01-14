@@ -1,6 +1,5 @@
 package animation;
 
-import main.GameComponent;
 import main.Sprite;
 
 /**
@@ -8,10 +7,9 @@ import main.Sprite;
  */
 public class Fade
 {
-    private int ms;
     private boolean running;
 
-    private Sprite sprite;
+    private Sprite sprite = null;
 
     private float from;
     private float to;
@@ -25,11 +23,10 @@ public class Fade
      * @param to The fadeAlpha value which the animation will end at
      */
     public Fade(int ms, float from, float to){
-        this.ms = ms;
         this.from  = from;
         this.to = to;
         alpha = from;
-        speed = (float) ms / GameComponent.FPS / 100;
+	//speed = (float) ms / GameComponent.FPS / 100;
         System.out.println(speed);
 
     }

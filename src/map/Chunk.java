@@ -5,9 +5,13 @@ import entity.Tile;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
+/**
+ * A chunk is a block of tiles. It helps with rendering less tiles than needed and gives an overall better performance.
+ */
 public class Chunk extends Entity {
-    private ArrayList<Tile> tiles;
+    private List<Tile> tiles;
 
 
     /**
@@ -26,8 +30,7 @@ public class Chunk extends Entity {
         height = tm.getTileHeight() * numRows;
     }
 
-    @Override
-    public void draw(Graphics2D g2d) {
+    @Override public void draw(Graphics2D g2d) {
         for(Tile t : tiles){
             t.draw(g2d);
         }
@@ -37,13 +40,9 @@ public class Chunk extends Entity {
         tiles.add(t);
     }
 
-    public ArrayList<Tile> getTiles() {
+    public Iterable<Tile> getTiles() {
         return tiles;
     }
 
-    @Override
-    public Rectangle getRectangle() {
-        return super.getRectangle();
-    }
 }
 

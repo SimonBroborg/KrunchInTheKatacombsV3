@@ -1,17 +1,19 @@
-package HUD;
+package hud;
 
 import java.awt.*;
 import java.util.LinkedList;
 
+/**
+ * A queue of popup windows. Goes through all windows before any other action can be performed.
+ */
 public class PopupWindowQueue{
     private LinkedList<PopupWindow> popups;
-    private PopupWindow current;
+    private PopupWindow current = null;
 
     private boolean displaying;
 
     public PopupWindowQueue(){
         popups = new LinkedList<>();
-        current = null;
         displaying = false;
     }
 
@@ -20,7 +22,7 @@ public class PopupWindowQueue{
         if(current != null) {
             current.update();
             displaying = true;
-        }else if(popups.size() > 0) {
+        } else if (!popups.isEmpty()) {
             nextPopup();
         }else{
             displaying = false;

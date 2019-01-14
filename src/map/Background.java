@@ -1,9 +1,9 @@
 package map;
 
-import main.GameComponent;
 import main.Sprite;
 
 import java.awt.*;
+import java.awt.image.ImageObserver;
 
 /**
  * Creates a background for a level.
@@ -16,11 +16,8 @@ public class Background {
     private double dx;
     private double dy;
 
-    private double moveScale;
-
     public Background(String s, double ms) {
         sprite = new Sprite(s);
-        moveScale = ms;
         dx = 0;
         dy = 0;
     }
@@ -33,10 +30,10 @@ public class Background {
     public void draw(Graphics2D g2d) {
         g2d.drawImage(sprite.getImage(), (int) x, (int) y, null);
         if (x < 0) {
-            g2d.drawImage(sprite.getImage(), (int) x + GameComponent.WIDTH, (int) y, null);
+	    g2d.drawImage(sprite.getImage(), (int) x + ImageObserver.WIDTH, (int) y, null);
         }
         if (x > 0) {
-            g2d.drawImage(sprite.getImage(), (int) x - GameComponent.WIDTH, (int) y, null);
+	    g2d.drawImage(sprite.getImage(), (int) x - ImageObserver.WIDTH, (int) y, null);
         }
     }
 }

@@ -14,7 +14,7 @@ public class LightSource extends Entity {
 
     private float diameter;
 
-    private RadialGradientPaint p;
+    private RadialGradientPaint p = null;
 
     /**
      * Creates an entity object

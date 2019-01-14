@@ -1,4 +1,4 @@
-package entity.Usable;
+package entity.usable;
 
 import entity.movables.Player;
 import main.Sprite;

@@ -2,14 +2,17 @@ package entity.tile_types;
 
 import entity.Animation;
 import entity.LightSource;
-import entity.Usable.Usable;
 import entity.movables.Player;
+import entity.usable.Usable;
 import main.Sprite;
 import map.TileMap;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+/**
+ * A torch lights up the nearby environment such as tiles and other entities.
+ */
 public class Torch extends Usable {
     private boolean lit;
     private Animation animation;
@@ -18,60 +21,53 @@ public class Torch extends Usable {
     private static final int RANGE = 100;
 
     public Torch(boolean isLit, int x, int y, TileMap tm) {
-        super(x, y, "resources/Sprites/Tiles/platformerTiles/Tiles/torch.png", tm);
+	super(x, y, "resources/Sprites/Tiles/platformerTiles/Tiles/torch.png", tm);
 
-        animation = new Animation();
+	animation = new Animation();
 
-        lit = isLit;
+	lit = isLit;
 
-        BufferedImage[] bi = {
-                new Sprite("resources/Sprites/Tiles/platformerTiles/Tiles/tochLit.png").getImage(),
-                new Sprite("resources/Sprites/Tiles/platformerTiles/Tiles/tochLit2.png").getImage()
-        };
+	BufferedImage[] bi = { new Sprite("resources/Sprites/Tiles/platformerTiles/Tiles/tochLit.png").getImage(),
+		new Sprite("resources/Sprites/Tiles/platformerTiles/Tiles/tochLit2.png").getImage() };
 
-        animation.setFrames(bi);
-        animation.setDelay(400);
+	animation.setFrames(bi);
+	animation.setDelay(400);
 
-        width = sprite.getWidth();
-        height = sprite.getHeight();
+	width = sprite.getWidth();
+	height = sprite.getHeight();
 
-        lightSource = new LightSource(400, (int)getCenter().getX(), (int)getCenter().getY() - height, tm);
+	lightSource = new LightSource(400, (int)getCenter().getX(), (int)getCenter().getY() - height, tm);
 
     }
 
-    @Override
-    public void update(Player p) {
-        super.update(p);
-        if(lit) {
-            animation.update();
-            lightSource.update();
-        }
+    @Override public void update(Player p) {
+	super.update(p);
+	if(lit) {
+	    animation.update();
+	    lightSource.update();
+	}
     }
 
-    @Override
-    public void draw(Graphics2D g2d) {
-        if(lit)
-            g2d.drawImage(animation.getImage(), x + xMap, y + yMap, width, height, null);
-        else
-            g2d.drawImage(sprite.getImage(), x + xMap, y + yMap, width, height, null);
+    @Override public void draw(Graphics2D g2d) {
+	if(lit) g2d.drawImage(animation.getImage(), x + xMap, y + yMap, width, height, null);
+	else g2d.drawImage(sprite.getImage(), x + xMap, y + yMap, width, height, null);
 
     }
 
-    @Override
-    public void use() {
-        toggle();
+    @Override public void use() {
+	toggle();
     }
 
     private void toggle(){
-        lit = !lit;
+	lit = !lit;
     }
 
     public boolean isLit() {
-        return lit;
+	return lit;
     }
 
     public LightSource getLightSource() {
-        return lightSource;
+	return lightSource;
     }
 }
 

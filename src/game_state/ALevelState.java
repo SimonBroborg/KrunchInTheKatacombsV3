@@ -1,26 +1,27 @@
 package game_state;
 
-import HUD.HUD;
-import HUD.InfoDisplay;
-import HUD.PopupWindowQueue;
 import entity.Entity;
 import entity.Lightmap;
-import entity.Usable.EventPortal;
-import entity.Usable.Usable;
 import entity.movables.Enemy;
 import entity.movables.Player;
 import entity.tile_types.Torch;
+import entity.usable.EventPortal;
+import entity.usable.Usable;
+import hud.HUD;
+import hud.InfoDisplay;
+import hud.PopupWindowQueue;
 import main.GameComponent;
 import main.GameStateManager;
+import main.GameStateManager.State;
 import map.Background;
 import map.TileMap;
-import menu.Menu;
 import sound.SoundPlayer;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
@@ -28,9 +29,6 @@ import java.util.List;
  * Abstract class level state. Sets the default behavior and methods for the levels of the game.
  */
 public abstract class ALevelState implements GameState {
-
-    private boolean inited;
-
     private boolean loadNext;
     private boolean loadPrev;
 
@@ -38,27 +36,24 @@ public abstract class ALevelState implements GameState {
 
     protected Player player = null;
 
-    private Menu menu = null;
 
-    private List<Enemy> enemies;
-    private List<Usable> usables;
-    private ArrayList<Torch> torches;
+    private List<Enemy> enemies = null;
+    private List<Usable> usables = null;
 
-    private Lightmap lightMap;
+    private Lightmap lightMap = null;
 
     private Background bg = null;
 
     private GameStateManager gsm = null;
 
-    // HUD
-    private HUD hud;
-    private InfoDisplay info;
-    private PopupWindowQueue popupQ;
+    // hud
+    private HUD hud = null;
+    private InfoDisplay info = null;
+    private PopupWindowQueue popupQ = null;
 
-    private Rectangle foreground;
     private float foregroundAlpha;
 
-    private SoundPlayer backgroundSound;
+    private SoundPlayer backgroundSound = null;
 
     /**
      * The constructor takes in a string with the path to the map file
@@ -70,7 +65,6 @@ public abstract class ALevelState implements GameState {
         tm = new TileMap(mapPath);
 
         tm.load();
-        inited = false;
         loadNext = false;
         loadPrev = false;
     }
@@ -79,17 +73,15 @@ public abstract class ALevelState implements GameState {
      * Initialize lists and instances
      * @param gsm the game state manager which controls the current state
      */
-    public void init(GameStateManager gsm) {
+    @SuppressWarnings("InstanceofConcreteClass") public void init(GameStateManager gsm) {
         this.gsm = gsm;
 
         // Initialize the array lists
         enemies = new ArrayList<>();
         usables = new ArrayList<>();
-        torches = new ArrayList<>();
-        menu = new Menu(10, 10, gsm);
+        Collection<Torch> torches;
 
         bg = new Background("resources/Backgrounds/background.jpg", 0);
-        foreground = new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
         foregroundAlpha = 1.0f;
 
         // Set the usables and torches
@@ -105,7 +97,9 @@ public abstract class ALevelState implements GameState {
                 ((EventPortal) u).setAls(this);
             }
         }
+
         player = tm.getPlayer();
+
         enemies = tm.getEnemies();
 
         hud = new HUD(player);
@@ -113,7 +107,6 @@ public abstract class ALevelState implements GameState {
         popupQ = new PopupWindowQueue();
 
         backgroundSound = new SoundPlayer("resources/Sounds/background/Bog-Creatures-On-the-Move_Looping.wav");
-        inited = true;
     }
 
     /**
@@ -128,11 +121,10 @@ public abstract class ALevelState implements GameState {
         if(foregroundAlpha > 0.0f){
             foregroundAlpha -= 0.01;
         }
-        menu.update(mousePos);
         popupQ.update();
 
         // The game pauses if the menu is open, aka nothing updates
-        if (!menu.isOpen() && !popupQ.isDisplaying()) {
+        if (!popupQ.isDisplaying()) {
 
             tm.update(player);
             bg.update();
@@ -162,14 +154,13 @@ public abstract class ALevelState implements GameState {
                 }
             }
 
-            // Update the HUD
+            // Update the hud
             hud.update();
         }
 
         // Respawn the player if it dies
         if(player.isDead()){
             player.respawn();
-            //reset();
         }
 
         // Check if another level should be loaded
@@ -209,11 +200,9 @@ public abstract class ALevelState implements GameState {
             g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
         }
 
-
-        // Draw HUD and menu
+        // Draw hud and menu
         popupQ.draw(g2d);
         hud.draw(g2d);
-        menu.draw(g2d);
         info.draw(g2d);
 
         g2d.dispose();
@@ -226,19 +215,8 @@ public abstract class ALevelState implements GameState {
      */
     @Override
     public void keyPressed(final int k) {
+        player.keyPressed(k);
         switch (k) {
-            case KeyEvent.VK_A:
-                player.setLeft(true);
-                break;
-            case KeyEvent.VK_D:
-                player.setRight(true);
-                break;
-            case KeyEvent.VK_W:
-                player.setClimbingUp(true);
-                break;
-            case KeyEvent.VK_S:
-                player.setClimbDown(true);
-                break;
             case KeyEvent.VK_E:
                 // Prioritizes closing popups
                 if(popupQ.isDisplaying()){
@@ -257,46 +235,30 @@ public abstract class ALevelState implements GameState {
             case KeyEvent.VK_P:
                 loadNext = true;
                 break;
-            case KeyEvent.VK_SPACE:
-                player.setJumping(true);
-                break;
-            case KeyEvent.VK_R:
-                player.respawn();
-                break;
-            case KeyEvent.VK_T:
-                player.toggleFlashlight();
-                break;
             case KeyEvent.VK_ESCAPE:
-                menu.toggle();
+                gsm.setState(State.MAIN_MENU);
                 break;
             case KeyEvent.VK_F3:
                 info.toggle();
                 break;
+            case KeyEvent.VK_F1:
+                hud.toggle();
+                break;
         }
     }
 
-
     @Override
     public void keyReleased(final int k) {
-        if (k == KeyEvent.VK_A) player.setLeft(false);
-        if (k == KeyEvent.VK_D) player.setRight(false);
-        if (k == KeyEvent.VK_W) player.setClimbingUp(false);
-        if (k == KeyEvent.VK_S) player.setClimbDown(false);
-        if (k == KeyEvent.VK_SPACE) player.setJumping(false);
+        player.keyReleased(k);
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        menu.mouseClicked();
     }
 
     @Override
     public void mouseMoved(MouseEvent e) {
         // DO nothing
-    }
-
-    public boolean isInited() {
-        return inited;
     }
 
     public void setLoadNext(boolean loadNext) {

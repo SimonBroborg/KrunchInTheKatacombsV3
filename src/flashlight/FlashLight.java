@@ -16,7 +16,6 @@ import java.util.List;
 /**
  * A flashlight which lights up a polygon. Connected to the player. Collides with the map.
  */
-@SuppressWarnings("MagicNumber")
 public class FlashLight {
     // The range of the flashlight
     private static final int RANGE = 400;
@@ -197,7 +196,7 @@ public class FlashLight {
         int tileY = y / tm.getTileHeight()
            */
         // create segments from each tile
-        for (Tile tile : tm.getTiles()) {
+	for (Tile tile : tm.getTileMap()) {
             // Get the bounding box rect from the tile
             if (tile != null) {
                 Rectangle rect = tile.getRectangle();

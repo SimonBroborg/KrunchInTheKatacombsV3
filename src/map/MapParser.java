@@ -1,14 +1,18 @@
 package map;
 
-import entity.Usable.Chest;
-import entity.Usable.EventPortal;
-import entity.Usable.Usable;
-import entity.movables.Enemies.ShadowEnemy;
-import entity.movables.Enemies.ZombEnemy;
 import entity.movables.Enemy;
 import entity.movables.Player;
+import entity.movables.enemies.ShadowEnemy;
+import entity.movables.enemies.ZombEnemy;
 import entity.tile_types.Torch;
-import org.w3c.dom.*;
+import entity.usable.Chest;
+import entity.usable.EventPortal;
+import entity.usable.Usable;
+import org.w3c.dom.DOMException;
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import javax.xml.parsers.DocumentBuilder;
@@ -36,7 +40,7 @@ public class MapParser {
     private Map<Integer, ArrayList<String>> spritePaths;
     private ArrayList<Usable> usables;
     private ArrayList<Torch> torches;
-    private Player player;
+    private Player player = null;
     private ArrayList<Enemy> enemies;
 
     // A document file (for example the map file)
@@ -229,7 +233,8 @@ public class MapParser {
         // Try-catch to make sure that it doesn't crash the program if the attribute isn't found
         try {
             value = doc.getElementsByTagName(tag).item(0).getAttributes().getNamedItem(attribute).getNodeValue();
-        } catch (DOMException e) {
+
+	} catch (DOMException e) {
             e.printStackTrace();
         } catch (Exception ignored) {
             System.out.println("Couldn't find the attribute \"" + attribute + "\" in the tag \"" + tag + "\" ");

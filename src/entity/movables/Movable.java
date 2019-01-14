@@ -15,9 +15,6 @@ public abstract class Movable extends Entity {
     private double dx;
     private double dy;
 
-    private double xDest;
-    private double yDest;
-
     // Movement flags
     protected boolean left;
     protected boolean right;
@@ -129,13 +126,9 @@ public abstract class Movable extends Entity {
 
     private void checkTileMapCollision() {
 
-        // Makes sure not all the tiles are getting checked, only those around the object
-        int xCordPos = x / tm.getTileWidth();
-        int yCordPos = y / tm.getTileHeight();
-
         // Where the movable will end up after its movement
-        xDest = x + dx;
-        yDest = y + dy;
+        double xDest = x + dx;
+        double yDest = y + dy;
 
         // Flags
         falling = true;
@@ -157,7 +150,7 @@ public abstract class Movable extends Entity {
                         if (tile != null) {
                             if (verCRect.intersects(tile.getRectangle())) {
                                 // top collision
-                                if (tile.isSolid() && solid) {
+                                if (tile.isSolid()) {
                                     if (y - dy + height <= tile.getY()) {
                                         y = tile.getY() - height;
                                         dy = 0;
@@ -173,7 +166,7 @@ public abstract class Movable extends Entity {
                                 tile.movableCollision(this);
                             } else if (horCRect.intersects(tile.getRectangle())) {
 
-                                if (tile.isSolid() && solid) {
+                                if (tile.isSolid()) {
                                     // collision to the right
                                     if (x + width <= tile.getX()) {
                                         x = tile.getX() - width;
@@ -200,11 +193,30 @@ public abstract class Movable extends Entity {
         x += dx;
     }
 
+
     /**
-     * Checks if the entity is on the ground
-     *
-     * @return Boolean telling if the entity is in ground
+     * Move in the opposite direction of the current
      */
+    protected void turn() {
+        left = !left;
+        right = !right;
+    }
+
+    /**
+     * Move to the right
+     */
+    protected void moveRight() {
+        right = true;
+        left = false;
+    }
+    /**
+     * Move to the left
+     */
+    protected void moveLeft() {
+        left = true;
+        right = false;
+    }
+
     public boolean isOnGround() {
         return (!falling && !jumping && dy == 0);
     }
@@ -256,30 +268,6 @@ public abstract class Movable extends Entity {
 
     public void onLadder(boolean b){
         onLadder = b;
-    }
-
-    /**
-     * Move in the opposite direction of the current
-     */
-    protected void turn() {
-        left = !left;
-        right = !right;
-    }
-
-    /**
-     * Move to the right
-     */
-    protected void moveRight() {
-        right = true;
-        left = false;
-    }
-
-    /**
-     * Move to the left
-     */
-    protected void moveLeft() {
-        left = true;
-        right = false;
     }
 
 }

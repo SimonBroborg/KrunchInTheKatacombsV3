@@ -1,15 +1,21 @@
 package map;
 
 import entity.Tile;
-import entity.Usable.Usable;
 import entity.movables.Enemy;
 import entity.movables.Player;
-import entity.tile_types.*;
+import entity.tile_types.AbyssTile;
+import entity.tile_types.BackgroundTile;
+import entity.tile_types.LadderTile;
+import entity.tile_types.NormalTile;
+import entity.tile_types.Torch;
+import entity.usable.Usable;
 import main.GameComponent;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -18,14 +24,14 @@ import java.util.Map;
 public class TileMap {
     // Map converting
     private String[][] textMap = null; // Convert the map file to a 2D-array
-    private ArrayList<Tile> tileMap;  // Convert the text map to a 2D-array of tiles
-    private Chunk[][] chunks;
+    private Iterable<Tile> tileMap;  // Convert the text map to a 2D-array of tiles
+    private Chunk[][] chunks = null;
 
 
-    private ArrayList<Usable> usables;
-    private ArrayList<Torch> torches;
-    private ArrayList<Enemy> enemies;
-    private Player player;
+    private List<Usable> usables = null;
+    private Collection<Torch> torches = null;
+    private List<Enemy> enemies = null;
+    private Player player = null;
 
     // Position
     private int x;
@@ -56,7 +62,7 @@ public class TileMap {
         spritePaths = new HashMap<>();
 
         tileMap = new ArrayList<>();
-        tween = 0.07f;
+        tween = 0.7f;
 
         chunkNumCols = 3;
         chunkNumRows = 3;
@@ -83,8 +89,8 @@ public class TileMap {
         tileHeight = parser.getTileHeight();
         spritePaths = parser.getSpritePaths();
 
-        numRowsToDraw = (int) Math.ceil(GameComponent.SCALED_HEIGHT / (chunkNumRows * tileHeight));
-        numColsToDraw = (int) Math.ceil(GameComponent.SCALED_WIDTH / (chunkNumCols * tileWidth));
+        numRowsToDraw = (int) Math.ceil((float) GameComponent.SCALED_HEIGHT / (chunkNumRows * tileHeight));
+        numColsToDraw = (int) Math.ceil((float) GameComponent.SCALED_WIDTH / (chunkNumCols * tileWidth));
 
         createChunks();
 
@@ -110,8 +116,8 @@ public class TileMap {
      * @param player the player object which the position of the textMap is based on
      */
     public void update(Player player) {
-        setPosition(GameComponent.SCALED_WIDTH / 2 - player.getX(),
-                GameComponent.SCALED_HEIGHT / 2 - player.getY());
+        setPosition(GameComponent.SCALED_WIDTH / 2 - player.getX() - player.getWidth() / 2,
+                    GameComponent.SCALED_HEIGHT / 2 - player.getY() - player.getHeight() / 2);
 
         for(Chunk[] chunks : chunks) {
             for (Chunk c : chunks){
@@ -132,25 +138,26 @@ public class TileMap {
                 // If it's not an empty tile
                 if (Integer.parseInt(textMap[y][x]) != 0) {
                     Tile tile;
-                    switch (spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(0)) {
+                    switch (spritePaths.get(Integer.valueOf(Integer.parseInt(textMap[y][x]) - 1)).get(0)) {
 
                         case "background":
-                            tile = new BackgroundTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
+                            tile = new BackgroundTile(
+                                    spritePaths.get(Integer.valueOf(Integer.parseInt(textMap[y][x]) - 1)).get(1), x * tileWidth,
                                     y * tileHeight, this);
                             break;
 
                         case "ladder":
-                            tile = new LadderTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
-                                    y * tileHeight, this);
+                            tile = new LadderTile(spritePaths.get(Integer.valueOf(Integer.parseInt(textMap[y][x]) - 1)).get(1),
+                                                  x * tileWidth, y * tileHeight, this);
                             break;
 
                         case "abyss":
-                            tile = new AbyssTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
-                                    y * tileHeight, this);
+                            tile = new AbyssTile(spritePaths.get(Integer.valueOf(Integer.parseInt(textMap[y][x]) - 1)).get(1),
+                                                 x * tileWidth, y * tileHeight, this);
                             break;
                         default:
-                            tile = new NormalTile(spritePaths.get(Integer.parseInt(textMap[y][x]) - 1).get(1), x * tileWidth,
-                                    y * tileHeight, this);
+                            tile = new NormalTile(spritePaths.get(Integer.valueOf(Integer.parseInt(textMap[y][x]) - 1)).get(1),
+                                                  x * tileWidth, y * tileHeight, this);
                             break;
                     }
                     int chunkRow;
@@ -172,9 +179,10 @@ public class TileMap {
      */
     private void setPosition(int x, int y) {
         // Make the map movement smoother
-        this.x += (x - this.x) * tween;
-        this.y += (y - this.y) * tween;
+        this.x += (int) ((x - this.x) * tween);
+        this.y += (int) ((y - this.y) * tween);
 
+        // The tilemap doesnt move outisde the map borders
         if(this.x > 0){
             this.x = 0;
         } else if (this.x + tileWidth * numCols < GameComponent.SCALED_WIDTH) {
@@ -186,7 +194,6 @@ public class TileMap {
             this.y = GameComponent.SCALED_HEIGHT - tileHeight * numRows;
         }
 
-
         colOffset = -this.x / (chunkNumCols * tileWidth);
         rowOffset = -this.y / (chunkNumRows * tileHeight);
     }
@@ -197,6 +204,7 @@ public class TileMap {
      * @param g2d the graphics object
      */
     public void draw(Graphics2D g2d) {
+
         for(int row = rowOffset; row <= rowOffset + numRowsToDraw; row++){
             if(row >= chunks.length ) break;
             for(int col = colOffset; col <= colOffset + numColsToDraw; col++){
@@ -207,7 +215,7 @@ public class TileMap {
     }
 
 
-    public ArrayList<Tile> getTiles() {
+    public Iterable<Tile> getTileMap() {
         return tileMap;
     }
 
@@ -235,13 +243,15 @@ public class TileMap {
         return y;
     }
 
-    public ArrayList<Usable> getUsables() {
+    public List<Usable> getUsables() {
         return usables;
     }
-    public ArrayList<Torch> getTorches() {
+
+    public Collection<Torch> getTorches() {
         return torches;
     }
-    public ArrayList<Enemy> getEnemies() {
+
+    public List<Enemy> getEnemies() {
         return enemies;
     }
     public Player getPlayer() {

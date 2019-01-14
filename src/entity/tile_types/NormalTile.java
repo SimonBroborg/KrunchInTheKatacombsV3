@@ -1,5 +1,4 @@
 package entity.tile_types;
-import entity.Entity;
 import entity.Tile;
 import entity.movables.Movable;
 import map.TileMap;

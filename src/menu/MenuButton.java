@@ -18,8 +18,6 @@ public class MenuButton
     private String text;
     private Color textColor;
 
-    private Sprite sprite;
-
     private boolean hovered;
 
     private GameState state;
@@ -28,7 +26,7 @@ public class MenuButton
      * Creates a new button
      */
     public MenuButton(int width, int height, String text, GameState state) {
-        sprite = null;
+	final Sprite sprite = null;
 
         this.text = text;
 
