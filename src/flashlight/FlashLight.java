@@ -85,7 +85,7 @@ public class FlashLight {
         // How broad the flashlight is.
         offsetAngle = 10;
 
-        lightMap = new Area(new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
+        lightMap = new Area(new Rectangle(0, 0, GameComponent.WIDTH, GameComponent.HEIGHT));
 
         batteryPower = 100;
         currentTime = System.currentTimeMillis();
@@ -401,7 +401,7 @@ public class FlashLight {
         // Sets an area which is the entire frame except the flashlight
 
         /*Area outer = new Area(
-                new Rectangle(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
+                new Rectangle(0, 0, GameComponent.WIDTH, GameComponent.HEIGHT));
         outer.subtract(new Area(lightBulb));*/
 
         g2d.setPaint(p);
@@ -414,7 +414,7 @@ public class FlashLight {
 
         // The flashlight light
         g2d.setClip(outer);
-        g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
+        g2d.fillRect(0, 0, GameComponent.WIDTH, GameComponent.HEIGHT);
 
         g2d.setClip(null);
 

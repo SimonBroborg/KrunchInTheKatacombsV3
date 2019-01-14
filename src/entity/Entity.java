@@ -160,8 +160,8 @@ public abstract class Entity
      * @return boolean telling if it is inside
      */
     public boolean isOnScreen() {
-        return x + width + xMap >= 0 && y + height + yMap >= 0 && x + xMap <= GameComponent.SCALED_WIDTH &&
-               y + yMap <= GameComponent.SCALED_HEIGHT;
+        return x + width + xMap >= 0 && y + height + yMap >= 0 && x + xMap <= GameComponent.WIDTH &&
+               y + yMap <= GameComponent.HEIGHT;
     }
 
     /**
@@ -196,6 +196,14 @@ public abstract class Entity
 
     public int getHeight() {
         return height;
+    }
+
+
+    protected void setWidth(int width){
+        this.width = width;
+    }
+    protected void setHeight(int height){
+        this.height = height;
     }
 }
 

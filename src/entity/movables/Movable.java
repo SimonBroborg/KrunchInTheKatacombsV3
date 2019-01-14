@@ -124,6 +124,9 @@ public abstract class Movable extends Entity {
         }
     }
 
+    /**
+     * Check if the object is colliding with the tile map and change it's postion accordingly
+     */
     private void checkTileMapCollision() {
 
         // Where the movable will end up after its movement

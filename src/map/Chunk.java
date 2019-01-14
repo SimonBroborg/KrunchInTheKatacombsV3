@@ -13,7 +13,6 @@ import java.util.List;
 public class Chunk extends Entity {
     private List<Tile> tiles;
 
-
     /**
      * Creates an entity object
      *
@@ -26,8 +25,8 @@ public class Chunk extends Entity {
 
         tiles = new ArrayList<>();
 
-        width = tm.getTileWidth() * numCols;
-        height = tm.getTileHeight() * numRows;
+        setWidth(tm.getTileWidth() * numCols);
+        setHeight(tm.getTileHeight() * numRows);
     }
 
     @Override public void draw(Graphics2D g2d) {

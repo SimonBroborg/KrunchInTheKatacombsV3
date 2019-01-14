@@ -29,8 +29,8 @@ public class PopupWindow {
     public PopupWindow(String text){
         this.text = text;
         continueText = "Press E to continue...";
-        x = GameComponent.SCALED_WIDTH / 2;
-        y = GameComponent.SCALED_HEIGHT / 2;
+        x = GameComponent.WIDTH / 2;
+        y = GameComponent.HEIGHT / 2;
         height = 0;
         //noinspection MagicNumber
         maxHeight = 50;
@@ -45,7 +45,7 @@ public class PopupWindow {
         // animate the height
         if(height < maxHeight){
             height += growth;
-            y -= growth / 2;
+            y -= (int)(growth / 2);
         }else{
             height = maxHeight;
         }
@@ -58,7 +58,7 @@ public class PopupWindow {
 
         final int horizontalOffset = 20;
         final float width = fm.stringWidth(text) + horizontalOffset * 2;
-        x = GameComponent.SCALED_WIDTH / 2 - (int) width / 2;
+        x = GameComponent.WIDTH / 2 - (int) width / 2;
 
         final int verticalOffset = 40;
         maxHeight = font.getSize() + verticalOffset * 2;

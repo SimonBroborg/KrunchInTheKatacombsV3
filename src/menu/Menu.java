@@ -37,14 +37,14 @@ public class Menu
 
 	final int width = menuBackground.getWidth();
 
-	int x1 = GameComponent.SCALED_WIDTH / 2 - width / 2;
+	int x1 = GameComponent.WIDTH / 2 - width / 2;
 
 	//addButton(new MenuButton(width, BUTTON_HEIGHT, "Resume Game", gsm.getCurrentState()));
 	addButton(new MenuButton(width, BUTTON_HEIGHT, "Exit Game", new QuitState(gsm)));
 
 	// Make sure that the menu and buttons are centered on the screen
 	final int height = (buttons.size() * (BUTTON_HEIGHT + BUTTON_Y_OFFSET));
-	this.y = GameComponent.SCALED_HEIGHT / 2 - height / 2 - BUTTON_HEIGHT - 50;
+	this.y = GameComponent.HEIGHT / 2 - height / 2 - BUTTON_HEIGHT - 50;
 
 	for (int i = 0; i < buttons.size(); i++) {
 	    buttons.get(i).setY(this.y + i * (BUTTON_HEIGHT + BUTTON_Y_OFFSET));
@@ -71,10 +71,10 @@ public class Menu
 
 
 	g2d.setColor(Color.black);
-	g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
+	g2d.fillRect(0, 0, GameComponent.WIDTH, GameComponent.HEIGHT);
 
-	g2d.drawImage(menuBackground.getImage(), 0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT, null);
-	g2d.drawImage(logo.getImage(), GameComponent.SCALED_WIDTH / 2 - logo.getWidth() / 2, y - logo.getHeight(), null);
+	g2d.drawImage(menuBackground.getImage(), 0, 0, GameComponent.WIDTH, GameComponent.HEIGHT, null);
+	g2d.drawImage(logo.getImage(), GameComponent.WIDTH / 2 - logo.getWidth() / 2, y - logo.getHeight(), null);
 
 	for (MenuButton mb : buttons) {
 	    mb.draw(g2d);

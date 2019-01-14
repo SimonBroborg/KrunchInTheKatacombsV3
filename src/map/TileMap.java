@@ -8,6 +8,7 @@ import entity.tile_types.BackgroundTile;
 import entity.tile_types.LadderTile;
 import entity.tile_types.NormalTile;
 import entity.tile_types.Torch;
+import entity.usable.Portal;
 import entity.usable.Usable;
 import main.GameComponent;
 
@@ -22,6 +23,8 @@ import java.util.Map;
  * The map filled with tiles
  */
 public class TileMap {
+    private MapParser parser = null;
+
     // Map converting
     private String[][] textMap = null; // Convert the map file to a 2D-array
     private Iterable<Tile> tileMap;  // Convert the text map to a 2D-array of tiles
@@ -72,16 +75,11 @@ public class TileMap {
      * Sets the text map, the variables, and the tile map
      */
     public void load() {
-        final MapParser parser = new MapParser(this);
+       parser = new MapParser(this);
 
         parser.loadTMXFile(mapPath);
 
         textMap = parser.getTextMap();
-
-        player = parser.getPlayer();
-        usables = parser.getUsables();
-        enemies = parser.getEnemies();
-        torches = parser.getTorches();
 
         numCols = parser.getWidth();
         numRows = parser.getHeight();
@@ -89,8 +87,8 @@ public class TileMap {
         tileHeight = parser.getTileHeight();
         spritePaths = parser.getSpritePaths();
 
-        numRowsToDraw = (int) Math.ceil((float) GameComponent.SCALED_HEIGHT / (chunkNumRows * tileHeight));
-        numColsToDraw = (int) Math.ceil((float) GameComponent.SCALED_WIDTH / (chunkNumCols * tileWidth));
+        numRowsToDraw = (int) Math.ceil((float) GameComponent.HEIGHT / (chunkNumRows * tileHeight));
+        numColsToDraw = (int) Math.ceil((float) GameComponent.WIDTH / (chunkNumCols * tileWidth));
 
         createChunks();
 
@@ -116,8 +114,8 @@ public class TileMap {
      * @param player the player object which the position of the textMap is based on
      */
     public void update(Player player) {
-        setPosition(GameComponent.SCALED_WIDTH / 2 - player.getX() - player.getWidth() / 2,
-                    GameComponent.SCALED_HEIGHT / 2 - player.getY() - player.getHeight() / 2);
+        setPosition(GameComponent.WIDTH / 2 - player.getX() - player.getWidth() / 2,
+                    GameComponent.HEIGHT / 2 - player.getY() - player.getHeight() / 2);
 
         for(Chunk[] chunks : chunks) {
             for (Chunk c : chunks){
@@ -185,13 +183,13 @@ public class TileMap {
         // The tilemap doesnt move outisde the map borders
         if(this.x > 0){
             this.x = 0;
-        } else if (this.x + tileWidth * numCols < GameComponent.SCALED_WIDTH) {
-            this.x = GameComponent.SCALED_WIDTH - tileWidth * numCols;
+        } else if (this.x + tileWidth * numCols < GameComponent.WIDTH) {
+            this.x = GameComponent.WIDTH - tileWidth * numCols;
         }
         if(this.y > 0) {
             this.y = 0;
-        } else if (this.y + tileHeight * numRows < GameComponent.SCALED_HEIGHT) {
-            this.y = GameComponent.SCALED_HEIGHT - tileHeight * numRows;
+        } else if (this.y + tileHeight * numRows < GameComponent.HEIGHT) {
+            this.y = GameComponent.HEIGHT - tileHeight * numRows;
         }
 
         colOffset = -this.x / (chunkNumCols * tileWidth);
@@ -244,21 +242,25 @@ public class TileMap {
     }
 
     public List<Usable> getUsables() {
-        return usables;
+        return parser.getUsables();
     }
 
     public Collection<Torch> getTorches() {
-        return torches;
+        return parser.getTorches();
     }
 
     public List<Enemy> getEnemies() {
-        return enemies;
+        return parser.getEnemies();
     }
     public Player getPlayer() {
-        return player;
+        return parser.getPlayer();
     }
 
     public Chunk[][] getChunks() {
         return chunks;
+    }
+
+    public Portal getPortal(){
+        return parser.getEpn();
     }
 }

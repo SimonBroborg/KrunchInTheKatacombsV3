@@ -12,17 +12,22 @@ public class GameComponent extends JComponent
     /**
      * The height of the frame
      */
-    public static final int SCALED_HEIGHT = 480;
+    public static final int HEIGHT = 480 * 2;
     /**
      * The width of the frame
      */
-    public static final int SCALED_WIDTH = 640;
+    public static final int WIDTH = 640 * 2;
+
+    // Target FPS
     private static final int FPS = 60;
+    // Target time for each frame
     private static final long TARGET_TIME = 1000 / FPS;
+
     /**
      * The fps
      */
     public static int ups = 0;
+
     // Game state manager
     private GameStateManager gsm = null;
 
@@ -49,12 +54,13 @@ public class GameComponent extends JComponent
 
 	frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 	frame.setResizable(false);
-	frame.setPreferredSize(new Dimension(SCALED_WIDTH, SCALED_HEIGHT));
+	frame.setPreferredSize(new Dimension(WIDTH, HEIGHT));
 	frame.setFocusTraversalKeysEnabled(false); // this enables tab to be listened to
 	frame.add(this, BorderLayout.CENTER);
 
+	// Set the frame in the center of the screen
 	Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-	frame.setLocation(dim.width / 2 - SCALED_WIDTH / 2, dim.height / 2 - SCALED_HEIGHT / 2);
+	frame.setLocation(dim.width / 2 - WIDTH / 2, dim.height / 2 - HEIGHT / 2);
 
 	frame.pack();
 
@@ -67,7 +73,7 @@ public class GameComponent extends JComponent
     /**
      * The game loop. Updates the game and repaints it.
      */
-    @SuppressWarnings("InfiniteLoopStatement") public void run() {
+    public void run() {
 
 	// Used to count the fps: https://www.youtube.com/watch?v=rh31YOZh5ZM
 
@@ -119,7 +125,7 @@ public class GameComponent extends JComponent
 
 	// Antialiasing for smoother lines
 	g2d.setRenderingHint(RenderingHints.KEY_TEXT_ANTIALIASING, RenderingHints.VALUE_TEXT_ANTIALIAS_ON);
-	g2d.setClip(0, 0, SCALED_WIDTH, SCALED_HEIGHT);
+	g2d.setClip(0, 0, WIDTH, HEIGHT);
 	gsm.draw(g2d);
     }
 

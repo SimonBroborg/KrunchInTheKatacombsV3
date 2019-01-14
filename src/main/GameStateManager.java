@@ -1,8 +1,6 @@
 package main;
 
-import game_state.GameState;
-import game_state.MainMenuState;
-import game_state.level_states.LevelState;
+import game_state.State;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -12,40 +10,14 @@ import java.awt.event.MouseEvent;
  */
 public class GameStateManager
 {
+    private boolean paused;
     private State currentState;
-    private State previousState = null;
 
     public GameStateManager() {
-	currentState = State.LEVEL_1;
-
-        // Sets the gsm for every state
+	currentState = State.MAIN_MENU;
 	currentState.getState().init(this);
-    }
 
-    /**
-     * Load the previous level if possible
-     */
-    public void prevLevel(){
-        /*if(currentLevel > LEVEL1) {
-            currentLevel--;
-            currentState = levels.get(currentLevel);
-            if (!((ALevelState) currentState).isInited()) {
-                currentState.init(this);
-            }
-        }*/
-    }
-
-    /**
-     * Load the next level if possible
-     */
-    public void nextLevel(){
-        /*if(currentLevel < levels.size() - 1) {
-            currentLevel++;
-            currentState = levels.get(currentLevel);
-            if (!((ALevelState) currentState).isInited()) {
-                currentState.init(this);
-            }
-        }*/
+	paused = false;
     }
 
     /**
@@ -53,6 +25,9 @@ public class GameStateManager
      * @param mousePos The mouse position on the game component
      */
     public void update(Point mousePos) {
+        if(paused){
+            return;
+	}
 	currentState.getState().update(mousePos);
     }
 
@@ -61,7 +36,23 @@ public class GameStateManager
      * @param g2d The graphics object
      */
     public void draw(Graphics2D g2d) {
+        if(paused){
+            return;
+	}
 	currentState.getState().draw(g2d);
+    }
+
+    /**
+     * Change the current state to a new one
+     * @param state The wanted game state
+     */
+    public void setState(State state) {
+	currentState = state;
+
+	// Using pause prevents a NullPointerException when chaning the state
+	paused = true;
+	currentState.getState().init(this);
+    	paused = false;
     }
 
     public void keyPressed(int k) {
@@ -80,39 +71,4 @@ public class GameStateManager
 	currentState.getState().mouseMoved(e);
     }
 
-    /**
-     * Change the current state to a new one
-     * @param state The wanted game state
-     */
-    public void setState(State state) {
-	previousState = currentState;
-        currentState = state;
-	currentState.getState().init(this);
-    }
-
-    public State getPreviousState() {
-	return previousState;
-    }
-
-    public enum State
-    {
-	/**
-	 * Level 1 of the game
-	 */
-	LEVEL_1(new LevelState("resources/Maps/map1.tmx")),
-	/**
-	 * The games main menu
-	 */
-	MAIN_MENU(new MainMenuState());
-
-	private final GameState state;
-
-	State(GameState state) {
-	    this.state = state;
-	}
-
-	public GameState getState() {
-	    return state;
-	}
-    }
 }

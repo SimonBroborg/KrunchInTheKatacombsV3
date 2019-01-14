@@ -26,7 +26,7 @@ public class Lightmap extends Entity {
 
 	width = tm.getNumCols() * tm.getTileWidth();
 	height = tm.getNumRows() * tm.getTileHeight();
-	lightmap = new Area(new Rectangle(x, y, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
+	lightmap = new Area(new Rectangle(x, y, GameComponent.WIDTH, GameComponent.HEIGHT));
     }
 
     public void setTorches(Iterable<Torch> torches) {
@@ -41,7 +41,7 @@ public class Lightmap extends Entity {
     }
 
     public void update(){
-	lightmap = new Area(new Rectangle(x, y, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT));
+	lightmap = new Area(new Rectangle(x, y, GameComponent.WIDTH, GameComponent.HEIGHT));
     }
 
     public void draw(Graphics2D g2d){

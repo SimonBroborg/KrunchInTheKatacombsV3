@@ -5,14 +5,13 @@ import entity.Lightmap;
 import entity.movables.Enemy;
 import entity.movables.Player;
 import entity.tile_types.Torch;
-import entity.usable.EventPortal;
+import entity.usable.Portal;
 import entity.usable.Usable;
 import hud.HUD;
 import hud.InfoDisplay;
 import hud.PopupWindowQueue;
 import main.GameComponent;
 import main.GameStateManager;
-import main.GameStateManager.State;
 import map.Background;
 import map.TileMap;
 import sound.SoundPlayer;
@@ -29,13 +28,12 @@ import java.util.List;
  * Abstract class level state. Sets the default behavior and methods for the levels of the game.
  */
 public abstract class ALevelState implements GameState {
-    private boolean loadNext;
-    private boolean loadPrev;
 
     protected TileMap tm;
 
     protected Player player = null;
 
+    private Portal portal = null;
 
     private List<Enemy> enemies = null;
     private List<Usable> usables = null;
@@ -44,7 +42,7 @@ public abstract class ALevelState implements GameState {
 
     private Background bg = null;
 
-    private GameStateManager gsm = null;
+    protected GameStateManager gsm = null;
 
     // hud
     private HUD hud = null;
@@ -63,10 +61,6 @@ public abstract class ALevelState implements GameState {
     protected ALevelState(String mapPath) {
         // Path to the map file
         tm = new TileMap(mapPath);
-
-        tm.load();
-        loadNext = false;
-        loadPrev = false;
     }
 
     /**
@@ -75,6 +69,7 @@ public abstract class ALevelState implements GameState {
      */
     @SuppressWarnings("InstanceofConcreteClass") public void init(GameStateManager gsm) {
         this.gsm = gsm;
+        tm.load();
 
         // Initialize the array lists
         enemies = new ArrayList<>();
@@ -92,11 +87,7 @@ public abstract class ALevelState implements GameState {
         lightMap = new Lightmap(tm.getX(), tm.getY(), tm);
         lightMap.setTorches(torches);
 
-        for(Usable u : usables){
-            if(u instanceof EventPortal){
-                ((EventPortal) u).setAls(this);
-            }
-        }
+        portal = tm.getPortal();
 
         player = tm.getPlayer();
 
@@ -154,6 +145,8 @@ public abstract class ALevelState implements GameState {
                 }
             }
 
+            portal.update(player);
+
             // Update the hud
             hud.update();
         }
@@ -163,14 +156,8 @@ public abstract class ALevelState implements GameState {
             player.respawn();
         }
 
-        // Check if another level should be loaded
-        if(loadNext){
-            gsm.nextLevel();
-            loadNext = false;
-        }
-        else if(loadPrev){
-            gsm.prevLevel();
-            loadPrev = false;
+        if(portal.isUsed()){
+            playerOnPortal();
         }
     }
 
@@ -182,6 +169,8 @@ public abstract class ALevelState implements GameState {
     public void draw(final Graphics2D g2d) {
         bg.draw(g2d);
         tm.draw(g2d);
+
+        portal.draw(g2d);
 
         for(Usable u : usables){
             u.draw(g2d);
@@ -197,7 +186,7 @@ public abstract class ALevelState implements GameState {
 
         if(foregroundAlpha > 0.0f){
             g2d.setColor(new Color(0.0f, 0.0f, 0.0f, foregroundAlpha));
-            g2d.fillRect(0, 0, GameComponent.SCALED_WIDTH, GameComponent.SCALED_HEIGHT);
+            g2d.fillRect(0, 0, GameComponent.WIDTH, GameComponent.HEIGHT);
         }
 
         // Draw hud and menu
@@ -227,13 +216,10 @@ public abstract class ALevelState implements GameState {
                             u.use();
                         }
                     }
+                    if(portal.canUse()){
+                        portal.use();
+                    }
                 }
-                break;
-            case KeyEvent.VK_O:
-                loadPrev = true;
-                break;
-            case KeyEvent.VK_P:
-                loadNext = true;
                 break;
             case KeyEvent.VK_ESCAPE:
                 gsm.setState(State.MAIN_MENU);
@@ -247,6 +233,9 @@ public abstract class ALevelState implements GameState {
         }
     }
 
+    public abstract void playerOnPortal();
+
+
     @Override
     public void keyReleased(final int k) {
         player.keyReleased(k);
@@ -259,15 +248,5 @@ public abstract class ALevelState implements GameState {
     @Override
     public void mouseMoved(MouseEvent e) {
         // DO nothing
-    }
-
-    public void setLoadNext(boolean loadNext) {
-        this.loadNext = loadNext;
-        backgroundSound.stop();
-    }
-
-    public void setLoadPrev(boolean loadPrev) {
-        this.loadPrev = loadPrev;
-        backgroundSound.stop();
     }
 }

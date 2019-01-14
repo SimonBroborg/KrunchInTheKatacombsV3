@@ -6,7 +6,7 @@ import entity.movables.enemies.ShadowEnemy;
 import entity.movables.enemies.ZombEnemy;
 import entity.tile_types.Torch;
 import entity.usable.Chest;
-import entity.usable.EventPortal;
+import entity.usable.Portal;
 import entity.usable.Usable;
 import org.w3c.dom.DOMException;
 import org.w3c.dom.Document;
@@ -21,7 +21,9 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -38,10 +40,11 @@ public class MapParser {
 
     // contains all the files to the
     private Map<Integer, ArrayList<String>> spritePaths;
-    private ArrayList<Usable> usables;
-    private ArrayList<Torch> torches;
+    private List<Usable> usables;
+    private List<Torch> torches;
     private Player player = null;
-    private ArrayList<Enemy> enemies;
+    private List<Enemy> enemies;
+    private Portal epn = null;
 
     // A document file (for example the map file)
     private Document doc = null;
@@ -156,15 +159,8 @@ public class MapParser {
                             break;
 
                         case "eventPortalNext":
-                            EventPortal epn = new EventPortal(true, x, y, tm);
+                            epn = new Portal(x, y, tm);
                             epn.setPosition(x, epn.getY() - epn.getHeight());
-                            usables.add(epn);
-                            break;
-
-                        case "eventPortalPrev":
-                            EventPortal epp = new EventPortal(false, x, y, tm);
-                            epp.setPosition(x, epp.getY() - epp.getHeight());
-                            usables.add(epp);
                             break;
 
                         case "chest":
@@ -269,15 +265,19 @@ public class MapParser {
         return player;
     }
 
-    public ArrayList<Enemy> getEnemies() {
+    public List<Enemy> getEnemies() {
         return enemies;
     }
 
-    public ArrayList<Torch> getTorches() {
+    public Collection<Torch> getTorches() {
         return torches;
     }
 
-    public ArrayList<Usable> getUsables() {
+    public List<Usable> getUsables() {
         return usables;
+    }
+
+    public Portal getEpn() {
+        return epn;
     }
 }

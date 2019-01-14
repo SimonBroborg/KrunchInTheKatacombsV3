@@ -35,7 +35,7 @@ public class MainMenuState implements GameState
 
     @Override public void keyPressed(int k) {
 	if (k == KeyEvent.VK_ESCAPE) {
-	    gsm.setState(gsm.getPreviousState());
+	    gsm.setState(State.LEVEL_1);
 	}
     }
 
